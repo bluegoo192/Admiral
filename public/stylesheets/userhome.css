@@ -26,16 +26,17 @@ nav .navcontainer {
   justify-content: space-between;
 }
 
-button {
-  padding: 15px;
-  border: none;
-  background-color: #0FD454;
-  color: #fff;
-  font-size: 1.1em;
-  letter-spacing: 1px;
-} button:hover {
+.cta {
+ padding: 15px;
+ border: none;
+ background-color: #0FD454;
+ color: #fff;
+ font-size: 1.1em;
+ letter-spacing: 1px;
+} .cta:hover {
   background-color: #1DA34C;
 }
+
 
 span.expand {
   font-size: 0.8em;
@@ -62,6 +63,8 @@ span.expand {
 button#exit {
   background-color: #CF0C23;
   width: 100%;
+} button#exit:hover {
+  text-decoration: underline;
 }
 button#more {
   width: 100%;
@@ -90,13 +93,50 @@ button#more {
   top: 100%;
   left: 0;
   background-color: #43C8E6;
+} #expandedProfile {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #43C8E6;
 }
 
 .center {
   display: table;
   margin: auto;
 }
+.divider {
+  height: 5vh;
+}
 form {
+  margin-top: 5vh;
   display: flex;
   flex-direction: column;
+} form input {
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.adgallery {
+  width: 70%;
+  margin-top: 30px;
+}
+
+.flexcontainer {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.galleryad {
+  width: 15em;
+  display: block;
+  padding: 10px;
+  border-radius: 3px;
+} .galleryad img {
+  width: 100%;
+} .galleryad p {
+  text-align: center;
+}
+.galleryad:hover {
+  box-shadow: 0px 0px 8px #39484D;
 }

@@ -9,34 +9,41 @@ html(lang='en')
     #app
       nav
         .navcontainer
-          a(href='#' @click='toggleExpandedBalance') {{ balance }} available
-          a(href='#') {{ username }} <span class='expand'>v</span>
+          a(href='#' @click='showExpanded = !showExpanded') {{ balance }} available
+          a(href='#' @click='showExpandedProfile = !showExpandedProfile') {{ username }} <span class='expand'>v</span>
         #expandedBalance(v-if='showExpanded')
           p hi
-      .center-container(v-if='!viewingAdStream && !uploading')
+        #expandedProfile(v-if='showExpandedProfile')
+          a(href='#' @click='showMyAds') My Ads
+      .center-container(v-if='view == "home"')
         .hv-center
-          button(type='button' @click='viewAdStream') View ad stream
+          button.cta(type='button' @click='viewAdStream') View ad stream
           p Earn adbucks for free!
         .hv-center
-          button(type='button' @click='uploading = true') My Ad List
+          button.cta(type='button' @click='view = "adad"') Submit an Ad
           p Help people find your business
         .hv-center
-          button(type='button') Embed an ad
+          button.cta(type='button') Embed an ad
           p Passive income is a click away
-      button(type='button' @click='exitAdStream' id='exit' v-if='viewingAdStream') Exit
-      #adstream(v-if='viewingAdStream')
-        adbox(v-for='ad in ads', :ad='ad')
-      button(type='button' @click='viewAdStream' id='more' v-if='viewingAdStream') More
-      button(type='button' @click='uploading = false' id='exit' v-if='uploading') Exit
-      .center(v-if='uploading && !creating')
-      ul
-        li(v-for='')
-      .center(v-if='uploading')
-        form(action="/createAd" method="post")
-          input(type='text' name='name' placeholder='name')
-          input(type='text' name='url' placeholder='url')
-          input(type='hidden' name='username' v-bind:value='username')
-          input(type='submit')
+      .adstreamcontainer(v-if='view == "adstream"')
+        button.cta(type='button' @click='exitAdStream' id='exit') Exit
+        #adstream
+          adbox(v-for='ad in ads', :ad='ad')
+        button.cta(type='button' @click='viewAdStream' id='more') More
+      .uploadcontainer(v-if='view == "adad"')
+        button.cta(type='button' @click='view = "home"' id='exit') Exit
+        .center
+          .divider
+          h2 Create an ad
+          p.center Whenever it's displayed, you'll earn adbucks automatically
+          form(action="/createAd" method="post")
+            input(type='text' name='name' placeholder='name')
+            input(type='text' name='url' placeholder='url')
+            input(type='hidden' name='username' v-bind:value='username')
+            input(type='submit' value='Submit')
+      .adgallery.center(v-if='view == "gallery"')
+        .flexcontainer
+          galleryad(v-for='ad in myads', :ad='ad')
 
     script(src="/javascripts/vue.js")
     script(src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js")

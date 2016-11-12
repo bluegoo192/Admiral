@@ -1,33 +1,75 @@
 doctype html
 html(lang='en')
   head
-    title Sign up for MyWeb
+    title Log in to MyWeb
+    link(rel="stylesheet", href="/stylesheets/bootstrap.css", type="text/css", media="screen")
+    link(rel="stylesheet", href="/stylesheets/signup.css", type="text/css", media="screen")
 
   body
     #app
       #nav
         a(href='/') MyWeb
-      #splash
-        h1 Sign Up
+      #background
+        #title
+          | Sign Up
         #userSelector
-          button(type='button' @click='userType = "user"') User
-          button(type='button' @click='userType = "site"') Site Admin
-          button(type='button' @click='userType = "advertiser"') Advertiser
+          button#userbtn.btn.btn-primary(type='button' @click='userType = "user"' v-bind:class="{'active': userType=='user' }") User
+          button#sitebtn.btn.btn-primary(type='button' @click='userType = "site"' v-bind:class="{'active': userType=='site' }") Site Admin
+          button#adbtn.btn.btn-primary(type='button' @click='userType = "advertiser"' v-bind:class="{'active': userType=='advertiser' }") Advertiser
         form(v-if='userType == "user"')
-          input(type='text', placeholder="Email")
-          input(type='password')
-          input(type='submit' value='Sign up as individual')
+          #forms
+            .form-group
+              label(for="username", style="color: white;") Email (This will be your username)
+              input.form-control(type='text', placeholder="Email")
+            .form-group
+              label(for="password", style="color: white;") Password
+              input.form-control(type='password')
+          #buttons
+            #user.signup
+              a(href="/")
+                button.btn.btn-info.btn-lg.btn-block(type="Sign Up") Sign Up
+            #user.cancel
+              a(href="/")
+                button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
         form(v-if='userType == "site"')
-          input(type='text', placeholder="Email")
-          input(type='text', placeholder="Site Address")
-          input(type='text', placeholder="Billing code")
-          input(type='password')
-          input(type='submit' value='Sign up as site owner')
+          #forms
+            .form-group
+              label(for="username", style="color: white;") Email (This will be your username)
+              input.form-control(type='text', placeholder="Email")
+            .form-group
+              label(for="password", style="color: white;") Password
+              input.form-control(type='password')
+            .form-group
+              label(for="text", style="color: white;") Site Address
+              input.form-control(type='text', placeholder="Site Address")
+            .form-group
+              label(for="text", style="color: white;") Billing Code
+              input.form-control(type='text', placeholder="Billing Code")
+          #buttons
+            #site.signup
+              a(href="/")
+                button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
+            #site.cancel
+              a(href="/")
+                button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
         form(v-if='userType == "advertiser"')
-          input(type='text', placeholder="Email")
-          input(type='text', placeholder="Billing code")
-          input(type='password')
-          input(type='submit' value='Sign up as advertiser')
+          #forms
+            .form-group
+              label(for="username", style="color: white;") Email (This will be your username)
+              input.form-control(type='text', placeholder="Email")
+            .form-group
+              label(for="password", style="color: white;") Password
+              input.form-control(type='password')
+            .form-group
+              label(for="text", style="color: white;") Billing Code
+              input.form-control(type='text', placeholder="Billing Code")
+          #buttons
+            #ad.signup
+              a(href="/")
+                button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
+            #ad.cancel
+              a(href="/")
+                button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
 
 
     script(src="/javascripts/vue.js")
