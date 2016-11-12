@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Jade</title>
+    <style type="text/css">
+      .bgimg {
+          height: 400px;
+          width: 600px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background-image: url();
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Jade - node template engine</h1>
+
+    <div id="ad" class="bgimg">
+       <button type="button" @click="test" onclick="openAd();">{{ message }}</button>
+    </div>
+    <script>
+      function openAd() {
+        document.getElementById("ad").style.backgroundImage = "url('http://i.imgur.com/mebo1Xj.png')";
+      }
+    </script>
+  </body>
+</html>
