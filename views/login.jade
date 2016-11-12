@@ -1,0 +1,18 @@
+doctype html
+html(lang='en')
+  head
+    title Log in to MyWeb
+
+  body
+    #app
+      #nav
+        a(href='/') MyWeb
+      #splash
+        h1 Log In
+        form
+          input(type='text', placeholder="Email")
+          input(type='password', hint="Password")
+          input(type='submit', value='Log in')
+
+    script(src="/javascripts/vue.js")
+    script(src="/javascripts/gatevue.js")
