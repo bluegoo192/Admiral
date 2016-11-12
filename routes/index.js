@@ -14,8 +14,8 @@ router.get('/signup', function(req, res, next) {
   res.render('signup');
 });
 
-router.get('/test', function(req, res, next) {
-  res.send('hello leland\n');
+router.post('/getUser', function(req, res, next) {
+  res.send(req.user);
 })
 
 module.exports = router;
