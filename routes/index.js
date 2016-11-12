@@ -1,4 +1,7 @@
 var express = require('express');
+
+var database = require('../public/javascripts/database.js');
+
 var router = express.Router();
 
 /* GET home page. */
@@ -23,7 +26,21 @@ router.get('/userhome', function(req, res, next) {
 })
 
 router.post('/getUser', function(req, res, next) {
-  res.send(req.body.user[0]);
+  database.showAdBucks(req.body.user[0], function(bucks) {
+    res.send({bucks: bucks});
+  });
+});
+
+router.post('/deductUser', function(req, res, next) {
+  database.subAdBuck(req.body.user[0], function(bucks) {
+    res.send({bucks: bucks});
+  });
+});
+
+router.post('/addUser', function(req, res, next) {
+  database.addAdBuck(req.body.user[0], function(bucks) {
+    res.send({bucks: bucks});
+  });
 });
 
 module.exports = router;

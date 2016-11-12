@@ -37,9 +37,6 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-database.createAccount('garybear', 'gary_password');
-// addAdBuck('garybear');
-
 // error handlers
 
 // development error handler
