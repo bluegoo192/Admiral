@@ -23,10 +23,16 @@ router.get('/signup', function(req, res, next) {
 
 router.get('/userhome', function(req, res, next) {
   res.render('userhome');
+});
+
+router.get('/getAd', function(req, res, next) {
+  res.send({ width: '500px', height: '300px' });
 })
 
 router.post('/getUser', function(req, res, next) {
+  console.log(req.body.user[0]);
   database.showAdBucks(req.body.user[0], function(bucks) {
+    console.log(bucks);
     res.send({bucks: bucks});
   });
 });

@@ -34,6 +34,7 @@ var database = {
   },
 
   showAdBucks: function (username, callback) {
+    console.log('trying to show adbucks');
     // Use connect method to connect to the Server
     MongoClient.connect(url, function (err, db) {
       if (err) {
