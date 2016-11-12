@@ -36,7 +36,9 @@ var app = new Vue({
     balance: 0,
     viewingAdStream: false,
     ads: [],
-    adsPerPage: 5
+    adsPerPage: 5,
+    showExpanded: false,
+    uploading: false
   },
   created: function () {
     this.updateBalance();
@@ -72,6 +74,10 @@ var app = new Vue({
       }, (response) => {
         console.log(response);
       });
+    },
+    toggleExpandedBalance: function() {
+      this.updateBalance();
+      this.showExpanded = !this.showExpanded;
     }
   }
 })

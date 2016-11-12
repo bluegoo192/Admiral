@@ -8,16 +8,31 @@ html(lang='en')
   body
     #app
       nav
-        a(href='#') {{ balance }} available
-        a(href='#') {{ username }} <span class='expand'>v</span>
-      .center-container(v-if='!viewingAdStream')
+        .navcontainer
+          a(href='#' @click='toggleExpandedBalance') {{ balance }} available
+          a(href='#') {{ username }} <span class='expand'>v</span>
+        #expandedBalance(v-if='showExpanded')
+          p hi
+      .center-container(v-if='!viewingAdStream && !uploading')
         .hv-center
           button(type='button' @click='viewAdStream') View ad stream
           p Earn adbucks for free!
+        .hv-center
+          button(type='button' @click='uploading = true') Submit an Ad
+          p Help people find your business
+        .hv-center
+          button(type='button') Embed an ad
+          p Passive income is a click away
       button(type='button' @click='exitAdStream' id='exit' v-if='viewingAdStream') Exit
       #adstream(v-if='viewingAdStream')
         adbox(v-for='ad in ads', :ad='ad')
       button(type='button' @click='viewAdStream' id='more' v-if='viewingAdStream') More
+      button(type='button' @click='uploading = false' id='exit' v-if='uploading') Exit
+      .center(v-if='uploading')
+        form
+          input(type='text' placeholder='name')
+          input(type='text' placeholder='url')
+          input(type='submit')
 
     script(src="/javascripts/vue.js")
     script(src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js")
