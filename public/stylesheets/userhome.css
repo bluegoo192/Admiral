@@ -1,0 +1,74 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  color: #43484A;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: #43C8E6;
+  color: #fff;
+  letter-spacing: 1px;
+} nav a {
+  padding: 20px;
+}
+
+button {
+  padding: 15px;
+  border: none;
+  background-color: #0FD454;
+  color: #fff;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+} button:hover {
+  background-color: #1DA34C;
+}
+
+span.expand {
+  font-size: 0.8em;
+  padding: 2px;
+}
+
+#app {
+  height: 100%;
+}
+.center-container {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+}
+.hv-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} .hv-center p {
+  color: #979C99;
+}
+
+button#exit {
+  background-color: #CF0C23;
+  width: 100%;
+}
+
+#adstream {
+  display: flex;
+}
+
+.ad {
+  margin: 5px;
+  padding: 8px 22px;
+  border: 1px solid #B0B0B0;
+  color: #B0B0B0;
+  background-color: #F2F2F2;
+  border-radius: 2px;
+}

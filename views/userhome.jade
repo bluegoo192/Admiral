@@ -2,16 +2,22 @@ doctype html
 html(lang='en')
   head
     title MyWeb
+    link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
+    link(href='/stylesheets/userhome.css', rel='stylesheet')
 
   body
     #app
       nav
         a(href='#') {{ balance }} available
         a(href='#') {{ username }} <span class='expand'>v</span>
-      .center-container
+      .center-container(v-if='!viewingAdStream')
         .hv-center
-          a(href='/login') Login
-          a(href='/signup') Sign up
+          button(type='button' @click='viewAdStream') View ad stream
+          p Earn adbucks for free!
+      button(type='button' @click='exitAdStream' id='exit' v-if='viewingAdStream') Exit
+      #adstream(v-if='viewingAdStream')
+        adbox
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/userhomevue.js")
+    script(src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js")
