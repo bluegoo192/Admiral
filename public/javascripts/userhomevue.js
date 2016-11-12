@@ -28,6 +28,14 @@ Vue.component('adbox', {
             </div>'
 })
 
+Vue.component('galleryad', {
+  props: ['ad'],
+  template: '<div class="galleryad">\
+              <img :src="ad.src" />\
+              <p>{{ ad.title }}</p>\
+            </div>'
+})
+
 var app = new Vue({
   el: '#app',
   data: {
@@ -36,9 +44,12 @@ var app = new Vue({
     balance: 0,
     viewingAdStream: false,
     ads: [],
+    myads: [],
     adsPerPage: 5,
     showExpanded: false,
-    uploading: false
+    showExpandedProfile: false,
+    uploading: false,
+    view: 'home'
   },
   created: function () {
     this.updateBalance();
@@ -46,7 +57,7 @@ var app = new Vue({
   methods: {
     viewAdStream: function () {
       this.updateBalance();
-      this.viewingAdStream = true;
+      this.view = 'adstream';
       this.ads = [];
       for (var i=0; i<this.adsPerPage; i++) {
         this.$http.get('http://localhost:3000/getAd').then((response) => {
@@ -64,9 +75,11 @@ var app = new Vue({
     },
     exitAdStream: function () {
       this.updateBalance();
-      this.viewingAdStream = false;
+      this.view = 'home';
     },
     updateBalance: function () {
+      this.showExpanded = false;
+      this.showExpandedProfile = false;
       this.$http.post('http://localhost:3000/getUser', { user: userStorage.fetch() }).then((response) => {
         console.log(JSON.stringify(response));
         this.balance = response.body.bucks;
@@ -77,6 +90,10 @@ var app = new Vue({
     toggleExpandedBalance: function() {
       this.updateBalance();
       this.showExpanded = !this.showExpanded;
+    },
+    showMyAds: function () {
+      this.updateBalance();
+      this.view = 'gallery';
     }
   }
 })
