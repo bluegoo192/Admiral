@@ -121,6 +121,10 @@ form {
   margin-top: 30px;
 }
 
+.margined {
+  margin: 10px;
+}
+
 .flexcontainer {
   display: flex;
   width: 100%;
@@ -130,13 +134,15 @@ form {
 .galleryad {
   width: 15em;
   display: block;
-  padding: 10px;
-  border-radius: 3px;
+  padding: 12px;
+  border-radius: 5px;
+  border: 1px solid #C9CFD1;
+  margin-bottom: 25px;
 } .galleryad img {
   width: 100%;
 } .galleryad p {
   text-align: center;
 }
 .galleryad:hover {
-  box-shadow: 0px 0px 8px #39484D;
+  box-shadow: 0px 0px 10px #4F6066;
 }

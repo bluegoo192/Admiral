@@ -40,7 +40,10 @@ html(lang='en')
             input(type='text' name='name' placeholder='name')
             input(type='text' name='url' placeholder='url')
             input(type='hidden' name='username' v-bind:value='username')
-            input(type='submit' value='Submit')
+            input.cta(type='submit' value='Submit')
+      .flexcontainer(v-if='view == "gallery"')
+        button.margined.cta(@click='view = "home"') Back
+        button.margined.cta(@click='view = "adad"') New
       .adgallery.center(v-if='view == "gallery"')
         .flexcontainer
           galleryad(v-for='ad in myads', :ad='ad')
