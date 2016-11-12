@@ -99,7 +99,7 @@ var app = new Vue({
     },
     getAds: function() {
       this.$http.post('http://localhost:3000/getUserAds', { user: userStorage.fetch() }).then((response) => {
-        console.log("getAds response" + JSON.stringify(response));
+        myads = response.body;
       }, (response) => {
         console.log(response);
       });

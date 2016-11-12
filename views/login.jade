@@ -2,17 +2,34 @@ doctype html
 html(lang='en')
   head
     title Log in to MyWeb
+    link(rel="stylesheet", href="/stylesheets/bootstrap.css", type="text/css", media="screen")
+    link(rel="stylesheet", href="/stylesheets/login.css", type="text/css", media="screen")
 
   body
     #app
       #nav
         a(href='/') MyWeb
-      #splash
-        h1 Log In
-        form
-          input(type='text', placeholder="Email")
-          input(type='password', hint="Password")
-          input(type='submit', value='Log in')
+      #background
+        #title
+          | Log In
+        form(name="login", method="post", action="/login")
+          #forms
+            .form-group
+              label(for="username", style="color: white;") Username
+              input#username.form-control(type="username", placeholder="Username", name="username")
+            .form-group
+              label(for="password", style="color: white;") Password
+              input#password.form-control(type="password", placeholder="Password", name="password")
+          #buttons
+            #login
+              a(href="/")
+                button.btn.btn-info.btn-lg.btn-block(type="submit") Login
+            #cancel
+              a(href="/")
+                button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/gatevue.js")
+
+
+

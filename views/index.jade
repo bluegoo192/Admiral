@@ -1,16 +1,35 @@
 doctype html
 html(lang='en')
   head
-    title MyWeb
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="chrome=1")
+    meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=no")
+    title Log In
+    // stylesheets
+    link(rel="stylesheet", href="/stylesheets/bootstrap.css", type="text/css", media="screen")
+    link(rel="stylesheet", href="/stylesheets/index.css", type="text/css", media="screen")
+    // fonts
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Oleo+Script")
 
-  body
-    #app
-      #splash
-        h1 MyWeb
+    script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js")
+    // script src="javascripts/main.js"></script
+    meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=no")
+    link(href="https://fonts.googleapis.com/css?family=Roboto:400,700,900|Josefin+Sans:400,700|Quicksand:400,700", rel="stylesheet", type="text/css")
+  body#body
+    #background
+      #logo
+        | MyWeb
+      #content
+        #title
+          | Monetize your browsing.
         #buttons
-          a(href='/login') Login
-          a(href='/signup') Sign up
+          a(href="/login")
+            button#login.btn.btn-info.btn-lg.btn-block(type="button") Login
+          a(href="/signup")
+            button#signup.btn.btn-default.btn-lg.btn-block(type="button") Sign up
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/appvue.js")
     script(src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js")
+
+
