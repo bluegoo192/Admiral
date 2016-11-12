@@ -1,0 +1,67 @@
+
+
+div#background {
+  background-image: url("http://stancebranding.com/wp-content/uploads/2014/08/Blur-2-1024x667.png");
+  /*background-color: rgb(180, 80, 0);*/
+  background-size: 100%;
+
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+div#title{
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  display: table;
+  font-size: 50px;
+  font-weight: 100;
+  margin-top: 10vh;
+}
+
+div#userSelector {
+  color: white;
+  margin: 2vh auto;
+  width: 30vw;
+  text-align: center;
+}
+
+div#userSelector.button {
+  color: white;
+  margin: 0vh 2vw;
+  text-align: center;
+}
+
+div#forms {
+  width: 30vw;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div#buttons {
+  color: white;
+  margin-top: 2vh;
+  width: 30vw;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.signup, .cancel {
+  width: 8vw;
+  margin-right: 1vw;
+  display: inline-block;
+}
+
+a:hover { 
+  text-decoration: none;
+}
+
+button {
+  margin-top: 1vh;
+  text-decoration: none;
+}
