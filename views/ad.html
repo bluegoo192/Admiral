@@ -14,12 +14,12 @@
          border:0px;
       }
       .bgimg {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           height: 400px;
           width: 600px;
-          background-image: url('http://i.imgur.com/mebo1Xj.png');
-          filter:blur(30px);
-          margin:-1px;
-          padding:1px;
+          background-image: url();
       }
       .notice {
         margin: 0px;
@@ -33,12 +33,12 @@
   </head>
   <body>
     <div id="container">
-      <div id="ad" class="bgimg" @click="test" onclick="openAd();"></div>
+      <div id="ad" class="bgimg" @click="test" onclick="openAd();">Click to show ad</div>
     </div>
-    <p class="notice"> Click ad to show. Gain 10 adbucks </p>
     <script>
       function openAd() {
-        document.getElementById("ad").style.filter = "blur(0px)";
+        document.getElementById("ad").style.backgroundImage = "url('http://i.imgur.com/mebo1Xj.png')";
+        document.getElementById("ad").innerHTML = "";
       }
     </script>
   </body>
