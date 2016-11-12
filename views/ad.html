@@ -7,8 +7,6 @@
         border: 0px;
       }
       #container{
-         width:600px;
-         height:400px;
          overflow:hidden;
          margin:0px;
          border:0px;
@@ -19,25 +17,17 @@
           align-items: center;
           height: 400px;
           width: 600px;
-          background-image: url();
-      }
-      .notice {
-        margin: 0px;
-        border: 0px;
-        background-color: black;
-        width: 600px;
-        height: 20px;
-        color: white;
+          margin:0px;
+          border:0px;
+          background: url() no-repeat center center;
       }
     </style>
   </head>
-  <body>
-    <div id="container">
+  <body id="container">
       <div id="ad" class="bgimg" @click="add" onclick="openAd();">Click to show ad</div>
-    </div>
     <script>
       function openAd() {
-        document.getElementById("ad").style.backgroundImage = "url('http://i.imgur.com/mebo1Xj.png')";
+        document.getElementById("ad").style.background = "url(http://i.imgur.com/sSHMIuz.gif) no-repeat center center";
         document.getElementById("ad").innerHTML = "";
       }
     </script>

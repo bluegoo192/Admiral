@@ -49,4 +49,12 @@ router.post('/addUser', function(req, res, next) {
   });
 });
 
+router.post('/createAd', function(req, res, next) {
+  database.createAd(req.body.user[0], req.body.name, req.body.url);
+});
+
+router.post('/deleteAd', function(req, res, next) {
+  database.deleteAd(req.body.user[0], req.body.name, req.body.url);
+});
+
 module.exports = router;
