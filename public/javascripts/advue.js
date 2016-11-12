@@ -24,12 +24,17 @@ var filters = {
 var ad = new Vue({
   el: '#ad',
   data: {
-    message: 'yoiuoi',
+    message: 'Show Ad',
     users: userStorage.fetch()
   },
   methods: {
     test: function () {
-      console.log(JSON.stringify(this.users));
+      // GET /someUrl
+      this.$http.get('http://localhost:3000/test').then((response) => {
+        console.log(response);
+      }, (response) => {
+        // error callback
+      });
     }
   },
   watch: {
