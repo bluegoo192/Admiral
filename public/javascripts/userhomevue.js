@@ -39,15 +39,11 @@ var app = new Vue({
     adsPerPage: 5
   },
   created: function () {
-    this.$http.post('http://localhost:3000/getUser', { user: userStorage.fetch() }).then((response) => {
-      console.log(JSON.stringify(response));
-      this.balance = response.body.bucks;
-    }, (response) => {
-      console.log(response);
-    });
+    this.updateBalance();
   },
   methods: {
     viewAdStream: function () {
+      this.updateBalance();
       this.viewingAdStream = true;
       this.ads = [];
       for (var i=0; i<this.adsPerPage; i++) {
@@ -65,7 +61,16 @@ var app = new Vue({
       }
     },
     exitAdStream: function () {
+      this.updateBalance();
       this.viewingAdStream = false;
+    },
+    updateBalance: function () {
+      this.$http.post('http://localhost:3000/getUser', { user: userStorage.fetch() }).then((response) => {
+        console.log(JSON.stringify(response));
+        this.balance = response.body.bucks;
+      }, (response) => {
+        console.log(response);
+      });
     }
   }
 })
