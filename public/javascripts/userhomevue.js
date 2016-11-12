@@ -53,6 +53,7 @@ var app = new Vue({
   },
   created: function () {
     this.updateBalance();
+    this.getAds();
   },
   methods: {
     viewAdStream: function () {
@@ -83,6 +84,7 @@ var app = new Vue({
       this.$http.post('http://localhost:3000/getUser', { user: userStorage.fetch() }).then((response) => {
         console.log(JSON.stringify(response));
         this.balance = response.body.bucks;
+        console.log(this.balance);
       }, (response) => {
         console.log(response);
       });
@@ -94,6 +96,13 @@ var app = new Vue({
     showMyAds: function () {
       this.updateBalance();
       this.view = 'gallery';
+    },
+    getAds: function() {
+      this.$http.post('http://localhost:3000/getUserAds', { user: userStorage.fetch() }).then((response) => {
+        console.log("getAds response" + JSON.stringify(response));
+      }, (response) => {
+        console.log(response);
+      });
     }
   }
 })

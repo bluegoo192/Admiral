@@ -36,10 +36,11 @@ html(lang='en')
           .divider
           h2 Create an ad
           p.center Whenever it's displayed, you'll earn adbucks automatically
-          form
-            input(type='text' placeholder='name')
-            input(type='text' placeholder='url')
-            input.cta(type='submit' value='Submit')
+          form(action="/createAd" method="post")
+            input(type='text' name='name' placeholder='name')
+            input(type='text' name='url' placeholder='url')
+            input(type='hidden' name='username' v-bind:value='username')
+            input(type='submit' value='Submit')
       .adgallery.center(v-if='view == "gallery"')
         .flexcontainer
           galleryad(v-for='ad in myads', :ad='ad')

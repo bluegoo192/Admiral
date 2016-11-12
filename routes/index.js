@@ -30,7 +30,6 @@ router.get('/getAd', function(req, res, next) {
 })
 
 router.post('/getUser', function(req, res, next) {
-  console.log(req.body.user[0]);
   database.showAdBucks(req.body.user[0], function(bucks) {
     console.log(bucks);
     res.send({bucks: bucks});
@@ -46,6 +45,21 @@ router.post('/deductUser', function(req, res, next) {
 router.post('/addUser', function(req, res, next) {
   database.addAdBuck(req.body.user[0], function(bucks) {
     res.send({bucks: bucks});
+  });
+});
+
+router.post('/createAd', function(req, res, next) {
+  database.createAd(req.body.username, req.body.name, req.body.url);
+  res.redirect('/userhome');
+});
+
+router.post('/deleteAd', function(req, res, next) {
+  database.deleteAd(req.body.username, req.body.name, req.body.url);
+});
+
+router.post('/getUserAds', function(req, res, next) {
+  database.getAds(req.body.user[0], function(response) {
+    res.send(response);
   });
 });
 
