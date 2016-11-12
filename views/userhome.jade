@@ -1,0 +1,17 @@
+doctype html
+html(lang='en')
+  head
+    title MyWeb
+
+  body
+    #app
+      nav
+        a(href='#') {{ balance }} available
+        a(href='#') {{ username }} <span class='expand'>v</span>
+      .center-container
+        .hv-center
+          a(href='/login') Login
+          a(href='/signup') Sign up
+
+    script(src="/javascripts/vue.js")
+    script(src="/javascripts/userhomevue.js")

@@ -18,6 +18,10 @@ router.get('/signup', function(req, res, next) {
   res.render('signup');
 });
 
+router.get('/userhome', function(req, res, next) {
+  res.render('userhome');
+})
+
 router.post('/getUser', function(req, res, next) {
   res.send(req.body.user[0]);
 });
