@@ -1,4 +1,15 @@
-include ad.html
+doctype html
+html(lang='en')
+  head
+    title MyWeb
 
-script(src="/javascripts/vue.js")
-script(src="/javascripts/advue.js")
+  body
+    #app
+      #splash
+        h1 MyWeb
+        #buttons
+          a(href='/login') Login
+          a(href='/signup') Sign up
+
+    script(src="/javascripts/vue.js")
+    script(src="/javascripts/appvue.js")

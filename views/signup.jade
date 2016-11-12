@@ -1,0 +1,34 @@
+doctype html
+html(lang='en')
+  head
+    title Sign up for MyWeb
+
+  body
+    #app
+      #nav
+        a(href='/') MyWeb
+      #splash
+        h1 Sign Up
+        #userSelector
+          button(type='button' @click='userType = "user"') User
+          button(type='button' @click='userType = "site"') Site Admin
+          button(type='button' @click='userType = "advertiser"') Advertiser
+        form(v-if='userType == "user"')
+          input(type='text', placeholder="Email")
+          input(type='password')
+          input(type='submit' value='Sign up as individual')
+        form(v-if='userType == "site"')
+          input(type='text', placeholder="Email")
+          input(type='text', placeholder="Site Address")
+          input(type='text', placeholder="Billing code")
+          input(type='password')
+          input(type='submit' value='Sign up as site owner')
+        form(v-if='userType == "advertiser"')
+          input(type='text', placeholder="Email")
+          input(type='text', placeholder="Billing code")
+          input(type='password')
+          input(type='submit' value='Sign up as advertiser')
+
+
+    script(src="/javascripts/vue.js")
+    script(src="/javascripts/gatevue.js")
