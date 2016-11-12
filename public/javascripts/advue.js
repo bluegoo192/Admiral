@@ -30,8 +30,9 @@ var ad = new Vue({
   methods: {
     test: function () {
       // GET /someUrl
-      this.$http.post('http://localhost:3000/getUser', {user: this.users[0]}).then((response) => {
-        console.log(response);
+      console.log('click');
+      this.$http.post('http://localhost:3000/getUser', {user: this.users}).then((response) => {
+        console.log(response.body);
       }, (response) => {
         // error callback
       });
