@@ -27,14 +27,24 @@ var ad = new Vue({
     message: 'Show Ad',
     users: userStorage.fetch()
   },
+  created: function () {
+    this.$http.post('http://localhost:3000/deductUser', {user: this.users}).then((response) => {
+      console.log(response.body.bucks);
+    }, (response) => {
+    });
+  },
   methods: {
-    test: function () {
+    get: function () {
       // GET /someUrl
-      console.log('click');
       this.$http.post('http://localhost:3000/getUser', {user: this.users}).then((response) => {
-        console.log(response.body);
+        console.log(response.body.bucks);
       }, (response) => {
-        // error callback
+      });
+    },
+    add: function () {
+      this.$http.post('http://localhost:3000/addUser', {user: this.users}).then((response) => {
+        console.log(response.body.bucks);
+      }, (response) => {
       });
     }
   },
@@ -47,4 +57,4 @@ var ad = new Vue({
       deep: true
     }
   }
-})
+});
