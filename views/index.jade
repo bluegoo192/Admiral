@@ -1,5 +1,22 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
+doctype html
+html(lang='en')
+  head
+    title Jade
+    style(type='text/css').
+      .bgimg {
+        height: 400px;
+        width: 600px;
+        display: flex;
+        filter: blur(10px);
+        justify-content: center;
+        align-items: center;
+        background-image: url('http://i.imgur.com/mebo1Xj.png');
+      }
+  body
+    h1 Jade - node template engine
+    #ad.bgimg
+      button(type='button', onclick='openAd()') Click Me!
+    script.
+      function openAd() {
+      document.getElementById("ad").style.filter = "blur(0px)";
+      }
