@@ -1,27 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Jade</title>
     <style type="text/css">
+      body{
+        margin: 0px;
+        border: 0px;
+      }
+      #container{
+         width:600px;
+         height:400px;
+         overflow:hidden;
+         margin:0px;
+         border:0px;
+      }
       .bgimg {
           height: 400px;
           width: 600px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          background-image: url();
+          background-image: url('http://i.imgur.com/mebo1Xj.png');
+          filter:blur(30px);
+          margin:-1px;
+          padding:1px;
+      }
+      .notice {
+        margin: 0px;
+        border: 0px;
+        background-color: black;
+        width: 600px;
+        height: 20px;
+        color: white;
       }
     </style>
   </head>
   <body>
-    <h1>Jade - node template engine</h1>
-
-    <div id="ad" class="bgimg">
-       <button type="button" @click="test" onclick="openAd();">{{ message }}</button>
+    <div id="container">
+      <div id="ad" class="bgimg" @click="test" onclick="openAd();"></div>
     </div>
+    <p class="notice"> Click ad to show. Gain 10 adbucks </p>
     <script>
       function openAd() {
-        document.getElementById("ad").style.backgroundImage = "url('http://i.imgur.com/mebo1Xj.png')";
+        document.getElementById("ad").style.filter = "blur(0px)";
       }
     </script>
   </body>
