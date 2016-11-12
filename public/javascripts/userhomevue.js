@@ -41,6 +41,7 @@ var app = new Vue({
   created: function () {
     this.$http.post('http://localhost:3000/getUser', { user: userStorage.fetch() }).then((response) => {
       console.log(JSON.stringify(response));
+      this.balance = response.body.bucks;
     }, (response) => {
       console.log(response);
     });
