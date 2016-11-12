@@ -42,6 +42,7 @@ var app = new Vue({
   },
   created: function () {
     this.updateBalance();
+    this.getAds();
   },
   methods: {
     viewAdStream: function () {
@@ -78,6 +79,13 @@ var app = new Vue({
     toggleExpandedBalance: function() {
       this.updateBalance();
       this.showExpanded = !this.showExpanded;
+    },
+    getAds: function() {
+      this.$http.post('http://localhost:3000/getUserAds', { user: userStorage.fetch() }).then((response) => {
+        console.log("getAds response" + JSON.stringify(response));
+      }, (response) => {
+        console.log(response);
+      });
     }
   }
 })

@@ -18,7 +18,7 @@ html(lang='en')
           button(type='button' @click='viewAdStream') View ad stream
           p Earn adbucks for free!
         .hv-center
-          button(type='button' @click='uploading = true') Submit an Ad
+          button(type='button' @click='uploading = true') My Ad List
           p Help people find your business
         .hv-center
           button(type='button') Embed an ad
@@ -28,10 +28,14 @@ html(lang='en')
         adbox(v-for='ad in ads', :ad='ad')
       button(type='button' @click='viewAdStream' id='more' v-if='viewingAdStream') More
       button(type='button' @click='uploading = false' id='exit' v-if='uploading') Exit
+      .center(v-if='uploading && !creating')
+      ul
+        li(v-for='')
       .center(v-if='uploading')
-        form
-          input(type='text' placeholder='name')
-          input(type='text' placeholder='url')
+        form(action="/createAd" method="post")
+          input(type='text' name='name' placeholder='name')
+          input(type='text' name='url' placeholder='url')
+          input(type='hidden' name='username' v-bind:value='username')
           input(type='submit')
 
     script(src="/javascripts/vue.js")
