@@ -20,6 +20,13 @@ nav {
   z-index: 10;
 } nav a {
   padding: 20px;
+  cursor: grab;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 nav .navcontainer {
   width: 100%;
@@ -78,14 +85,41 @@ button#more {
 
 #expandedBalance {
   position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #43C8E6;
+  top: 97%;
+  left: 15px;
+  border-radius: 4px;
+  color: #43484A;
+  width: 20em;
+  letter-spacing: 0;
+  padding: 15px;
+  box-shadow: -4px 4px 4px rgba(1, 19, 23, 0.2);
+  background-color: #FCFCFC;
+  border: 1px solid #C2C2C2;
 } #expandedProfile {
   position: absolute;
   top: 100%;
   right: 0;
   background-color: #43C8E6;
+} #expandedBalance button {
+  background-color: #3DDC97;
+  border: none;
+  padding: 5px;
+  width: 100%;
+  color: #FCFCFC;
+} #expandedBalance .notch {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  margin: 0;
+  border-top: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #FCFCFC;
+  padding: 0;
+  width: 0;
+  height: 0;
+} #expandedBalance .border-notch {
+  border-bottom-color: #C2C2C2; top: -11px;
 }
 
 .center {
@@ -156,20 +190,20 @@ nav a:hover {
   border: none;
   background: none;
   padding: 15px;
-  border-top: 5px solid #4DBED6;
+  border-top: 10px solid #4DBED6;
   flex-grow: 1;
   text-align: center;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s;
   cursor: grab;
 } #tabbar .tab-button:hover {
   background-color: #4DBED6;
-  border-color: inherit;
+  border-color: #4DBED6;
   color: #FCFCFC;
   text-decoration: none;
 } #tabbar a.tab-button.active {
   border-color: #FCFCFC;
 } #tabbar a.tab-button.active:hover {
-  border-color: inherit;
+  border-color: #4DBED6;
 }
 
 .cta {
@@ -199,6 +233,7 @@ button#new {
   font-size: 50px;
   bottom: 10px;
   right: 10px;
+  box-shadow: -4px 4px 8px rgba(1, 19, 23, 0.2);
 } button#new:hover {
   background-color: #34BA80;
 }
@@ -221,13 +256,20 @@ button.deleteAd {
   position: relative;
 }
 
-.drop-enter-active, .drop-leave-active {
+.fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }
-.drop-enter, .drop-leave-active {
+.fade-enter, .fade-leave-active {
   opacity: 0
-} .drop-leave-active {
+} .fade-leave-active {
   display: none;
+}
+
+.drop-enter-active {
+  transition: transform 0.1s, opacity 0.3s;
+} .drop-enter {
+  transform: translateY(-50px) scale(0.7);
+  opacity: 0;
 }
 
 .galleryad {
