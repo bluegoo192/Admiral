@@ -14,11 +14,14 @@ html(lang='en')
     #app
       nav
         .navcontainer
-          a(href='#' @click='showExpanded = !showExpanded') {{ balance }} credits
-            #expandedBalance(v-if='showExpanded')
-              p You have {{dollars}} dollars in your account
-              button(type='button' @click="transferMoney") Convert credits to dollars
-          a(href='#' @click='showExpandedProfile = !showExpandedProfile') {{ username }}
+          a(@click='showExpanded = !showExpanded') {{ balance }} credits
+            transition(name='drop')
+              #expandedBalance(v-if='showExpanded')
+                b.border-notch.notch
+                b.notch
+                p You have {{dollars}} dollars in your account
+                button(type='button' @click="transferMoney") Convert credits to dollars
+          a(@click='showExpandedProfile = !showExpandedProfile') {{ username }}
             span.expand.glyphicon.glyphicon-cog(style='color:white;', aria-hidden='true')
             #expandedProfile(v-if='showExpandedProfile')
               p test
@@ -28,7 +31,7 @@ html(lang='en')
           a.tab-button(:class="{ active: inEmbed }" @click='view="embed"') Embed Ad
           a.tab-button(:class="{ active: inGallery }" @click='view="gallery"') My Ads
 
-      transition(name='drop')
+      transition(name='fade')
         .adstreamcontainer(v-if='view == "adstream"')
           button.cta#more(type='button' @click='viewAdStream') More
           .divider
@@ -40,7 +43,7 @@ html(lang='en')
           .divider
           .divider
           .divider
-      transition(name='drop')
+      transition(name='fade')
         .uploadcontainer(v-if='view == "adad"')
           .center
             .divider
@@ -53,14 +56,14 @@ html(lang='en')
               input(type='text' name='src' placeholder='ad link')
               input(type='hidden' name='username' v-bind:value='username')
               input.cta(type='submit' value='Submit')
-      transition(name='drop')
+      transition(name='fade')
         .gallery(v-if='view == "gallery"')
           button#new(type='button' @click='view = "adad"') +
           .divider
           .adgallery.center
             .flexcontainer
               galleryad(v-for='ad in myads', :ad='ad')
-      transition(name='drop')
+      transition(name='fade')
         .embedcontainer.center(v-if='view == "embed"')
           .divider
           .divider
