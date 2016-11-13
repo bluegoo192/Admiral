@@ -58,7 +58,6 @@ var app = new Vue({
   methods: {
     viewAdStream: function () {
       this.updateBalance();
-      document.addEventListener('click', this.updateBalance());
       this.view = 'adstream';
       this.ads = [];
       for (var i=0; i<this.adsPerPage; i++) {
@@ -88,8 +87,6 @@ var app = new Vue({
       }
     },
     updateBalance: function () {
-      this.showExpanded = false;
-      this.showExpandedProfile = false;
       this.$http.post('/getUser', { user: userStorage.fetch() }).then((response) => {
         this.balance = response.body.bucks;
       }, (response) => {
@@ -127,6 +124,14 @@ var app = new Vue({
     },
     getActive: function (link) {
       return true;
+    }
+  },
+  watch: {
+    view: function () {
+      this.updateBalance();
+    },
+    showExpanded: function () {
+      this.updateBalance();
     }
   }
 })
