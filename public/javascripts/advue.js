@@ -23,7 +23,7 @@ var ad = new Vue({
     }
     this.$http.post('/getUser', {user: this.users}).then((response) => {
       this.$http.post('/deductUser', {user: this.users}).then((response2) => {
-        if (response.body.bucks < 1 || response.body.show_by_default) {
+        if (response.body.bucks < 1 || response.body.show_by_default || show) {
           this.add();
         }
       }, (response) => {

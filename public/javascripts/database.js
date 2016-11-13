@@ -111,6 +111,7 @@ var database = {
         request.post(options, function(error, response, body) {
           if (!error) {
             console.log("Deposited successfully");
+            console.log(body);
             callback(JSON.parse(body).objectCreated.amount);
           }
         })
@@ -146,13 +147,17 @@ var database = {
 
   addAdBuck: function (username, amount, callback) {
     Account.where({user: username}).findOneAndUpdate({$inc: {'adbucks': amount}}, function(err, doc) {
-      callback(doc.adbucks);
+      if (doc) {
+        callback(doc.adbucks);
+      }
     });
   },
 
   subAdBuck: function(username, amount, callback) {
     Account.where({user: username}).findOneAndUpdate({$inc: {'adbucks': -1 * amount}}, function(err, doc) {
-      callback(doc.adbucks);
+      if (doc) {
+        callback(doc.adbucks);
+      }
     });
   },
 
