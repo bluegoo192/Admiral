@@ -3,10 +3,9 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://garyliangge:NGNL2016@ds149557.mlab.com:49557/adbucks_db');
 var Account = require('./schemas/accounts');
 var Ad = require('./schemas/ads');
-var MongoClient = mongodb.MongoClient;
-// Connection URL. This is where your mongodb server is running.
-var url = 'mongodb://garyliangge:NGNL2016@ds149557.mlab.com:49557/adbucks_db';
+var request = require('request');
 
+var apikey = "1d15e48ca9e6b3db7a8dc1d94b284190"; //Nessie
 /* Mongo Shit */
 
 var database = {
@@ -44,21 +43,47 @@ var database = {
     });
   },
 
+  transferAdBucks: function (username, callback) {
+    Account.where({user:username}).findOne(function (err, myDocument){
+      if (myDocument) {
+        var dollars = myDocument.adbucks / 1000.0;
+        var options = {
+          url: 'http://api.reimaginebanking.com/accounts/' +  myDocument.account_id + '/deposits?key=' + apikey,
+          body: {
+            "medium": "balance",
+            "transaction_date": "2016-11-13",
+            "amount": dollars,
+            "description": "string"
+          }
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          }
+        };
+
+        request(options, function(error, response, body) {
+          if (!error) {
+
+          }
+        })
+      }
+    })
+  }
+
   showAdBucks: function (username, callback) {
     Account.where({user: username}).findOne(function (err, myDocument) {
       callback(myDocument);
     });
   },
 
-
-  addAdBuck: function (username, callback) {
-    Account.where({user: username}).findOneAndUpdate({$inc: {'adbucks': 2}}, function(err, doc) {
+  addAdBuck: function (username, amount, callback) {
+    Account.where({user: username}).findOneAndUpdate({$inc: {'adbucks': amount}}, function(err, doc) {
       callback(doc.adbucks);
     });
   },
 
-  subAdBuck: function(username, callback) {
-    Account.where({user: username}).findOneAndUpdate({$inc: {'adbucks': -1}}, function(err, doc) {
+  subAdBuck: function(username, amount, callback) {
+    Account.where({user: username}).findOneAndUpdate({$inc: {'adbucks': -1 * amount}}, function(err, doc) {
       callback(doc.adbucks);
     });
   },
