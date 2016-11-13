@@ -82,7 +82,6 @@ var app = new Vue({
       this.showExpanded = false;
       this.showExpandedProfile = false;
       this.$http.post('http://localhost:3000/getUser', { user: userStorage.fetch() }).then((response) => {
-        console.log(JSON.stringify(response));
         this.balance = response.body.bucks;
         console.log(this.balance);
       }, (response) => {
@@ -105,8 +104,11 @@ var app = new Vue({
       });
     },
     autoselect: function (event) {
-      console.log(event.target);
-      //event.target.focus()
+      event.target.focus();
+      var range = document.createRange();
+      range.selectNode(event.target);
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
     }
   }
 })
