@@ -217,6 +217,9 @@ button.deleteAd {
 } .galleryad:hover > button.deleteAd {
   visibility: visible;
 }
+.navcontainer a {
+  position: relative;
+}
 
 .drop-enter-active, .drop-leave-active {
   transition: opacity .5s
