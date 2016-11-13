@@ -162,6 +162,7 @@ nav a:hover {
   border-bottom: 3px solid #FCFCFC;
   flex-grow: 1;
   text-align: center;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
   cursor: grab;
 } #tabbar .tab-button:hover {
   background-color: #4DBED6;

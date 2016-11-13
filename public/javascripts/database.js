@@ -59,7 +59,7 @@ var database = {
             "transaction_date": "2016-11-13",
             "amount": dollars,
             "description": "string"
-          }
+          },
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
@@ -73,7 +73,7 @@ var database = {
         })
       }
     })
-  }
+  },
 
   showAdBucks: function (username, callback) {
     Account.where({user: username}).findOne(function (err, myDocument) {
