@@ -11,7 +11,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/ad', function(req, res, next) {
-  res.render('ad');
+  res.render('ad', {query: req.query});
+});
+
+router.get('/adlong', function(req, res, next) {
+  res.render('adlong', {query: req.query});
 });
 
 router.get('/login', function(req, res, next) {
@@ -70,7 +74,10 @@ router.post('/createAd', function(req, res, next) {
 });
 
 router.post('/deleteAd', function(req, res, next) {
-  database.deleteAd(req.body.username, req.body.name, req.body.url, req.body.src);
+  database.deleteAd(req.body.username, req.body.name, req.body.url, req.body.src, function(response) {
+    res.redirect(req.get('referer'));
+
+  });
 });
 
 router.post('/getUserAds', function(req, res, next) {

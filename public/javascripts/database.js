@@ -84,12 +84,15 @@ var database = {
     });
   },
 
-  deleteAd: function(username, ad_name, ad_url, ad_src) {
+  deleteAd: function(username, ad_name, ad_url, ad_src, callback) {
+    console.log(username + "," + ad_name + "," + ad_url + "," + ad_src);
     Ad.where({user: username, ad_name: ad_name, ad_url: ad_url, ad_src: ad_src}).findOneAndRemove(function (err, myDocument, result){
       if (err) {
         console.log('Error deleting ad!');
+        callback(err);
       } else {
         console.log('Ad deleted successfully');
+        callback("");
       }
     });
   },
