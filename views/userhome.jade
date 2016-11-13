@@ -15,29 +15,19 @@ html(lang='en')
           a(href='#' @click='showExpanded = !showExpanded') {{ balance }} available
           a(href='#' @click='showExpandedProfile = !showExpandedProfile') {{ username }}
             span.expand.glyphicon.glyphicon-cog(style='color:white;', aria-hidden='true')
+        #tabbar
+          button.tab-button(type='button' @click='viewAdStream') Ad Stream
+          button.tab-button(type='button' @click='view="adad"') Create Ad
+          button.tab-button(type='button' @click='view="embed"') Embed Ad
+          button.tab-button(type='button' @click='view="gallery"') My Ads
 
-        #expandedBalance(v-if='showExpanded')
-          p hi
-        #expandedProfile(v-if='showExpandedProfile')
-          a(href='#' @click='showMyAds') My Ads
-      .center-container(v-if='view == "home"')
-        .hv-center
-          button.cta(type='button' @click='viewAdStream') View ad stream
-          p Earn adbucks for free!
-        .hv-center
-          button.cta(type='button' @click='view = "adad"') Submit an Ad
-          p Help people find your business
-        .hv-center
-          button.cta(type='button' @click='view = "embed"') Embed an ad
-          p Passive income is a click away
-      .adstreamcontainer(v-if='view == "adstream"')
-        button.cta(type='button' @click='exitAdStream' id='exit') Exit
+      .adstreamcontainer.slidein(v-if='view == "adstream"')
         #adstream
           adbox(v-for='ad in ads', :ad='ad')
         button.cta(type='button' @click='viewAdStream' id='more') More
-      .uploadcontainer(v-if='view == "adad"')
-        button.cta(type='button' @click='view = "home"' id='exit') Exit
+      .uploadcontainer.slidein(v-if='view == "adad"')
         .center
+          .divider
           .divider
           h2 Create an ad
           p.center Whenever it's displayed, you'll earn adbucks automatically
@@ -54,11 +44,13 @@ html(lang='en')
       .adgallery.center(v-if='view == "gallery"')
         .flexcontainer
           galleryad(v-for='ad in myads', :ad='ad')
-      button.cta(v-if='view=="embed"' type='button' @click='view = "home"' id='exit') Exit
-      .embedcontainer.center(v-if='view == "embed"')
+      .embedcontainer.center.slidein(v-if='view == "embed"')
+        .divider
+        .divider
         .divider
         h1 How to use:
         p Simply copy and paste the following code into your website
+        .divider
         .codecontainer(@click="autoselect")
           p samplecode
 

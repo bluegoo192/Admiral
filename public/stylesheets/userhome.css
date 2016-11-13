@@ -17,6 +17,7 @@ nav {
   background-color: #256EFF;
   color: #fff;
   letter-spacing: 1px;
+  z-index: 10;
 } nav a {
   padding: 20px;
 }
@@ -24,17 +25,6 @@ nav .navcontainer {
   width: 100%;
   display: flex;
   justify-content: space-between;
-}
-
-.cta {
- padding: 15px;
- border: none;
- background-color: #0FD454;
- color: #fff;
- font-size: 1.1em;
- letter-spacing: 1px;
-} .cta:hover {
-  background-color: #1DA34C;
 }
 
 
@@ -161,4 +151,57 @@ form {
 } .codecontainer p {
   padding: 0;
   margin: 0;
+}
+
+
+
+
+
+
+#tabbar {
+  background-color: #FCFCFC;
+  display: flex;
+  justify-content: space-around;
+  color: #256EFF;
+  border-bottom: 1px solid #256EFF;
+  box-shadow: 0px 0px 3px #7D7D7D;
+} #tabbar button {
+  border: none;
+  background: none;
+  padding: 15px;
+  flex-grow: 1;
+} #tabbar button:hover {
+  background-color: #256EFF;
+  color: #FCFCFC;
+}
+
+.cta {
+ padding: 15px;
+ border: none;
+ background-color: #3DDC97;
+ color: #FCFCFC;
+ font-size: 1.2em;
+ letter-spacing: 1px;
+} .cta:hover {
+  background-color: #34BA80;
+}
+
+.slidein {
+  animation: slidein 0.2s;
+  z-index: 0;
+}
+
+@keyframes slidein {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0.1;
+  }
+  60% {
+    transform: none;
+    opacity: 0.5;
+  }
+  100% {
+    transform: none;
+    opacity: 1;
+  }
 }
