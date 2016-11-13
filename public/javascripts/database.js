@@ -16,7 +16,8 @@ var database = {
         var newAccount = new Account({
             user: username,
             pass: password,
-            adbucks: 100});
+            adbucks: 100,
+            show_by_default: false});
         newAccount.save(function (err) {
           if (err) {
             console.log('Error creating account!');
@@ -32,7 +33,7 @@ var database = {
 
   showAdBucks: function (username, callback) {
     Account.where({user: username}).findOne(function (err, myDocument) {
-      callback(myDocument.adbucks);
+      callback(myDocument);
     });
   },
 
@@ -49,13 +50,14 @@ var database = {
     });
   },
 
-  createAd: function(username, ad_name, ad_url) {
-    Ad.where({user: username, ad_name: ad_name, ad_url: ad_url}).findOne(function (err, myDocument){
+  createAd: function(username, ad_name, ad_url, ad_src) {
+    Ad.where({user: username, ad_name: ad_name, ad_url: ad_url, ad_src: ad_src}).findOne(function (err, myDocument){
       if (!myDocument) {
         var newAd = new Ad({
             user: username,
             ad_name: ad_name,
-            ad_url: ad_url});
+            ad_url: ad_url,
+            ad_src: ad_src});
         newAd.save(function (err) {
           if (err) {
             console.log('Error creating ad!');
@@ -69,8 +71,8 @@ var database = {
     });
   },
 
-  deleteAd: function(username, ad_url) {
-    Ad.where({user: username, ad_name: ad_name, ad_url: ad_url}).findOneAndRemove(function (err, myDocument, result){
+  deleteAd: function(username, ad_name, ad_url, ad_src) {
+    Ad.where({user: username, ad_name: ad_name, ad_url: ad_url, ad_src: ad_src}).findOneAndRemove(function (err, myDocument, result){
       if (err) {
         console.log('Error deleting ad!');
       } else {
@@ -81,6 +83,12 @@ var database = {
 
   getAds: function(username, callback) {
     Ad.find({user: username}, function (err, array) {
+      callback(array);
+    });
+  },
+
+  getAdsNot: function(username, callback) {
+    Ad.find({user: {$ne: username}}, function (err, array) {
       callback(array);
     });
   }
