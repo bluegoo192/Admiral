@@ -30,10 +30,10 @@ Vue.component('adbox', {
 
 Vue.component('galleryad', {
   props: ['ad'],
-  template: '<div class="galleryad">\
+  template: '<a :href="ad.ad_url" target="_blank"><div class="galleryad">\
               <img :src="ad.ad_url" />\
               <p>{{ ad.ad_name }}</p>\
-            </div>'
+            </div></a>'
 })
 
 var app = new Vue({
@@ -103,6 +103,10 @@ var app = new Vue({
       }, (response) => {
         console.log(response);
       });
+    },
+    autoselect: function (event) {
+      console.log(event.target);
+      //event.target.focus()
     }
   }
 })
