@@ -1,23 +1,17 @@
 Vue.component('adbox', {
   props: ['ad'],
-  template: '<iframe src="http://localhost:3000/ad?width=400px&height=400px" style="height:400px;width:400px;border:1px solid black;"></iframe>'
+  template: '<div class="ad" :style="ad.size">\
+              <iframe src="http://localhost:3000/ad" ></iframe>\
+            </div>'
 })
 
 Vue.component('galleryad', {
   props: ['ad'],
   template: '<div class="galleryad">\
-              <a :href="ad.ad_url" target="_blank"><img :src="ad.ad_url" /></a>\
+              <a :href="ad.ad_url" target="_blank"><img class="center" :src="ad.ad_url" /></a>\
               <p>{{ ad.ad_name }}</p>\
-              <button @click="deleteAd(ad)">Delete Ad </button>\
-            </div>',
-  methods: {
-            deleteAd: function(ad) {
-              this.$http.post('/deleteAd', { username: userStorage.fetch()[0], name: ad.ad_name, url: ad.ad_url, src: ad.ad_src }).then((response) => {
-              }, (response) => {
-                console.log(response);
-              });
-            }
-          }
+              <button class="deleteAd" @click="deleteAd(ad)">X</button>\
+            </div>'
 })
 
 var app = new Vue({
@@ -97,6 +91,12 @@ var app = new Vue({
       range.selectNode(event.target);
       window.getSelection().addRange(range);
       document.execCommand('copy');
+    },
+    deleteAd: function(ad) {
+      this.$http.post('/deleteAd', { username: this.username, name: ad.ad_name, url: ad.ad_url, src: ad.ad_src }).then((response) => {
+      }, (response) => {
+        console.log(response);
+      });
     }
   }
 })
