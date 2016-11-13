@@ -14,7 +14,7 @@ a {
 nav {
   width: 100%;
   position: relative;
-  background-color: #256EFF;
+  background-color: #4DBED6;
   color: #fff;
   letter-spacing: 1px;
   z-index: 10;
@@ -50,28 +50,31 @@ span.expand {
   color: #979C99;
 }
 
-button#exit {
-  background-color: #CF0C23;
-  width: 100%;
-} button#exit:hover {
-  text-decoration: underline;
-}
 button#more {
   width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 10;
+}
+
+.adstreamcontainer {
+  overflow: auto;
+  position: fixed;
+  height: 100%;
 }
 
 #adstream {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  z-index: 0;
 }
 
 .ad {
   margin: 5px;
   padding: 0;
-  border: 1px solid #B0B0B0;
-  color: #B0B0B0;
-  background-color: #F2F2F2;
+  border: 1px solid #D1D1D1;
+  background-color: #FCFCFC;
   border-radius: 2px;
 } .ad iframe {
   width: 100%;
@@ -143,25 +146,29 @@ form {
 nav a:hover {
   text-decoration: underline;
   color: #FCFCFC;
-} a:active {
+} a:visited {
   color: inherit;
 }
 #tabbar {
   background-color: #FCFCFC;
   display: flex;
   justify-content: space-around;
-  color: #256EFF;
+  color: #4DBED6;
   box-shadow: 0px 4px 4px #D1D1D1;
-} #tabbar button {
+} #tabbar .tab-button {
   border: none;
   background: none;
   padding: 15px;
   border-bottom: 3px solid #FCFCFC;
   flex-grow: 1;
-} #tabbar button:hover {
-  background-color: #256EFF;
-  border-color: #256EFF;
+  text-align: center;
+  cursor: grab;
+} #tabbar .tab-button:hover {
+  background-color: #4DBED6;
+  border-color: #4DBED6;
   color: #FCFCFC;
+} #tabbar a.tab-button.active {
+  border-color: #4DBED6;
 }
 
 .cta {
@@ -210,11 +217,13 @@ button.deleteAd {
   visibility: visible;
 }
 
-.drop-enter {
-  transform: translateX(-50px);
+.drop-enter-active, .drop-leave-active {
+  transition: opacity .5s
 }
 .drop-enter, .drop-leave-active {
   opacity: 0
+} .drop-leave-active {
+  display: none;
 }
 
 .galleryad {
