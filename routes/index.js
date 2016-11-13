@@ -71,6 +71,21 @@ router.post('/ad_signup', function(req, res, next) {
   });
 });
 
+router.post('/dollars', function(req, res, next) {
+  database.showDollars(req.body.user[0], function(dollars) {
+    console.log(dollars);
+    res.send("ok");
+  });
+});
+
+router.post('/transferMoney', function(req, res, next) {
+  database.transferAdBucks(req.body.user[0], function(success) {
+    if (success) {
+      res.redirect('/userhome');
+    }
+  });
+});
+
 router.get('/userhome', function(req, res, next) {
   if (req.query.valid) {
     var user = decodeString(req.query.valid);

@@ -68,6 +68,11 @@ var app = new Vue({
       this.updateBalance();
       this.view = 'home';
     },
+    transferMoney: function () {
+      this.$http.post('/transferMoney', { user: userStorage.fetch() }).then((response) => {
+      }, (response) => {
+      });
+    },
     updateBalance: function () {
       this.showExpanded = false;
       this.showExpandedProfile = false;

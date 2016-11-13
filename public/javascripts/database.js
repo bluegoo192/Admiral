@@ -108,7 +108,7 @@ var database = {
           }
         };
 
-        request(options, function(error, response, body) {
+        request.post(options, function(error, response, body) {
           if (!error) {
             console.log("Deposited successfully");
             callback(true);
