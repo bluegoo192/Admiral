@@ -79,8 +79,12 @@ button#more {
 #expandedBalance {
   position: absolute;
   top: 100%;
-  left: 0;
-  background-color: #43C8E6;
+  left: 15px;
+  border-radius: 4px;
+  color: #43484A;
+  width: 20em;
+  background-color: #FCFCFC;
+  border: 1px solid #C2C2C2;
 } #expandedProfile {
   position: absolute;
   top: 100%;
