@@ -28,7 +28,13 @@ var app = new Vue({
     showExpandedProfile: false,
     uploading: false,
     embed_code: "<iframe src='http://localhost:3000/ad' style='height:400px;width:600px;border:0 none;'></iframe>",
-    view: 'home'
+    view: 'gallery'
+  },
+  computed: {
+    inAdStream: function () { return this.view == 'adstream'; },
+    inAdAd: function () { return this.view == 'adad'; },
+    inEmbed: function () { return this.view == 'embed'; },
+    inGallery: function () { return this.view == 'gallery'; }
   },
   created: function () {
     if (user) {
@@ -97,6 +103,9 @@ var app = new Vue({
       }, (response) => {
         console.log(response);
       });
+    },
+    getActive: function (link) {
+      return true;
     }
   }
 })
