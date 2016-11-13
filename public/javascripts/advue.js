@@ -11,10 +11,12 @@ var ad = new Vue({
     }
   },
   created: function () {
-    console.log(width + ", " + height);
     this.$http.post('/getAllAds', {user: this.users}).then((response) => {
       var index = Math.floor(Math.random() * (response.body.length));
       this.ad = response.body[index];
+    }, (response) => {
+    });
+    this.$http.post('/addUser1', {user: host}).then((response3) => {
     }, (response) => {
     });
     this.$http.post('/getUser', {user: this.users}).then((response) => {
@@ -41,6 +43,9 @@ var ad = new Vue({
           this.$http.post('/addUser', {user: this.users}).then((response2) => {
             this.$el.style.background = "url(" + this.ad.ad_url + ") no-repeat center center";
             this.$el.innerHTML = "";
+            this.$http.post('/deductUser2', {user: this.ad.user}).then((response4) => {
+            }, (response) => {
+            });
           }, (response) => {
           });
       } else {

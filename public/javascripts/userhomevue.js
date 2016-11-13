@@ -1,8 +1,6 @@
 Vue.component('adbox', {
   props: ['ad'],
-  template: '<div class="ad" :style="ad.size">\
-              <iframe src="http://localhost:3000/ad" ></iframe>\
-            </div>'
+  template: '<iframe src="http://localhost:3000/ad?width=400px&height=400px" style="height:400px;width:400px;border:1px solid black;"></iframe>'
 })
 
 Vue.component('galleryad', {
@@ -23,11 +21,11 @@ var app = new Vue({
     viewingAdStream: false,
     ads: [],
     myads: [],
-    adsPerPage: 5,
+    adsPerPage: 6,
     showExpanded: false,
     showExpandedProfile: false,
     uploading: false,
-    embed_code: "<iframe src='http://localhost:3000/ad' style='height:400px;width:600px;border:0 none;'></iframe>",
+    embed_code: '<iframe src="http://localhost:3000/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>',
     view: 'gallery'
   },
   computed: {
@@ -44,6 +42,8 @@ var app = new Vue({
     this.username = userStorage.fetch()[0];
     this.updateBalance();
     this.getAds();
+    this.embed_code = '<iframe src="http://localhost:3000/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>'
+
   },
   methods: {
     viewAdStream: function () {

@@ -91,13 +91,25 @@ router.post('/getUser', function(req, res, next) {
 });
 
 router.post('/deductUser', function(req, res, next) {
-  database.subAdBuck(req.body.user[0], function(bucks) {
+  database.subAdBuck(req.body.user[0], 1, function(bucks) {
     res.send({bucks: bucks});
   });
 });
 
 router.post('/addUser', function(req, res, next) {
-  database.addAdBuck(req.body.user[0], function(bucks) {
+  database.addAdBuck(req.body.user[0], 2, function(bucks) {
+    res.send({bucks: bucks});
+  });
+});
+
+router.post('/addUser1', function(req, res, next) {
+  database.addAdBuck(req.body.user[0], 1, function(bucks) {
+    res.send({bucks: bucks});
+  });
+});
+
+router.post('/deductUser2', function(req, res, next) {
+  database.subAdBuck2(req.body.user[0], 2, function(bucks) {
     res.send({bucks: bucks});
   });
 });
