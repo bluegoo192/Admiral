@@ -73,16 +73,13 @@ router.post('/ad_signup', function(req, res, next) {
 
 router.post('/dollars', function(req, res, next) {
   database.showDollars(req.body.user[0], function(dollars) {
-    console.log(dollars);
-    res.send("ok");
+    res.send({dollars: dollars});
   });
 });
 
 router.post('/transferMoney', function(req, res, next) {
-  database.transferAdBucks(req.body.user[0], function(success) {
-    if (success) {
-      res.redirect('/userhome');
-    }
+  database.transferAdBucks(req.body.user[0], function(dollars) {
+    res.send({dollars: dollars});
   });
 });
 

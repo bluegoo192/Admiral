@@ -16,8 +16,8 @@ html(lang='en')
         .navcontainer
           a(href='#' @click='showExpanded = !showExpanded') {{ balance }} credits
             #expandedBalance(v-if='showExpanded')
-              p You have blank dollars in your account
-              button(type='button') Convert credits to dollars
+              p You have {{dollars}} dollars in your account
+              button(type='button' @click="transferMoney") Convert credits to dollars
           a(href='#' @click='showExpandedProfile = !showExpandedProfile') {{ username }}
             span.expand.glyphicon.glyphicon-cog(style='color:white;', aria-hidden='true')
             #expandedProfile(v-if='showExpandedProfile')
