@@ -37,6 +37,40 @@ router.get('/signup', function(req, res, next) {
   res.render('signup');
 });
 
+router.post('/user_signup', function(req, res, next) {
+  console.log("I'm in the post...");
+  database.createAccount(req.body.user_email, req.body.user_pass, function(success) {
+  	if (success) {
+  		console.log("Success!");
+  		res.redirect('/userhome');
+  	} else {
+  		res.redirect('/signup');
+  	}
+  });
+});
+
+router.post('/site_signup', function(req, res, next) {
+  database.createAccount(req.body.site_email, req.body.site_pass, function(success) {
+  	if (success) {
+  		console.log("Success!");
+  		res.redirect('/userhome');
+  	} else {
+  		res.redirect('/signup');
+  	}
+  });
+});
+
+router.post('/ad_signup', function(req, res, next) {
+  database.createAccount(req.body.ad_email, req.body.ad_pass, function(success) {
+  	if (success) {
+  		console.log("Success!");
+  		res.redirect('/userhome');
+  	} else {
+  		res.redirect('/signup');
+  	}
+  });
+});
+
 router.get('/userhome', function(req, res, next) {
   if (req.query.valid) {
     var user = decodeString(req.query.valid);

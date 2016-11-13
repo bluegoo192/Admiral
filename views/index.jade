@@ -4,7 +4,7 @@ html(lang='en')
     meta(charset="utf-8")
     meta(http-equiv="X-UA-Compatible", content="chrome=1")
     meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=no")
-    title Log In
+    title Admiral
     // stylesheets
     link(rel="stylesheet", href="/stylesheets/bootstrap.css", type="text/css", media="screen")
     link(rel="stylesheet", href="/stylesheets/index.css", type="text/css", media="screen")
@@ -16,9 +16,14 @@ html(lang='en')
     meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=no")
     link(href="https://fonts.googleapis.com/css?family=Roboto:400,700,900|Josefin+Sans:400,700|Quicksand:400,700", rel="stylesheet", type="text/css")
   body#body
+    html.
+      <video id="my-video" class="video" preload="auto" autoplay="true" loop="loop" muted volume="0">
+        <source src="media/AdBucksBackground.mp4" type="video/mp4">
+      </video>
     #background
       #logo
-        | MyWeb
+        html.
+          <span style="color: rgb(91,192,222);">Ad</span>miral
       #content
         #title
           | Monetize your browsing.
@@ -27,6 +32,23 @@ html(lang='en')
             button#login.btn.btn-info.btn-lg.btn-block(type="button") Login
           a(href="/signup")
             button#signup.btn.btn-default.btn-lg.btn-block(type="button") Sign up
+    html.
+      <script>
+        (function() {
+          /**
+           * Video element
+           * @type {HTMLElement}
+           */
+          var video = document.getElementById("my-video");
+
+          /**
+           * Check if video can play, and play it
+           */
+          video.addEventListener( "canplay", function() {
+            video.play();
+          });
+        })();
+      </script>
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/util.js")

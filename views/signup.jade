@@ -1,14 +1,14 @@
 doctype html
 html(lang='en')
   head
-    title Log in to MyWeb
+    title Sign Up for Admiral
     link(rel="stylesheet", href="/stylesheets/bootstrap.css", type="text/css", media="screen")
     link(rel="stylesheet", href="/stylesheets/signup.css", type="text/css", media="screen")
 
   body
     #app
       #nav
-        a(href='/') MyWeb
+        a(href='/') Admiral
       #background
         #title
           | Sign Up
@@ -16,57 +16,54 @@ html(lang='en')
           button#userbtn.btn.btn-primary(type='button' @click='userType = "user"' v-bind:class="{'active': userType=='user' }") User
           button#sitebtn.btn.btn-primary(type='button' @click='userType = "site"' v-bind:class="{'active': userType=='site' }") Site Admin
           button#adbtn.btn.btn-primary(type='button' @click='userType = "advertiser"' v-bind:class="{'active': userType=='advertiser' }") Advertiser
-        form(v-if='userType == "user"')
+        form(v-if='userType == "user"', name="user_signup", method="post", action="/user_signup")
           #forms
             .form-group
               label(for="username", style="color: white;") Email (This will be your username)
-              input.form-control(type='text', placeholder="Email")
+              input.form-control(type='text', placeholder="Email", name="user_email")
             .form-group
               label(for="password", style="color: white;") Password
-              input.form-control(type='password')
+              input.form-control(type='password', name="user_pass")
           #buttons
             #user.signup
-              a(href="/")
-                button.btn.btn-info.btn-lg.btn-block(type="Sign Up") Sign Up
+              button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
             #user.cancel
               a(href="/")
                 button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
-        form(v-if='userType == "site"')
+        form(v-if='userType == "site"', name="site_signup", method="post", action="/site_signup")
           #forms
             .form-group
               label(for="username", style="color: white;") Email (This will be your username)
-              input.form-control(type='text', placeholder="Email")
+              input.form-control(type='text', placeholder="Email", name="site_email")
             .form-group
               label(for="password", style="color: white;") Password
-              input.form-control(type='password')
+              input.form-control(type='password', name="site_pass")
             .form-group
               label(for="text", style="color: white;") Site Address
-              input.form-control(type='text', placeholder="Site Address")
+              input.form-control(type='text', placeholder="Site Address", name="site_address")
             .form-group
               label(for="text", style="color: white;") Billing Code
-              input.form-control(type='text', placeholder="Billing Code")
+              input.form-control(type='text', placeholder="Billing Code", name="site_billing")
           #buttons
             #site.signup
-              a(href="/")
-                button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
+              button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
             #site.cancel
               a(href="/")
                 button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
-        form(v-if='userType == "advertiser"')
+        form(v-if='userType == "advertiser"', name="ad_signup", method="post", action="/ad_signup")
           #forms
             .form-group
               label(for="username", style="color: white;") Email (This will be your username)
-              input.form-control(type='text', placeholder="Email")
+              input.form-control(type='text', placeholder="Email", name="ad_email")
             .form-group
               label(for="password", style="color: white;") Password
-              input.form-control(type='password')
+              input.form-control(type='password', name="ad_pass")
             .form-group
               label(for="text", style="color: white;") Billing Code
-              input.form-control(type='text', placeholder="Billing Code")
+              input.form-control(type='text', placeholder="Billing Code", name="ad_billing")
           #buttons
             #ad.signup
-              a(href="/")
-                button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
+              button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
             #ad.cancel
               a(href="/")
                 button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel

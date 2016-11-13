@@ -9,7 +9,8 @@ var apikey = "1d15e48ca9e6b3db7a8dc1d94b284190"; //Nessie
 /* Mongo Shit */
 
 var database = {
-  createAccount: function(username, password) {
+  createAccount: function(username, password, callback) {
+    var success = false;
     Account.where({user:username}).findOne(function (err, myDocument){
       if (!myDocument) {
         var newAccount = new Account({
@@ -22,11 +23,15 @@ var database = {
             console.log('Error creating account!');
           } else {
             console.log('Successfully created account');
+            success = true;
           }
         });
+        console.log("finished account save");
       } else {
         console.log('Cannot create new account: Username already exists!');
       }
+      console.log("About to call back...");
+      callback(success);
     });
   },
 
