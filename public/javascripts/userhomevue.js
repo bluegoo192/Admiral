@@ -62,7 +62,7 @@ var app = new Vue({
       this.view = 'adstream';
       this.ads = [];
       for (var i=0; i<this.adsPerPage; i++) {
-        this.$http.get('http://localhost:3000/getAd').then((response) => {
+        this.$http.get('/getAd').then((response) => {
           console.log(JSON.stringify(response.body));
           this.ads.push({
             size: {
@@ -82,7 +82,7 @@ var app = new Vue({
     updateBalance: function () {
       this.showExpanded = false;
       this.showExpandedProfile = false;
-      this.$http.post('http://localhost:3000/getUser', { user: userStorage.fetch() }).then((response) => {
+      this.$http.post('/getUser', { user: userStorage.fetch() }).then((response) => {
         this.balance = response.body.bucks;
         console.log(this.balance);
       }, (response) => {
@@ -98,7 +98,7 @@ var app = new Vue({
       this.view = 'gallery';
     },
     getAds: function() {
-      this.$http.post('http://localhost:3000/getUserAds', { user: userStorage.fetch() }).then((response) => {
+      this.$http.post('/getUserAds', { user: userStorage.fetch() }).then((response) => {
         this.myads = response.body;
       }, (response) => {
         console.log(response);

@@ -34,8 +34,8 @@ var ad = new Vue({
     }
   },
   created: function () {
-    this.$http.post('http://localhost:3000/getUser', {user: this.users}).then((response) => {
-      this.$http.post('http://localhost:3000/deductUser', {user: this.users}).then((response2) => {
+    this.$http.post('/getUser', {user: this.users}).then((response) => {
+      this.$http.post('/deductUser', {user: this.users}).then((response2) => {
         if (response.body.bucks < 1 || response.body.show_by_default) {
           this.add();
         }
@@ -47,7 +47,7 @@ var ad = new Vue({
   methods: {
     get: function () {
       // GET /someUrl
-      this.$http.post('http://localhost:3000/getUser', {user: this.users}).then((response) => {
+      this.$http.post('/getUser', {user: this.users}).then((response) => {
         console.log(response.body.bucks);
       }, (response) => {
       });
@@ -55,8 +55,8 @@ var ad = new Vue({
     add: function () {
       if (!this.seen) {
         this.seen = true;
-        this.$http.post('http://localhost:3000/getAllAds', {user: this.users}).then((response) => {
-          this.$http.post('http://localhost:3000/addUser', {user: this.users}).then((response2) => {
+        this.$http.post('/getAllAds', {user: this.users}).then((response) => {
+          this.$http.post('/addUser', {user: this.users}).then((response2) => {
             var index = Math.floor(Math.random() * (response.body.length));
             this.ad = response.body[index];
             this.$el.style.background = "url(" + this.ad.ad_url + ") no-repeat center center";
