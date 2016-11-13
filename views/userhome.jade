@@ -43,6 +43,7 @@ html(lang='en')
             input.cta(type='submit' value='Submit')
       .flexcontainer(v-if='view == "gallery"')
         button.margined.cta(@click='view = "home"') Back
+        h1 My Ads
         button.margined.cta(@click='view = "adad"') New
       .adgallery.center(v-if='view == "gallery"')
         .flexcontainer

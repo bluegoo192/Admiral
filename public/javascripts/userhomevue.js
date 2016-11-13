@@ -31,8 +31,8 @@ Vue.component('adbox', {
 Vue.component('galleryad', {
   props: ['ad'],
   template: '<div class="galleryad">\
-              <img :src="ad.src" />\
-              <p>{{ ad.title }}</p>\
+              <img :src="ad.ad_url" />\
+              <p>{{ ad.ad_name }}</p>\
             </div>'
 })
 
@@ -99,7 +99,7 @@ var app = new Vue({
     },
     getAds: function() {
       this.$http.post('http://localhost:3000/getUserAds', { user: userStorage.fetch() }).then((response) => {
-        myads = response.body;
+        this.myads = response.body;
       }, (response) => {
         console.log(response);
       });
