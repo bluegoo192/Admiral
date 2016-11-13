@@ -14,20 +14,27 @@ html(lang='en')
     #app
       nav
         .navcontainer
-          a(href='#' @click='showExpanded = !showExpanded') {{ balance }} available
+          a(href='#' @click='showExpanded = !showExpanded') {{ balance }} credits
           a(href='#' @click='showExpandedProfile = !showExpandedProfile') {{ username }}
             span.expand.glyphicon.glyphicon-cog(style='color:white;', aria-hidden='true')
         #tabbar
-          button.tab-button(type='button' @click='viewAdStream') Ad Stream
-          button.tab-button(type='button' @click='view="adad"') Create Ad
-          button.tab-button(type='button' @click='view="embed"') Embed Ad
-          button.tab-button(type='button' @click='view="gallery"') My Ads
+          a.tab-button(:class="{ active: inAdStream }" @click='viewAdStream') Ad Stream
+          a.tab-button(:class="{ active: inAdAd }" @click='view="adad"') Create Ad
+          a.tab-button(:class="{ active: inEmbed }" @click='view="embed"') Embed Ad
+          a.tab-button(:class="{ active: inGallery }" @click='view="gallery"') My Ads
 
       transition(name='drop')
         .adstreamcontainer(v-if='view == "adstream"')
+          button.cta#more(type='button' @click='viewAdStream') More
+          .divider
           #adstream
             adbox(v-for='ad in ads', :ad='ad')
-          button.cta(type='button' @click='viewAdStream' id='more') More
+          .divider
+          .divider
+          .divider
+          .divider
+          .divider
+          .divider
       transition(name='drop')
         .uploadcontainer(v-if='view == "adad"')
           .center
