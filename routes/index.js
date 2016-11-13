@@ -18,11 +18,12 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login_attempt', function(req, res, next) {
+  console.log('hi');
   database.accountExists(req.body.username, req.body.password, function(equals) {
   	if (equals) {
   		res.redirect('/userhome');
   	} else {
-  		
+
   		res.redirect('/login');
   	}
   });
