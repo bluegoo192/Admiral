@@ -1,4 +1,24 @@
-include ad.html
+head
+  style(type='text/css').
+    body{
+    margin: 0px;
+    border: 0px;
+    }
+    #container{
+    overflow:hidden;
+    margin:0px;
+    border:0px;
+    }
+    .bgimg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:0px;
+    border:0px;
+    background: url() no-repeat center center;
+    }
+body#container
+  #ad.bgimg(:style="styleObject" @click='add') Click to show ad
 
 script(src="/javascripts/vue.js")
 script(src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js")
