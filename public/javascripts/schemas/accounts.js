@@ -4,7 +4,8 @@ var Account = mongoose.model('Accounts', {user : String,
   pass : String,
   adbucks : Number,
   show_by_default: Boolean,
-  site_address: String
+  account_id: String,
+  customer_id: String
 });
 
 module.exports = Account;

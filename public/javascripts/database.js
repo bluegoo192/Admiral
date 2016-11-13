@@ -13,20 +13,64 @@ var database = {
     var success = false;
     Account.where({user:username}).findOne(function (err, myDocument){
       if (!myDocument) {
-        var newAccount = new Account({
-            user: username,
-            pass: password,
-            adbucks: 100,
-            show_by_default: false});
-        newAccount.save(function (err) {
-          if (err) {
-            console.log('Error creating account!');
-          } else {
-            console.log('Successfully created account');
-            success = true;
-            callback(success);
+        var options = {
+          url: 'http://api.reimaginebanking.com/customers?key=' + apikey,
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          },
+          body: JSON.stringify({
+              "first_name": username,
+              "last_name": "null",
+              "address": {
+                "street_number": "null",
+                "street_name": "null",
+                "city": "null",
+                "state": "ca",
+                "zip": "94306"
+              }
+            })
+        };
+
+        request.post(options, function(error, response, body) {
+          if (!error) {
+            var options2 = {
+              url: 'http://api.reimaginebanking.com/customers/' + JSON.parse(body).objectCreated._id + '/accounts?key=' + apikey,
+              headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+              },
+              body: JSON.stringify({
+                "type": "Checking",
+                "nickname": "Admiral Account",
+                "rewards": 0,
+                "balance": 0
+              })
+            };
+
+            request.post(options2, function(error2, response, body2) {
+              if (!error2) {
+                var newAccount = new Account({
+                    user: username,
+                    pass: password,
+                    adbucks: 100,
+                    show_by_default: false,
+                    account_id: JSON.parse(body2).objectCreated._id,
+                    customer_id: JSON.parse(body).objectCreated._id
+                  });
+                newAccount.save(function (err) {
+                  if (err) {
+                    console.log('Error creating account!');
+                  } else {
+                    console.log('Successfully created account');
+                    success = true;
+                    callback(success);
+                  }
+                });
+              }
+            })
           }
-        });
+        })
       } else {
         console.log('Cannot create new account: Username already exists!');
       }
@@ -52,12 +96,12 @@ var database = {
         var dollars = myDocument.adbucks / 1000.0;
         var options = {
           url: 'http://api.reimaginebanking.com/accounts/' +  myDocument.account_id + '/deposits?key=' + apikey,
-          body: {
+          body: JSON.stringify({
             "medium": "balance",
             "transaction_date": "2016-11-13",
             "amount": dollars,
             "description": "string"
-          },
+          }),
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json"
@@ -66,7 +110,29 @@ var database = {
 
         request(options, function(error, response, body) {
           if (!error) {
+            console.log("Deposited successfully");
+            callback(true);
+          }
+        })
+      }
+    })
+  },
 
+  showDollars: function(username, callback) {
+    Account.where({user:username}).findOne(function (err, myDocument) {
+      if (myDocument) {
+        var options = {
+          url: 'http://api.reimaginebanking.com/accounts/' +  myDocument.account_id + '?key=' + apikey,
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+          }
+        };
+
+        request(options, function(error, response, body) {
+          if (!error) {
+            console.log(body);
+            callback(JSON.parse(body));
           }
         })
       }
