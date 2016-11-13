@@ -70,17 +70,12 @@ button#more {
   z-index: 0;
 }
 
-.ad {
+#adstream iframe {
   margin: 5px;
-  padding: 0;
-  border: 1px solid #D1D1D1;
   background-color: #FCFCFC;
-  border-radius: 2px;
-} .ad iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
+  border: 1px solid #C2C2C2;
 }
+
 #expandedBalance {
   position: absolute;
   top: 100%;
@@ -132,11 +127,13 @@ form {
   padding: 4px 8px;
   border: 1px solid #E0E0E0;
   border-radius: 2px;
+  transition: border-color 0.2s;
 } .codecontainer:hover {
   border-color: #A8AFB5;
 } .codecontainer p {
   padding: 0;
   margin: 0;
+  color: #66777A;
 }
 
 
@@ -154,22 +151,25 @@ nav a:hover {
   display: flex;
   justify-content: space-around;
   color: #4DBED6;
-  box-shadow: 0px 4px 4px #D1D1D1;
+  box-shadow: 0px 4px 4px rgba(1, 19, 23, 0.2);
 } #tabbar .tab-button {
   border: none;
   background: none;
   padding: 15px;
-  border-bottom: 3px solid #FCFCFC;
+  border-top: 5px solid #4DBED6;
   flex-grow: 1;
   text-align: center;
   transition: background-color 0.2s, border-color 0.2s, color 0.2s;
   cursor: grab;
 } #tabbar .tab-button:hover {
   background-color: #4DBED6;
-  border-color: #4DBED6;
+  border-color: inherit;
   color: #FCFCFC;
+  text-decoration: none;
 } #tabbar a.tab-button.active {
-  border-color: #4DBED6;
+  border-color: #FCFCFC;
+} #tabbar a.tab-button.active:hover {
+  border-color: inherit;
 }
 
 .cta {
@@ -240,7 +240,7 @@ button.deleteAd {
   position: relative;
   transition: box-shadow 0.2s;
 } .galleryad a {
-    overflow: hidden;
+  overflow: hidden;
 }.galleryad img {
   min-width: 100%;
   height: 20em;
@@ -252,4 +252,7 @@ button.deleteAd {
 }
 .galleryad:hover {
   box-shadow: 0px 0px 10px #4F6066;
+}
+.embedcontainer {
+  width: 60%;
 }

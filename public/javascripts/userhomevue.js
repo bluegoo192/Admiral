@@ -1,6 +1,6 @@
 Vue.component('adbox', {
   props: ['ad'],
-  template: '<iframe src="http://localhost:3000/ad?width=400px&height=400px" style="height:400px;width:400px;border:1px solid black;"></iframe>'
+  template: '<iframe src="http://localhost:3000/ad?width=400px&height=400px" style="height:400px;width:400px;"></iframe>'
 })
 
 Vue.component('galleryad', {
@@ -48,6 +48,7 @@ var app = new Vue({
   methods: {
     viewAdStream: function () {
       this.updateBalance();
+      document.addEventListener('click', this.updateBalance());
       this.view = 'adstream';
       this.ads = [];
       for (var i=0; i<this.adsPerPage; i++) {
