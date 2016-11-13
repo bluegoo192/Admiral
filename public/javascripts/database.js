@@ -31,6 +31,19 @@ var database = {
     });
   },
 
+  accountExists: function(username, password, callback) {
+    var equals = false;
+    Account.where({user:username, pass:password}).findOne(function (err, myDocument){
+      if (myDocument) {
+        console.log("Account exists!!!");
+        equals = true;
+      } else {
+        console.log("Account DOES NOT exists.");
+      }
+      callback(equals);
+    });
+  },
+
   showAdBucks: function (username, callback) {
     Account.where({user: username}).findOne(function (err, myDocument) {
       callback(myDocument);

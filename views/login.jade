@@ -12,7 +12,7 @@ html(lang='en')
       #background
         #title
           | Log In
-        form(name="login", method="post", action="/login")
+        form(name="login_attempt", method="post", action="/login_attempt")
           #forms
             .form-group
               label(for="username", style="color: white;") Username
@@ -20,16 +20,19 @@ html(lang='en')
             .form-group
               label(for="password", style="color: white;") Password
               input#password.form-control(type="password", placeholder="Password", name="password")
+          #invalid(v-if='invalid')
+            | Invalid username or password
+
           #buttons
             #login
-              a(href="/")
-                button.btn.btn-info.btn-lg.btn-block(type="submit") Login
+              button.btn.btn-info.btn-lg.btn-block(type="submit") Login
             #cancel
               a(href="/")
                 button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/gatevue.js")
+
 
 
 
