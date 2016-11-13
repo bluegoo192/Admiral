@@ -17,6 +17,18 @@ router.get('/login', function(req, res, next) {
   res.render('login');
 });
 
+router.post('/login_attempt', function(req, res, next) {
+  console.log('hi');
+  database.accountExists(req.body.username, req.body.password, function(equals) {
+  	if (equals) {
+  		res.redirect('/userhome');
+  	} else {
+
+  		res.redirect('/login');
+  	}
+  });
+});
+
 router.get('/signup', function(req, res, next) {
   res.render('signup');
 });

@@ -61,3 +61,7 @@ button {
   margin-top: 1vh;
   text-decoration: none;
 }
+
+.btn:focus,.btn:active {
+   outline: none !important;
+}
