@@ -41,7 +41,11 @@ html(lang='en')
             input(type='text' name='url' placeholder='image url')
             input(type='text' name='src' placeholder='ad link')
             input(type='hidden' name='username' v-bind:value='username')
-            input(type='submit' value='Submit')
+            input.cta(type='submit' value='Submit')
+      .flexcontainer(v-if='view == "gallery"')
+        button.margined.cta(@click='view = "home"') Back
+        h1 My Ads
+        button.margined.cta(@click='view = "adad"') New
       .adgallery.center(v-if='view == "gallery"')
         .flexcontainer
           galleryad(v-for='ad in myads', :ad='ad')

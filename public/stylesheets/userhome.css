@@ -121,6 +121,10 @@ form {
   margin-top: 30px;
 }
 
+.margined {
+  margin: 10px;
+}
+
 .flexcontainer {
   display: flex;
   width: 100%;
@@ -129,14 +133,19 @@ form {
 }
 .galleryad {
   width: 15em;
-  display: block;
-  padding: 10px;
-  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 5px;
+  border: 1px solid #C9CFD1;
+  margin-bottom: 25px;
 } .galleryad img {
   width: 100%;
+  border: 3px solid #C9CFD1;
 } .galleryad p {
   text-align: center;
 }
 .galleryad:hover {
-  box-shadow: 0px 0px 8px #39484D;
+  box-shadow: 0px 0px 10px #4F6066;
 }
