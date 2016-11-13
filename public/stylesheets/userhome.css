@@ -237,6 +237,7 @@ button.deleteAd {
   padding-bottom: 14px;
   box-shadow: 0 4px 8px #D1D1D1;
   position: relative;
+  transition: box-shadow 0.2s;
 } .galleryad a {
     overflow: hidden;
 }.galleryad img {
