@@ -53,7 +53,7 @@ router.post('/site_signup', function(req, res, next) {
   database.createAccount(req.body.site_email, req.body.site_pass, function(success) {
   	if (success) {
   		console.log("Success!");
-  		res.redirect('/userhome');
+  		res.redirect('/login');
   	} else {
   		res.redirect('/signup');
   	}
@@ -64,7 +64,7 @@ router.post('/ad_signup', function(req, res, next) {
   database.createAccount(req.body.ad_email, req.body.ad_pass, function(success) {
   	if (success) {
   		console.log("Success!");
-  		res.redirect('/userhome');
+  		res.redirect('/login');
   	} else {
   		res.redirect('/signup');
   	}
