@@ -21,7 +21,7 @@ var app = new Vue({
     viewingAdStream: false,
     ads: [],
     myads: [],
-    adsPerPage: 5,
+    adsPerPage: 6,
     showExpanded: false,
     showExpandedProfile: false,
     uploading: false,
