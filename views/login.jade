@@ -14,7 +14,7 @@ html(lang='en')
           #forms
             .form-group
               label(for="username", style="color: white;") Username
-              input#username.form-control(type="username", placeholder="Username", name="username")
+              input#username.form-control(v-model="username", type="username", placeholder="Username", name="username")
             .form-group
               label(for="password", style="color: white;") Password
               input#password.form-control(type="password", placeholder="Password", name="password")
@@ -30,7 +30,3 @@ html(lang='en')
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/gatevue.js")
-
-
-
-

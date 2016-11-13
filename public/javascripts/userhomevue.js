@@ -1,26 +1,3 @@
-var STORAGE_KEY = 'myweb-dev'
-
-var userStorage = {
-  fetch: function () {
-    var users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    users.forEach(function (user, index) {
-      user.id = index;
-    });
-    userStorage.uid = users.length;
-    return users;
-  },
-  save: function (users) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-    userStorage.uid = users.length;
-  }
-}
-
-var filters = {
-  all: function(notes) {
-    return notes;
-  }
-}
-
 Vue.component('adbox', {
   props: ['ad'],
   template: '<div class="ad" :style="ad.size">\
@@ -30,10 +7,11 @@ Vue.component('adbox', {
 
 Vue.component('galleryad', {
   props: ['ad'],
-  template: '<a :href="ad.ad_url" target="_blank"><div class="galleryad">\
-              <img :src="ad.ad_url" />\
+  template: '<div class="galleryad">\
+              <a :href="ad.ad_url" target="_blank"><img class="center" :src="ad.ad_url" /></a>\
               <p>{{ ad.ad_name }}</p>\
-            </div></a>'
+              <button class="deleteAd" @click="deleteAd(ad)">X</button>\
+            </div>'
 })
 
 var app = new Vue({
@@ -53,6 +31,11 @@ var app = new Vue({
     view: 'home'
   },
   created: function () {
+    if (user) {
+      userStorage.save([user]);
+    }
+    this.users = userStorage.fetch();
+    this.username = userStorage.fetch()[0];
     this.updateBalance();
     this.getAds();
   },
@@ -63,7 +46,6 @@ var app = new Vue({
       this.ads = [];
       for (var i=0; i<this.adsPerPage; i++) {
         this.$http.get('/getAd').then((response) => {
-          console.log(JSON.stringify(response.body));
           this.ads.push({
             size: {
               width: response.body.width,
@@ -84,7 +66,6 @@ var app = new Vue({
       this.showExpandedProfile = false;
       this.$http.post('/getUser', { user: userStorage.fetch() }).then((response) => {
         this.balance = response.body.bucks;
-        console.log(this.balance);
       }, (response) => {
         console.log(response);
       });
@@ -110,6 +91,12 @@ var app = new Vue({
       range.selectNode(event.target);
       window.getSelection().addRange(range);
       document.execCommand('copy');
+    },
+    deleteAd: function(ad) {
+      this.$http.post('/deleteAd', { username: this.username, name: ad.ad_name, url: ad.ad_url, src: ad.ad_src }).then((response) => {
+      }, (response) => {
+        console.log(response);
+      });
     }
   }
 })

@@ -1,26 +1,3 @@
-var STORAGE_KEY = 'myweb-dev'
-
-var userStorage = {
-  fetch: function () {
-    var users = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-    users.forEach(function (user, index) {
-      user.id = index;
-    });
-    userStorage.uid = users.length;
-    return users;
-  },
-  save: function (users) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-    userStorage.uid = users.length;
-  }
-}
-
-var filters = {
-  all: function(notes) {
-    return notes;
-  }
-}
-
 var ad = new Vue({
   el: '#ad',
   data: {
@@ -29,11 +6,17 @@ var ad = new Vue({
     seen: false,
     ad: [],
     styleObject: {
-      width: "600px",
-      height: "400px"
+      width: width,
+      height: height
     }
   },
   created: function () {
+    console.log(width + ", " + height);
+    this.$http.post('/getAllAds', {user: this.users}).then((response) => {
+      var index = Math.floor(Math.random() * (response.body.length));
+      this.ad = response.body[index];
+    }, (response) => {
+    });
     this.$http.post('/getUser', {user: this.users}).then((response) => {
       this.$http.post('/deductUser', {user: this.users}).then((response2) => {
         if (response.body.bucks < 1 || response.body.show_by_default) {
@@ -55,16 +38,11 @@ var ad = new Vue({
     add: function () {
       if (!this.seen) {
         this.seen = true;
-        this.$http.post('/getAllAds', {user: this.users}).then((response) => {
           this.$http.post('/addUser', {user: this.users}).then((response2) => {
-            var index = Math.floor(Math.random() * (response.body.length));
-            this.ad = response.body[index];
             this.$el.style.background = "url(" + this.ad.ad_url + ") no-repeat center center";
             this.$el.innerHTML = "";
           }, (response) => {
           });
-        }, (response) => {
-        });
       } else {
         window.open(this.ad.ad_src);
       }
