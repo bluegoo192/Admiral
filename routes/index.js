@@ -18,12 +18,10 @@ router.get('/login', function(req, res, next) {
 });
 
 router.post('/login_attempt', function(req, res, next) {
-  console.log('hi');
   database.accountExists(req.body.username, req.body.password, function(equals) {
   	if (equals) {
   		res.redirect('/userhome');
   	} else {
-
   		res.redirect('/login');
   	}
   });
@@ -31,6 +29,40 @@ router.post('/login_attempt', function(req, res, next) {
 
 router.get('/signup', function(req, res, next) {
   res.render('signup');
+});
+
+router.post('/user_signup', function(req, res, next) {
+  console.log("I'm in the post...");
+  database.createAccount(req.body.user_email, req.body.user_pass, function(success) {
+  	if (success) {
+  		console.log("Success!");
+  		res.redirect('/userhome');
+  	} else {
+  		res.redirect('/signup');
+  	}
+  });
+});
+
+router.post('/site_signup', function(req, res, next) {
+  database.createAccount(req.body.site_email, req.body.site_pass, function(success) {
+  	if (success) {
+  		console.log("Success!");
+  		res.redirect('/userhome');
+  	} else {
+  		res.redirect('/signup');
+  	}
+  });
+});
+
+router.post('/ad_signup', function(req, res, next) {
+  database.createAccount(req.body.ad_email, req.body.ad_pass, function(success) {
+  	if (success) {
+  		console.log("Success!");
+  		res.redirect('/userhome');
+  	} else {
+  		res.redirect('/signup');
+  	}
+  });
 });
 
 router.get('/userhome', function(req, res, next) {
