@@ -3,6 +3,7 @@ html(lang='en')
   head
     title MyWeb
     link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
+    link(href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet")
     link(href='/stylesheets/userhome.css', rel='stylesheet')
 
   body
@@ -23,7 +24,7 @@ html(lang='en')
           button.cta(type='button' @click='view = "adad"') Submit an Ad
           p Help people find your business
         .hv-center
-          button.cta(type='button') Embed an ad
+          button.cta(type='button' @click='view = "embed"') Embed an ad
           p Passive income is a click away
       .adstreamcontainer(v-if='view == "adstream"')
         button.cta(type='button' @click='exitAdStream' id='exit') Exit
@@ -49,6 +50,13 @@ html(lang='en')
       .adgallery.center(v-if='view == "gallery"')
         .flexcontainer
           galleryad(v-for='ad in myads', :ad='ad')
+      button.cta(v-if='view=="embed"' type='button' @click='view = "home"' id='exit') Exit
+      .embedcontainer.center(v-if='view == "embed"')
+        .divider
+        h1 How to use:
+        p Simply copy and paste the following code into your website
+        .codecontainer(@click="autoselect")
+          p samplecode
 
     script(src="/javascripts/vue.js")
     script(src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js")
