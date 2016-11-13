@@ -21,6 +21,7 @@ var app = new Vue({
     viewingAdStream: false,
     ads: [],
     myads: [],
+    dollars: 0,
     adsPerPage: 6,
     showExpanded: false,
     showExpandedProfile: false,
@@ -42,6 +43,7 @@ var app = new Vue({
     this.username = userStorage.fetch()[0];
     this.updateBalance();
     this.getAds();
+    this.updateDollars();
     this.embed_code = '<iframe src="http://localhost:3000/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>'
 
   },
@@ -68,11 +70,25 @@ var app = new Vue({
       this.updateBalance();
       this.view = 'home';
     },
+    transferMoney: function () {
+      this.$http.post('/transferMoney', { user: userStorage.fetch() }).then((response) => {
+        this.dollars = response.body.dollars.toFixed(3);
+        console.log(this.dollars);
+      }, (response) => {
+      });
+    },
     updateBalance: function () {
       this.showExpanded = false;
       this.showExpandedProfile = false;
       this.$http.post('/getUser', { user: userStorage.fetch() }).then((response) => {
         this.balance = response.body.bucks;
+      }, (response) => {
+        console.log(response);
+      });
+    },
+    updateDollars: function () {
+      this.$http.post('/dollars', { user: userStorage.fetch() }).then((response) => {
+        this.dollars = response.body.dollars.toFixed(3);
       }, (response) => {
         console.log(response);
       });

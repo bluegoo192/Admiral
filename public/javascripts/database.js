@@ -91,7 +91,7 @@ var database = {
   },
 
   transferAdBucks: function (username, callback) {
-    Account.where({user:username}).findOne(function (err, myDocument){
+    Account.where({user:username}).findOneAndUpdate({'adbucks': 0}, function (err, myDocument){
       if (myDocument) {
         var dollars = myDocument.adbucks / 1000.0;
         var options = {
@@ -108,10 +108,10 @@ var database = {
           }
         };
 
-        request(options, function(error, response, body) {
+        request.post(options, function(error, response, body) {
           if (!error) {
             console.log("Deposited successfully");
-            callback(true);
+            callback(JSON.parse(body).objectCreated.amount);
           }
         })
       }
@@ -131,8 +131,7 @@ var database = {
 
         request(options, function(error, response, body) {
           if (!error) {
-            console.log(body);
-            callback(JSON.parse(body));
+            callback(JSON.parse(body).balance);
           }
         })
       }
