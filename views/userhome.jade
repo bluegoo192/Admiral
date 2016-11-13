@@ -4,6 +4,8 @@ html(lang='en')
     title MyWeb
     link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet")
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+    link(rel="stylesheet",href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css")
     link(href='/stylesheets/userhome.css', rel='stylesheet')
 
   body
@@ -11,7 +13,9 @@ html(lang='en')
       nav
         .navcontainer
           a(href='#' @click='showExpanded = !showExpanded') {{ balance }} available
-          a(href='#' @click='showExpandedProfile = !showExpandedProfile') {{ username }} <span class='expand'>v</span>
+          a(href='#' @click='showExpandedProfile = !showExpandedProfile') {{ username }}
+            span.expand.glyphicon.glyphicon-cog(style='color:white;', aria-hidden='true')
+
         #expandedBalance(v-if='showExpanded')
           p hi
         #expandedProfile(v-if='showExpandedProfile')
