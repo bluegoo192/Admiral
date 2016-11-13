@@ -1,6 +1,6 @@
 Vue.component('adbox', {
   props: ['ad'],
-  template: '<iframe src="http://localhost:3000/ad?width=400px&height=400px&show=true" style="height:400px;width:400px;"></iframe>'
+  template: '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&show=true" style="height:400px;width:400px;"></iframe>'
 })
 
 Vue.component('galleryad', {
@@ -34,7 +34,7 @@ var app = new Vue({
     showExpanded: false,
     showExpandedProfile: false,
     uploading: false,
-    embed_code: '<iframe src="http://localhost:3000/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>',
+    embed_code: '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>',
     view: 'gallery'
   },
   computed: {
@@ -52,7 +52,7 @@ var app = new Vue({
     this.updateBalance();
     this.getAds();
     this.updateDollars();
-    this.embed_code = '<iframe src="http://localhost:3000/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>'
+    this.embed_code = '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>'
 
   },
   methods: {
