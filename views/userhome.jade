@@ -23,37 +23,41 @@ html(lang='en')
           button.tab-button(type='button' @click='view="embed"') Embed Ad
           button.tab-button(type='button' @click='view="gallery"') My Ads
 
-      .adstreamcontainer.slidein(v-if='view == "adstream"')
-        #adstream
-          adbox(v-for='ad in ads', :ad='ad')
-        button.cta(type='button' @click='viewAdStream' id='more') More
-      .uploadcontainer.slidein(v-if='view == "adad"')
-        .center
+      transition(name='drop')
+        .adstreamcontainer(v-if='view == "adstream"')
+          #adstream
+            adbox(v-for='ad in ads', :ad='ad')
+          button.cta(type='button' @click='viewAdStream' id='more') More
+      transition(name='drop')
+        .uploadcontainer(v-if='view == "adad"')
+          .center
+            .divider
+            .divider
+            h2 Create an ad
+            p.center Whenever it's displayed, you'll earn adbucks automatically
+            form(action="/createAd" method="post")
+              input(type='text' name='name' placeholder='name')
+              input(type='text' name='url' placeholder='image url')
+              input(type='text' name='src' placeholder='ad link')
+              input(type='hidden' name='username' v-bind:value='username')
+              input.cta(type='submit' value='Submit')
+      transition(name='drop')
+        .gallery(v-if='view == "gallery"')
+          button#new(type='button' @click='view = "adad"') +
+          .divider
+          .adgallery.center
+            .flexcontainer
+              galleryad(v-for='ad in myads', :ad='ad')
+      transition(name='drop')
+        .embedcontainer.center(v-if='view == "embed"')
           .divider
           .divider
-          h2 Create an ad
-          p.center Whenever it's displayed, you'll earn adbucks automatically
-          form(action="/createAd" method="post")
-            input(type='text' name='name' placeholder='name')
-            input(type='text' name='url' placeholder='image url')
-            input(type='text' name='src' placeholder='ad link')
-            input(type='hidden' name='username' v-bind:value='username')
-            input.cta(type='submit' value='Submit')
-      .gallery.slidein(v-if='view == "gallery"')
-        button#new(type='button' @click='view = "adad"') +
-        .divider
-        .adgallery.center
-          .flexcontainer
-            galleryad(v-for='ad in myads', :ad='ad')
-      .embedcontainer.center.slidein(v-if='view == "embed"')
-        .divider
-        .divider
-        .divider
-        h1 How to use:
-        p Simply copy and paste the following code into your website
-        .divider
-        .codecontainer(@click="autoselect")
-          p samplecode
+          .divider
+          h1 How to use:
+          p Simply copy and paste the following code into your website
+          .divider
+          .codecontainer(@click="autoselect")
+            p samplecode
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/util.js")

@@ -140,7 +140,12 @@ form {
 
 
 
-
+nav a:hover {
+  text-decoration: underline;
+  color: #FCFCFC;
+} a:active {
+  color: inherit;
+}
 #tabbar {
   background-color: #FCFCFC;
   display: flex;
@@ -205,20 +210,13 @@ button.deleteAd {
   visibility: visible;
 }
 
-@keyframes slidein {
-  0% {
-    transform: translateY(-100px);
-    opacity: 0.1;
-  }
-  60% {
-    transform: none;
-    opacity: 0.5;
-  }
-  100% {
-    transform: none;
-    opacity: 1;
-  }
+.drop-enter {
+  transform: translateY(-50px);
 }
+.drop-enter, .drop-leave-active {
+  opacity: 0
+}
+
 .galleryad {
   width: 20em;
   display: flex;
