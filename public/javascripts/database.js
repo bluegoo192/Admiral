@@ -24,14 +24,12 @@ var database = {
           } else {
             console.log('Successfully created account');
             success = true;
+            callback(success);
           }
         });
-        console.log("finished account save");
       } else {
         console.log('Cannot create new account: Username already exists!');
       }
-      console.log("About to call back...");
-      callback(success);
     });
   },
 
