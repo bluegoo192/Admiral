@@ -39,13 +39,12 @@ html(lang='en')
             input(type='text' name='src' placeholder='ad link')
             input(type='hidden' name='username' v-bind:value='username')
             input.cta(type='submit' value='Submit')
-      .flexcontainer(v-if='view == "gallery"')
-        button.margined.cta(@click='view = "home"') Back
-        h1 My Ads
-        button.margined.cta(@click='view = "adad"') New
-      .adgallery.center(v-if='view == "gallery"')
-        .flexcontainer
-          galleryad(v-for='ad in myads', :ad='ad')
+      .gallery.slidein(v-if='view == "gallery"')
+        button#new(type='button' @click='view = "adad"') +
+        .divider
+        .adgallery.center
+          .flexcontainer
+            galleryad(v-for='ad in myads', :ad='ad')
       .embedcontainer.center.slidein(v-if='view == "embed"')
         .divider
         .divider

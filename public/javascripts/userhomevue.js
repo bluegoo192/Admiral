@@ -10,7 +10,7 @@ Vue.component('galleryad', {
   template: '<div class="galleryad">\
               <a :href="ad.ad_url" target="_blank"><img :src="ad.ad_url" /></a>\
               <p>{{ ad.ad_name }}</p>\
-              <button @click="deleteAd(ad)">Delete Ad </button>\
+              <button class="deleteAd" @click="deleteAd(ad)">X</button>\
             </div>'
 })
 
