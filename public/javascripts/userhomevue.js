@@ -49,6 +49,7 @@ var app = new Vue({
     showExpanded: false,
     showExpandedProfile: false,
     uploading: false,
+    embed_code: "<iframe src='http://localhost:3000/ad' style='height:400px;width:600px;border:0 none;'></iframe>",
     view: 'home'
   },
   created: function () {
@@ -105,7 +106,6 @@ var app = new Vue({
       });
     },
     autoselect: function (event) {
-      console.log(event.target);
       //event.target.focus()
     }
   }
