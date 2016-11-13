@@ -15,16 +15,19 @@ shead
     display: flex;
     justify-content: center;
     align-items: center;
-    background-size: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
     margin:0px;
     border:0px;
-    background: url() no-repeat center center;
+    background-image: url();
     }
 body#container
   script.
     width="#{query.width}";
     height="#{query.height}";
     host="#{query.host}";
+    show="#{query.show}";
   #ad.bgimg(:style="styleObject" @click='add') Click to reveal ad
 
 script(src="/javascripts/util.js")

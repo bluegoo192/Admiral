@@ -1,6 +1,6 @@
 Vue.component('adbox', {
   props: ['ad'],
-  template: '<iframe src="http://localhost:3000/ad?width=400px&height=400px" style="height:400px;width:400px;"></iframe>'
+  template: '<iframe src="http://localhost:3000/ad?width=400px&height=400px&show=true" style="height:400px;width:400px;"></iframe>'
 })
 
 Vue.component('galleryad', {
@@ -9,7 +9,15 @@ Vue.component('galleryad', {
               <a :href="ad.ad_url" target="_blank"><img class="center" :src="ad.ad_url" /></a>\
               <p>{{ ad.ad_name }}</p>\
               <button class="deleteAd" @click="deleteAd(ad)">X</button>\
-            </div>'
+            </div>',
+  methods: {
+    deleteAd: function(ad) {
+      this.$http.post('/deleteAd', { username: userStorage.fetch()[0], name: ad.ad_name, url: ad.ad_url, src: ad.ad_src }).then((response) => {
+      }, (response) => {
+        console.log(response);
+      });
+    }
+  }
 })
 
 var app = new Vue({
@@ -71,11 +79,13 @@ var app = new Vue({
       this.view = 'home';
     },
     transferMoney: function () {
-      this.$http.post('/transferMoney', { user: userStorage.fetch() }).then((response) => {
-        this.dollars = response.body.dollars.toFixed(3);
-        console.log(this.dollars);
-      }, (response) => {
-      });
+      if (this.balance >= 10) {
+        this.$http.post('/transferMoney', { user: userStorage.fetch() }).then((response) => {
+          this.dollars = response.body.dollars.toFixed(3);
+          console.log(this.dollars);
+        }, (response) => {
+        });
+      }
     },
     updateBalance: function () {
       this.showExpanded = false;
@@ -114,12 +124,6 @@ var app = new Vue({
       range.selectNode(event.target);
       window.getSelection().addRange(range);
       document.execCommand('copy');
-    },
-    deleteAd: function(ad) {
-      this.$http.post('/deleteAd', { username: this.username, name: ad.ad_name, url: ad.ad_url, src: ad.ad_src }).then((response) => {
-      }, (response) => {
-        console.log(response);
-      });
     },
     getActive: function (link) {
       return true;

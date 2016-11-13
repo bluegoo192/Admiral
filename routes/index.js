@@ -121,7 +121,7 @@ router.post('/addUser1', function(req, res, next) {
 });
 
 router.post('/deductUser2', function(req, res, next) {
-  database.subAdBuck2(req.body.user[0], 2, function(bucks) {
+  database.subAdBuck(req.body.user[0], 2, function(bucks) {
     res.send({bucks: bucks});
   });
 });
