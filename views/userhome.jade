@@ -7,6 +7,8 @@ html(lang='en')
     link(href='/stylesheets/userhome.css', rel='stylesheet')
 
   body
+    script.
+      user="#{user}";
     #app
       nav
         .navcontainer
@@ -59,5 +61,6 @@ html(lang='en')
           p {{embed_code}}
 
     script(src="/javascripts/vue.js")
+    script(src="/javascripts/util.js")
     script(src="https://cdn.jsdelivr.net/vue.resource/1.0.3/vue-resource.min.js")
     script(src="/javascripts/userhomevue.js")
