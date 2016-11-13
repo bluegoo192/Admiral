@@ -42,7 +42,7 @@ router.post('/user_signup', function(req, res, next) {
   database.createAccount(req.body.user_email, req.body.user_pass, function(success) {
   	if (success) {
   		console.log("Success!");
-  		res.redirect('/userhome');
+  		res.redirect('/login');
   	} else {
   		res.redirect('/signup');
   	}
