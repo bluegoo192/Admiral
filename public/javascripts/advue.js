@@ -16,9 +16,11 @@ var ad = new Vue({
       this.ad = response.body[index];
     }, (response) => {
     });
-    this.$http.post('/addUser1', {user: host}).then((response3) => {
-    }, (response) => {
-    });
+    if (host) {
+      this.$http.post('/addUser1', {user: host}).then((response3) => {
+      }, (response) => {
+      });
+    }
     this.$http.post('/getUser', {user: this.users}).then((response) => {
       this.$http.post('/deductUser', {user: this.users}).then((response2) => {
         if (response.body.bucks < 1 || response.body.show_by_default) {
