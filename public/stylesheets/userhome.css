@@ -172,7 +172,14 @@ form {
   color: #66777A;
 }
 
-
+#timer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 10px;
+  background-color: #4DBED6;
+  z-index: 12;
+}
 
 
 

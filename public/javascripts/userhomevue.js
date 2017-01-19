@@ -30,6 +30,8 @@ var app = new Vue({
     ads: [],
     myads: [],
     dollars: 0,
+    adStreamInterval: 6,
+    computedTimerWidth: 50,
     adsPerPage: 6,
     showExpanded: false,
     showExpandedProfile: false,

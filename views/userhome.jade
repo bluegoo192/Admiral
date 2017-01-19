@@ -33,7 +33,7 @@ html(lang='en')
 
       transition(name='fade')
         .adstreamcontainer(v-if='view == "adstream"')
-          button.cta#more(type='button' @click='viewAdStream') More
+          #timer(:style="{ width: computedTimerWidth + '%' }")
           .divider
           #adstream
             adbox(v-for='ad in ads', :ad='ad')
