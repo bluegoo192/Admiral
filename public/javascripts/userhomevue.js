@@ -31,7 +31,8 @@ var app = new Vue({
     myads: [],
     dollars: 0,
     adStreamInterval: 6,
-    computedTimerWidth: 50,
+    adStreamStatus: 0,
+    adStreamTickLength: 500,
     adsPerPage: 6,
     showExpanded: false,
     showExpandedProfile: false,
@@ -43,7 +44,16 @@ var app = new Vue({
     inAdStream: function () { return this.view == 'adstream'; },
     inAdAd: function () { return this.view == 'adad'; },
     inEmbed: function () { return this.view == 'embed'; },
-    inGallery: function () { return this.view == 'gallery'; }
+    inGallery: function () { return this.view == 'gallery'; },
+    computedTimerWidth: function () {
+      var percent = (this.adStreamStatus / this.adStreamInterval) * 100;
+      if (percent > 99) {
+        this.viewAdStream();
+        percent = 0;
+        this.adStreamStatus = 0;
+      }
+      return percent;
+    }
   },
   created: function () {
     if (user) {
@@ -55,7 +65,9 @@ var app = new Vue({
     this.getAds();
     this.updateDollars();
     this.embed_code = '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>'
-
+    window.setInterval(() => {
+      this.adStreamStatus = this.adStreamStatus + (this.adStreamTickLength / 1000);
+    }, this.adStreamTickLength);
   },
   methods: {
     viewAdStream: function () {
