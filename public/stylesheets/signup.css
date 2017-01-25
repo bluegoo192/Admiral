@@ -26,6 +26,13 @@ div#userSelector {
   margin: 2vh auto;
   width: 30vw;
   text-align: center;
+  background: none;
+}
+
+#selectorcontainer {
+  border: 2px #fff solid;
+  display: inline-block;
+  border-radius: 6px;
 }
 
 div#userSelector.button {
@@ -55,7 +62,7 @@ div#buttons {
   display: inline-block;
 }
 
-a:hover { 
+a:hover {
   text-decoration: none;
 }
 
@@ -66,4 +73,19 @@ button {
 
 .btn:focus,.btn:active {
    outline: none !important;
+}
+
+#selectorcontainer button {
+  margin: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+} #selectorcontainer button:nth-child(2) {
+  border-left: 2px #fff solid;
+  border-right: 2px #fff solid;
+} #selectorcontainer button:hover, #selectorcontainer button.active {
+  background-color: #fff;
+  color: #555;
 }

@@ -14,9 +14,10 @@ html(lang='en')
         #title
           | Sign Up
         #userSelector
-          button#userbtn.btn.btn-primary(type='button' @click='userType = "user"' v-bind:class="{'active': userType=='user' }") User
-          button#sitebtn.btn.btn-primary(type='button' @click='userType = "site"' v-bind:class="{'active': userType=='site' }") Site Admin
-          button#adbtn.btn.btn-primary(type='button' @click='userType = "advertiser"' v-bind:class="{'active': userType=='advertiser' }") Advertiser
+          #selectorcontainer
+            button#userbtn.btn.btn-primary(type='button' @click='userType = "user"' v-bind:class="{'active': userType=='user' }") User
+            button#sitebtn.btn.btn-primary(type='button' @click='userType = "site"' v-bind:class="{'active': userType=='site' }") Site Admin
+            button#adbtn.btn.btn-primary(type='button' @click='userType = "advertiser"' v-bind:class="{'active': userType=='advertiser' }") Advertiser
         form(v-if='userType == "user"', name="user_signup", method="post", action="/user_signup")
           #forms
             .form-group
