@@ -49,11 +49,11 @@ html(lang='en')
             .divider
             .divider
             h2 Create an ad
-            p.center Whenever it's displayed, you'll earn adbucks automatically
+            p.center Whenever it's displayed, you'll earn credits automatically
             form(action="/createAd" method="post")
-              input(type='text' name='name' placeholder='name')
-              input(type='text' name='url' placeholder='image url')
-              input(type='text' name='src' placeholder='ad link')
+              input(type='text' name='name' placeholder='Ad name')
+              input(type='text' name='url' placeholder='Media url')
+              input(type='text' name='src' placeholder='Ad link')
               input(type='hidden' name='username' v-bind:value='username')
               input.cta(type='submit' value='Submit')
       transition(name='fade')
