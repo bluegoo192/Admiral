@@ -24,7 +24,7 @@ html(lang='en')
           a(@click='showExpandedProfile = !showExpandedProfile') {{ username }}
             span.expand.glyphicon.glyphicon-cog(style='color:white;', aria-hidden='true')
             #expandedProfile(v-if='showExpandedProfile')
-              p test
+              button(type='button' @click="logOut") Log out
         #tabbar
           a.tab-button(:class="{ active: inAdStream }" @click='viewAdStream') Ad Stream
           a.tab-button(:class="{ active: inAdAd }" @click='view="adad"') Create Ad
@@ -33,7 +33,7 @@ html(lang='en')
 
       transition(name='fade')
         .adstreamcontainer(v-if='view == "adstream"')
-          #timer(:style="{ width: computedTimerWidth + '%' }")
+          #timer(:style="{ width: computedTimerWidth + '%', transition: 'width ' + computedTransition + 's' }")
           .divider
           #adstream
             adbox(v-for='ad in ads', :ad='ad')

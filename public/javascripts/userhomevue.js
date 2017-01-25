@@ -30,7 +30,7 @@ var app = new Vue({
     ads: [],
     myads: [],
     dollars: 0,
-    adStreamInterval: 6,
+    adStreamInterval: 10,
     adStreamStatus: 0,
     adStreamTickLength: 500,
     adsPerPage: 6,
@@ -128,6 +128,9 @@ var app = new Vue({
       }, (response) => {
         console.log(response);
       });
+    },
+    logOut: function () {
+      userStorage.save([]);
     },
     autoselect: function (event) {
       event.target.focus();
