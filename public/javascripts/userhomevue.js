@@ -156,6 +156,7 @@ var app = new Vue({
       var modal = this.$refs.myModal;
       if (this.$refs.captchaInput.value == this.captchaAnswer) {
         modal.style.display = "none";
+        this.$refs.captchaInput.value = "";
         this.viewAdStream();
         percent = 0;
         this.adStreamStatus = 0;
