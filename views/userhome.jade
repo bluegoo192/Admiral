@@ -31,10 +31,6 @@ html(lang='en')
           a.tab-button(:class="{ active: inGallery }" @click='view="gallery"') My Ads
 
       transition(name='fade')
-      #myModal.modal
-        .modal-content
-          span.close ×
-          p Some text in the Modal..
         .adstreamcontainer(v-if='view == "adstream"')
           #timer(:style="{ width: computedTimerWidth + '%' }")
           .divider
