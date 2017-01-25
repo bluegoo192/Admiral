@@ -12,6 +12,11 @@ html(lang='en')
     script.
       user="#{user}";
     #app
+      #myModal.modal(ref='myModal')
+        .modal-content
+          p What is {{captcha1}} {{captchaOperation}} {{captcha2}}?
+          input(type='number' name='name' placeholder='Enter answer here' ref="captchaInput")
+          button(type='button' ref="close" @click="captchaCheck") Submit
       nav
         .navcontainer
           a(@click='showExpanded = !showExpanded') {{ balance }} credits
