@@ -1,0 +1,27 @@
+/* Overrides certain bootstrap styles to make the home look better ish */
+
+a button {
+  border-radius: 0;
+  border: none;
+  margin-bottom: 12px;
+  padding: 12px;
+  min-width: 20vw;
+  letter-spacing: 2px;
+  font-size: 1.5em;
+}
+
+button#login {
+  background: 0;
+  color: #fff;
+  border: 2px #fff solid;
+} button#login:hover {
+  background: #fff;
+  color: #3B4C4F;
+}
+
+button#signup {
+  background-color: #4DBED6;
+  color: #fff;
+} button#signup:hover {
+  background-color: #317685;
+}
