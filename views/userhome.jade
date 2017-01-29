@@ -4,7 +4,6 @@ html(lang='en')
     title Admiral
     link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet")
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
     link(rel="stylesheet",href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css")
     link(href='/stylesheets/userhome.css', rel='stylesheet')
     script(src='https://www.google.com/recaptcha/api.js')
@@ -15,9 +14,9 @@ html(lang='en')
     #app
       #myModal.modal(ref='myModal')
         .modal-content
-          p What is {{captcha1}} {{captchaOperation}} {{captcha2}}?
-          input(type='number' name='name' placeholder='Enter answer here' ref="captchaInput")
-          button(type='button' ref="close" @click="captchaCheck") Submit
+          form(action="captcha" method="post")
+            .g-recaptcha(data-sitekey="6LcEfBMUAAAAAB3LJAi1ISjD5okgUQo3iR8gAV0_")
+            input(type="submit" value="submit")
       nav
         .navcontainer
           a(@click='showExpanded = !showExpanded') {{ balance }} credits
