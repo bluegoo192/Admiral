@@ -21,12 +21,14 @@ div#title{
   font-size: 50px;
   font-weight: 100;
   margin-top: 20vh;
+  margin-bottom: 5vh;
 }
 
 div#forms {
   width: 30vw;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 5vh;
 }
 
 div#buttons {
@@ -56,8 +58,14 @@ div#invalid {
   display: inline-block;
 }
 
-a:hover { 
+a:hover {
   text-decoration: none;
+}
+
+input {
+  background-color: rgba(255, 255, 255, 0.8);
+} input:focus {
+  background-color: #fff;
 }
 
 button {

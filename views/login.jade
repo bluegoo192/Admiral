@@ -14,10 +14,8 @@ html(lang='en')
         form(name="login_attempt", method="post", action="/login_attempt")
           #forms
             .form-group
-              label(for="username", style="color: white;") Username
               input#username.form-control(v-model="username", type="username", placeholder="Username", name="username")
             .form-group
-              label(for="password", style="color: white;") Password
               input#password.form-control(type="password", placeholder="Password", name="password")
           #invalid(v-if='invalid')
             | Invalid username or password
