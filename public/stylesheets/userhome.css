@@ -127,35 +127,18 @@ button#more {
   border: 1px solid #C2C2C2;
 }
 
-#expandedBalance {
+.dropdown {
   position: absolute;
   top: 90%;
-  left: 15px;
+  padding: 15px;
   border-radius: 4px;
   color: #43484A;
-  width: 20em;
-  letter-spacing: 0;
-  padding: 15px;
   box-shadow: -4px 4px 4px rgba(1, 19, 23, 0.2);
   background-color: #FCFCFC;
   border: 1px solid #C2C2C2;
-} #expandedProfile {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #43C8E6;
-} #expandedBalance button {
-  background-color: #3DDC97;
-  border: none;
-  padding: 5px;
-  width: 100%;
-  color: #FCFCFC;
-} #expandedBalance button:hover {
-  background-color: #34BA80;
-} #expandedBalance .notch {
+} .dropdown .notch {
   position: absolute;
   top: -10px;
-  left: 20px;
   margin: 0;
   border-top: 0;
   border-left: 10px solid transparent;
@@ -164,8 +147,32 @@ button#more {
   padding: 0;
   width: 0;
   height: 0;
-} #expandedBalance .border-notch {
+} .dropdown .border-notch {
   border-bottom-color: #C2C2C2; top: -11px;
+} .dropdown button {
+  border: none;
+  padding: 5px;
+  width: 100%;
+  color: #FCFCFC;
+}
+
+#expandedBalance {
+  left: 15px;
+  width: 20em;
+  letter-spacing: 0;
+} #expandedProfile {
+  right: 15px;
+  width: 10em;
+} #expandedProfile .notch {
+  right: 20px;
+} #expandedProfile button {
+  background-color: #FF495C;
+} #expandedBalance button {
+  background-color: #3DDC97;
+} #expandedBalance button:hover {
+  background-color: #34BA80;
+} #expandedBalance .notch {
+  left: 20px;
 }
 
 .center {
