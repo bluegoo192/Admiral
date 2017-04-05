@@ -6,7 +6,7 @@ var app = new Vue({
   created: function () {
     if (userStorage.fetch()[0]) {
       console.log("user logged");
-      window.location = "http://admiralads.azurewebsites.net/userhome";
+      window.location.href = "/userhome";
     }
   },
   methods: {
