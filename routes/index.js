@@ -111,7 +111,7 @@ router.get('/userhome', function(req, res, next) {
     var user = decodeString(req.query.valid);
     res.render('userhome', {user: user});
   } else {
-    res.render('userhome');
+    res.redirect('/login');
   }
 });
 
