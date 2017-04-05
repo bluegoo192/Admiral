@@ -4,14 +4,19 @@ html(lang='en')
     title Admiral
     link(href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
     link(href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet")
-    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
     link(rel="stylesheet",href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css")
     link(href='/stylesheets/userhome.css', rel='stylesheet')
+    script(src='https://www.google.com/recaptcha/api.js')
 
   body
     script.
       user="#{user}";
     #app
+      #myModal.modal(ref='myModal')
+        .modal-content
+          form(action="captcha" method="post")
+            .g-recaptcha(data-sitekey="6LcEfBMUAAAAAB3LJAi1ISjD5okgUQo3iR8gAV0_")
+            input(type="submit" value="Submit")
       nav
         .navcontainer
           a(@click='showExpanded = !showExpanded') {{ balance }} credits
@@ -24,7 +29,7 @@ html(lang='en')
           a(@click='showExpandedProfile = !showExpandedProfile') {{ username }}
             span.expand.glyphicon.glyphicon-cog(style='color:white;', aria-hidden='true')
             #expandedProfile(v-if='showExpandedProfile')
-              p test
+              button(type='button' @click="logOut") Log out
         #tabbar
           a.tab-button(:class="{ active: inAdStream }" @click='viewAdStream') Ad Stream
           a.tab-button(:class="{ active: inAdAd }" @click='view="adad"') Create Ad
@@ -33,7 +38,7 @@ html(lang='en')
 
       transition(name='fade')
         .adstreamcontainer(v-if='view == "adstream"')
-          button.cta#more(type='button' @click='viewAdStream') More
+          #timer(:style="{ width: computedTimerWidth + '%', transition: 'width ' + computedTransition + 's' }")
           .divider
           #adstream
             adbox(v-for='ad in ads', :ad='ad')
@@ -49,11 +54,11 @@ html(lang='en')
             .divider
             .divider
             h2 Create an ad
-            p.center Whenever it's displayed, you'll earn adbucks automatically
+            p.center Whenever it's displayed, you'll earn credits automatically
             form(action="/createAd" method="post")
-              input(type='text' name='name' placeholder='name')
-              input(type='text' name='url' placeholder='image url')
-              input(type='text' name='src' placeholder='ad link')
+              input(type='text' name='name' placeholder='Ad name')
+              input(type='text' name='url' placeholder='Media url')
+              input(type='text' name='src' placeholder='Ad link')
               input(type='hidden' name='username' v-bind:value='username')
               input.cta(type='submit' value='Submit')
       transition(name='fade')

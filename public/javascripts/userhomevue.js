@@ -30,9 +30,16 @@ var app = new Vue({
     ads: [],
     myads: [],
     dollars: 0,
+    adStreamInterval: 10,
+    adStreamStatus: 0,
+    adStreamTickLength: 500,
     adsPerPage: 6,
     showExpanded: false,
     showExpandedProfile: false,
+    captcha1: 0,
+    captcha2: 0,
+    captchaOperation: "+",
+    captchaAnswer: 0,
     uploading: false,
     embed_code: '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>',
     view: 'gallery'
@@ -41,7 +48,35 @@ var app = new Vue({
     inAdStream: function () { return this.view == 'adstream'; },
     inAdAd: function () { return this.view == 'adad'; },
     inEmbed: function () { return this.view == 'embed'; },
-    inGallery: function () { return this.view == 'gallery'; }
+    inGallery: function () { return this.view == 'gallery'; },
+    computedTimerWidth: function () {
+      var percent = (this.adStreamStatus / this.adStreamInterval) * 100;
+      if (percent > 99) {
+        var modal = this.$refs.myModal;
+        if (modal.style.display != "block") {
+          var span = this.$refs.close;
+          modal.style.display = "block";
+          this.captcha1 = Math.floor((Math.random() * 100) + 1);
+          this.captcha2 = Math.floor((Math.random() * 100) + 1);
+          var operation = Math.floor((Math.random() * 3) + 1);
+          switch(operation) {
+            case 1:
+              this.captchaOperation = "+";
+              this.captchaAnswer = this.captcha1 + this.captcha2;
+              break;
+            case 2:
+              this.captchaOperation = "-";
+              this.captchaAnswer = this.captcha1 - this.captcha2;
+              break;
+            case 3:
+              this.captchaOperation = "*";
+              this.captchaAnswer = this.captcha1 * this.captcha2;
+              break;
+          }
+        }
+      }
+      return percent;
+    }
   },
   created: function () {
     if (user) {
@@ -53,7 +88,9 @@ var app = new Vue({
     this.getAds();
     this.updateDollars();
     this.embed_code = '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>'
-
+    window.setInterval(() => {
+      this.adStreamStatus = this.adStreamStatus + (this.adStreamTickLength / 1000);
+    }, this.adStreamTickLength);
   },
   methods: {
     viewAdStream: function () {
@@ -114,6 +151,22 @@ var app = new Vue({
       }, (response) => {
         console.log(response);
       });
+    },
+    captchaCheck: function() {
+      var modal = this.$refs.myModal;
+      if (this.$refs.captchaInput.value == this.captchaAnswer) {
+        modal.style.display = "none";
+        this.$refs.captchaInput.value = "";
+        this.viewAdStream();
+        percent = 0;
+        this.adStreamStatus = 0;
+      }
+      else {
+        alert("Wrong answer. Try captcha again.");
+      }
+    },
+    logOut: function () {
+      userStorage.save([]);
     },
     autoselect: function (event) {
       event.target.focus();

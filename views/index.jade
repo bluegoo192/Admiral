@@ -16,6 +16,7 @@ html(lang='en')
     // script src="javascripts/main.js"></script
     meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=no")
     link(href="https://fonts.googleapis.com/css?family=Roboto:400,700,900|Josefin+Sans:400,700|Quicksand:400,700", rel="stylesheet", type="text/css")
+    link(rel="stylesheet", href="/stylesheets/home.css", type="text/css", media="screen")
   body#body
     html.
       <video id="my-video" class="video" preload="auto" autoplay="true" loop="loop" muted volume="0">
@@ -27,12 +28,12 @@ html(lang='en')
           <span style="color: rgb(91,192,222);">Ad</span>miral
       #content
         #title
-          | Take control of your browsing
+          | Take command of your browsing
         #buttons
-          a(href="/login")
-            button#login.btn.btn-info.btn-lg.btn-block(type="button") Login
           a(href="/signup")
-            button#signup.btn.btn-default.btn-lg.btn-block(type="button") Sign up
+            button#signup(type="button") Sign up
+          a#app(href="/login")
+            button#login(type="button") Login
     html.
       <script>
         (function() {
