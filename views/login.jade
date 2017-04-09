@@ -11,7 +11,7 @@ html(lang='en')
       #background
         #title
           | Log In
-        form(name="login_attempt", method="post", action="/login_attempt")
+        form(name="login_attempt", method="post", action="/login")
           #forms
             .form-group
               input#username.form-control(v-model="username", type="username", placeholder="Username", name="username")

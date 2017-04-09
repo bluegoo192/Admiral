@@ -171,6 +171,8 @@ button#more {
 .center {
   display: table;
   margin: auto;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 .divider {
   height: 5vh;
@@ -339,7 +341,8 @@ button.deleteAd {
   transition: box-shadow 0.2s;
 } .galleryad a {
   overflow: hidden;
-}.galleryad img {
+  background-color: #ededed;
+}.galleryad .img {
   min-width: 100%;
   height: 20em;
   margin-bottom: 14px;

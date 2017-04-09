@@ -4,10 +4,10 @@ var app = new Vue({
     message: 'hi'
   },
   created: function () {
-    if (userStorage.fetch()[0]) {
-      console.log("user logged");
-      window.location = "http://admiralads.azurewebsites.net/userhome";
-    }
+    // if (userStorage.fetch()[0]) {
+    //   console.log("user logged");
+    //   window.location = "http://localhost:3000/userhome";
+    // }
   },
   methods: {
     login: function () {

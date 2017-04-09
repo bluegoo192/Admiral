@@ -6,7 +6,7 @@ Vue.component('adbox', {
 Vue.component('galleryad', {
   props: ['ad'],
   template: '<div class="galleryad">\
-              <a :href="ad.ad_url" target="_blank"><img class="center" :src="ad.ad_url" /></a>\
+              <a :href="ad.ad_src" target="_blank"><div class="center img" :style="{ \'background-image\': \'url(\' + ad.ad_url + \')\', \'background-size\': contain}" /></a>\
               <p>{{ ad.ad_name }}</p>\
               <button class="deleteAd" @click="deleteAd(ad)">X</button>\
             </div>',
@@ -24,7 +24,8 @@ var app = new Vue({
   el: '#app',
   data: {
     users: userStorage.fetch(),
-    username: userStorage.fetch()[0],
+    username: userStorage.fetch()[0].username,
+    id: userStorage.fetch()[0].id,
     balance: 0,
     viewingAdStream: false,
     ads: [],
@@ -41,7 +42,7 @@ var app = new Vue({
     captchaOperation: "+",
     captchaAnswer: 0,
     uploading: false,
-    embed_code: '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>',
+    embed_code: '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.id + '" style="height:400px;width:400px;border:1px solid black;"></iframe>',
     view: 'gallery'
   },
   computed: {
@@ -56,40 +57,46 @@ var app = new Vue({
         if (modal.style.display != "block") {
           var span = this.$refs.close;
           modal.style.display = "block";
-          this.captcha1 = Math.floor((Math.random() * 100) + 1);
-          this.captcha2 = Math.floor((Math.random() * 100) + 1);
-          var operation = Math.floor((Math.random() * 3) + 1);
-          switch(operation) {
-            case 1:
-              this.captchaOperation = "+";
-              this.captchaAnswer = this.captcha1 + this.captcha2;
-              break;
-            case 2:
-              this.captchaOperation = "-";
-              this.captchaAnswer = this.captcha1 - this.captcha2;
-              break;
-            case 3:
-              this.captchaOperation = "*";
-              this.captchaAnswer = this.captcha1 * this.captcha2;
-              break;
-          }
+          // this.captcha1 = Math.floor((Math.random() * 100) + 1);
+          // this.captcha2 = Math.floor((Math.random() * 100) + 1);
+          // var operation = Math.floor((Math.random() * 3) + 1);
+          // switch(operation) {
+          //   case 1:
+          //     this.captchaOperation = "+";
+          //     this.captchaAnswer = this.captcha1 + this.captcha2;
+          //     break;
+          //   case 2:
+          //     this.captchaOperation = "-";
+          //     this.captchaAnswer = this.captcha1 - this.captcha2;
+          //     break;
+          //   case 3:
+          //     this.captchaOperation = "*";
+          //     this.captchaAnswer = this.captcha1 * this.captcha2;
+          //     break;
+          // }
         }
       }
       return percent;
     }
   },
   created: function () {
+    // if (view != "") {
+    //   this.view = view;
+    // }
     if (user) {
       userStorage.save([user]);
     }
     this.users = userStorage.fetch();
-    this.username = userStorage.fetch()[0];
+    this.username = userStorage.fetch()[0].username;
+    this.id = userStorage.fetch()[0]._id;
     this.updateBalance();
     this.getAds();
     this.updateDollars();
     this.embed_code = '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>'
     window.setInterval(() => {
-      this.adStreamStatus = this.adStreamStatus + (this.adStreamTickLength / 1000);
+      if ((this.adStreamStatus / this.adStreamInterval) * 100 < 99) {
+        this.adStreamStatus = this.adStreamStatus + (this.adStreamTickLength / 1000);
+      }
     }, this.adStreamTickLength);
   },
   methods: {
@@ -152,18 +159,17 @@ var app = new Vue({
         console.log(response);
       });
     },
-    captchaCheck: function() {
-      var modal = this.$refs.myModal;
-      if (this.$refs.captchaInput.value == this.captchaAnswer) {
+    captchaCheck: function(response) {
+      // var secretKey = "6LeRkxsUAAAAABNvCJkbh0JgWclD2mSyDpT2L41C";
+      // var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + response;
+      // this.$http.post(verificationUrl).then((response) => {
+        var modal = this.$refs.myModal;
         modal.style.display = "none";
-        this.$refs.captchaInput.value = "";
         this.viewAdStream();
         percent = 0;
         this.adStreamStatus = 0;
-      }
-      else {
-        alert("Wrong answer. Try captcha again.");
-      }
+        grecaptcha.reset();
+      // });
     },
     logOut: function () {
       userStorage.save([]);

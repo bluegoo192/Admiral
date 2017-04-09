@@ -6,17 +6,20 @@ html(lang='en')
     link(href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet")
     link(rel="stylesheet",href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css")
     link(href='/stylesheets/userhome.css', rel='stylesheet')
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js')
+    script(src='http://malsup.github.com/jquery.form.js')
     script(src='https://www.google.com/recaptcha/api.js')
 
   body
     script.
-      user="#{user}";
+      var user = !{JSON.stringify(user)};
+      var captchaResponse = function(response) {
+        app.captchaCheck(response);
+      };
     #app
       #myModal.modal(ref='myModal')
         .modal-content
-          form(action="captcha" method="post")
-            .g-recaptcha(data-sitekey="6LcEfBMUAAAAAB3LJAi1ISjD5okgUQo3iR8gAV0_")
-            input(type="submit" value="Submit")
+          .g-recaptcha(data-sitekey="6LeRkxsUAAAAABv1SSUmLCpPD7_-DkQNqAnajx53", data-callback="captchaResponse")
       nav
         .navcontainer
           a(@click='showExpanded = !showExpanded') {{ balance }} credits

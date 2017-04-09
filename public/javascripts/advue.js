@@ -40,16 +40,16 @@ var ad = new Vue({
       });
     },
     add: function () {
-      if (!this.seen) {
+     if (!this.seen) {
         this.seen = true;
-          this.$http.post('/addUser', {user: this.users}).then((response2) => {
-            this.$el.style.background = "url(" + this.ad.ad_url + ") no-repeat center center";
-            this.$el.innerHTML = "";
-            this.$http.post('/deductUser2', {user: this.ad.user}).then((response4) => {
-            }, (response) => {
-            });
+        this.$http.post('/addUser', {user: this.users}).then((response2) => {
+          this.$el.style.backgroundImage = "url(" + this.ad.ad_url + ")";
+          this.$el.innerHTML = "";
+          this.$http.post('/deductUser2', {user: this.ad.user}).then((response4) => {
           }, (response) => {
           });
+        }, (response) => {
+        });
       } else {
         window.open(this.ad.ad_src);
       }
