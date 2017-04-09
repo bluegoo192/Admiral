@@ -147,19 +147,19 @@ module.exports = function(passport) {
   });
 
   router.post('/addUser', function(req, res, next) {
-    database.addAdBuck(req.user, 2, function(bucks) {
+    database.addAdBuck(req.user._id, 2, function(bucks) {
       res.send({bucks: bucks});
     });
   });
 
   router.post('/addUser1', function(req, res, next) {
-    database.addAdBuck(req.user, 1, function(bucks) {
+    database.addAdBuck(req.body.id, 1, function(bucks) {
       res.send({bucks: bucks});
     });
   });
 
   router.post('/deductUser2', function(req, res, next) {
-    database.subAdBuck(req.user, 2, function(bucks) {
+    database.subAdBuck(req.body.id, 2, function(bucks) {
       res.send({bucks: bucks});
     });
   });

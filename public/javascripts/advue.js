@@ -17,7 +17,7 @@ var ad = new Vue({
     }, (response) => {
     });
     if (host) {
-      this.$http.post('/addUser1', {user: host}).then((response3) => {
+      this.$http.post('/addUser1', {id: host}).then((response3) => {
       }, (response) => {
       });
     }
@@ -45,7 +45,7 @@ var ad = new Vue({
         this.$http.post('/addUser', {user: this.users}).then((response2) => {
           this.$el.style.backgroundImage = "url(" + this.ad.ad_url + ")";
           this.$el.innerHTML = "";
-          this.$http.post('/deductUser2', {user: this.ad.user}).then((response4) => {
+          this.$http.post('/deductUser2', {id: this.ad.ownerId}).then((response4) => {
           }, (response) => {
           });
         }, (response) => {

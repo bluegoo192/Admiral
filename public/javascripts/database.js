@@ -144,16 +144,16 @@ var database = {
     });
   },
 
-  addAdBuck: function (user, amount, callback) {
-    Account.where({_id: user._id}).findOneAndUpdate({$inc: {'adbucks': amount}}, function(err, doc) {
+  addAdBuck: function (id, amount, callback) {
+    Account.where({_id: id}).findOneAndUpdate({$inc: {'adbucks': amount}}, function(err, doc) {
       if (doc) {
         callback(doc.adbucks);
       }
     });
   },
 
-  subAdBuck: function(user, amount, callback) {
-    Account.where({_id: user._id}).findOneAndUpdate({$inc: {'adbucks': -1 * amount}}, function(err, doc) {
+  subAdBuck: function(id, amount, callback) {
+    Account.where({_id: id}).findOneAndUpdate({$inc: {'adbucks': -1 * amount}}, function(err, doc) {
       if (doc) {
         callback(doc.adbucks);
       }
