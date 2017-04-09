@@ -4,10 +4,10 @@ var app = new Vue({
     message: 'hi'
   },
   created: function () {
-    // if (userStorage.fetch()[0]) {
-    //   console.log("user logged");
-    //   window.location = "http://localhost:3000/userhome";
-    // }
+    if (userStorage.fetch()[0]) {
+      console.log("user logged");
+      window.location.href = "/userhome";
+    }
   },
   methods: {
     login: function () {

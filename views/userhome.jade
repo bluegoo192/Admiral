@@ -24,15 +24,18 @@ html(lang='en')
         .navcontainer
           a(@click='showExpanded = !showExpanded') {{ balance }} credits
             transition(name='drop')
-              #expandedBalance(v-if='showExpanded')
+              #expandedBalance.dropdown(v-if='showExpanded')
                 b.border-notch.notch
                 b.notch
                 p You have {{dollars}} dollars in your account
                 button(type='button' @click="transferMoney") Convert credits to dollars
           a(@click='showExpandedProfile = !showExpandedProfile') {{ username }}
             span.expand.glyphicon.glyphicon-cog(style='color:white;', aria-hidden='true')
-            #expandedProfile(v-if='showExpandedProfile')
-              button(type='button' @click="logOut") Log out
+            transition(name='drop')
+              #expandedProfile.dropdown(v-if='showExpandedProfile')
+                b.border-notch.notch
+                b.notch
+                button(type='button' @click="logOut") Log out
         #tabbar
           a.tab-button(:class="{ active: inAdStream }" @click='viewAdStream') Ad Stream
           a.tab-button(:class="{ active: inAdAd }" @click='view="adad"') Create Ad
