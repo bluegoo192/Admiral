@@ -11,23 +11,28 @@ var ad = new Vue({
     }
   },
   created: function () {
-    this.$http.post('/getAllAds', {user: this.users}).then((response) => {
+    this.$http.post('/getAllAds', {user: this.users, height: height, width: width}).then((response) => {
       var index = Math.floor(Math.random() * (response.body.length));
       this.ad = response.body[index];
-    }, (response) => {
-    });
-    if (host) {
-      this.$http.post('/addUser1', {id: host}).then((response3) => {
-      }, (response) => {
-      });
-    }
-    this.$http.post('/getUser', {user: this.users}).then((response) => {
-      this.$http.post('/deductUser', {user: this.users}).then((response2) => {
-        if (response.body.bucks < 1 || response.body.show_by_default || show) {
-          this.add();
-        }
-      }, (response) => {
-      });
+      if (host) {
+        this.$http.post('/addUser1', {id: host}).then((response3) => {
+        }, (response) => {
+        });
+      }
+      if (this.users != null && this.users.length > 0) {
+        this.$http.post('/getUser', {user: this.users}).then((response) => {
+          this.$http.post('/deductUser', {user: this.users}).then((response2) => {
+            if (response.body.bucks < 1 || response.body.show_by_default || show) {
+              this.add();
+            }
+          }, (response) => {
+          });
+        }, (response) => {
+        });
+      } else {
+        console.log("user not here");
+        this.add();
+      }
     }, (response) => {
     });
   },
@@ -42,14 +47,19 @@ var ad = new Vue({
     add: function () {
      if (!this.seen) {
         this.seen = true;
-        this.$http.post('/addUser', {user: this.users}).then((response2) => {
-          this.$el.style.backgroundImage = "url(" + this.ad.ad_url + ")";
-          this.$el.innerHTML = "";
-          this.$http.post('/deductUser2', {id: this.ad.ownerId}).then((response4) => {
+        if (this.users != null && this.users.length > 0) {
+          this.$http.post('/addUser', {user: this.users}).then((response2) => {
+            this.$el.style.backgroundImage = "url(" + this.ad.ad_url + ")";
+            this.$el.innerHTML = "";
+            this.$http.post('/deductUser2', {id: this.ad.ownerId}).then((response4) => {
+            }, (response) => {
+            });
           }, (response) => {
           });
-        }, (response) => {
-        });
+        } else {
+          this.$el.style.backgroundImage = "url(" + this.ad.ad_url + ")";
+          this.$el.innerHTML = "";
+        }
       } else {
         window.open(this.ad.ad_src);
       }

@@ -5,6 +5,8 @@ var Ad = mongoose.model('Ad', {
   ad_name : String,
   ad_url : String,
   ad_src: String,
+  ad_height: Number,
+  ad_width: Number,
   rating: Number,
   reports: Number,
   disabled: Boolean,

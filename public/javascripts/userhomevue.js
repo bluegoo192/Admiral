@@ -1,5 +1,5 @@
 var homeurl = 'admiralads.azurewebsites.net';
-// var homeurl = 'localhost:3000';
+//var homeurl = 'localhost:3000';
 
 Vue.component('adbox', {
   props: ['ad'],
@@ -26,9 +26,9 @@ Vue.component('galleryad', {
 var app = new Vue({
   el: '#app',
   data: {
-    users: userStorage.fetch(),
-    username: userStorage.fetch()[0].username,
-    id: userStorage.fetch()[0]._id,
+    users: null,
+    username: null,
+    id: "",
     balance: 0,
     viewingAdStream: false,
     ads: [],
@@ -45,7 +45,13 @@ var app = new Vue({
     captchaOperation: "+",
     captchaAnswer: 0,
     uploading: false,
-    embed_code: '<iframe src="http://' + homeurl + '/ad?width=400px&height=400px&host=' + this.id + '" style="height:400px;width:400px;border:1px solid black;"></iframe>',
+    width: 400,
+    height: 400,
+    embed_code_1: '<iframe src="http://' + homeurl + '/ad?width=',
+    embed_code_2: '&height=',
+    embed_code_3: '&host=' + this.id + '" style:"height:',
+    embed_code_4: 'px;width:',
+    embed_code_5: 'px;border:1px solid black;"></iframe>',
     view: 'gallery'
   },
   computed: {
@@ -95,7 +101,11 @@ var app = new Vue({
     this.updateBalance();
     this.getAds();
     this.updateDollars();
-    this.embed_code = '<iframe src="http://' + homeurl + '/ad?width=400px&height=400px&host=' + this.id + '" style="height:400px;width:400px;border:1px solid black;"></iframe>'
+    this.embed_code_1= '<iframe src="http://' + homeurl + '/ad?width=';
+    this.embed_code_2= '&height=';
+    this.embed_code_3= '&host=' + this.id + '" style="height:';
+    this.embed_code_4= 'px;width:';
+    this.embed_code_5= 'px;border:1px solid black;"></iframe>';
     window.setInterval(() => {
       if ((this.adStreamStatus / this.adStreamInterval) * 100 < 99) {
         this.adStreamStatus = this.adStreamStatus + (this.adStreamTickLength / 1000);

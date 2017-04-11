@@ -19,7 +19,7 @@ html(lang='en')
     #app
       #myModal.modal(ref='myModal')
         .modal-content
-          .g-recaptcha(data-sitekey="6LerKxwUAAAAAKXJe-nlN168MSknBV4XwnbjStXf", data-callback="captchaResponse")
+          .g-recaptcha(data-sitekey="6LeRkxsUAAAAABv1SSUmLCpPD7_-DkQNqAnajx53", data-callback="captchaResponse")
       nav
         .navcontainer
           a(@click='showExpanded = !showExpanded') {{ balance }} credits
@@ -35,7 +35,8 @@ html(lang='en')
               #expandedProfile.dropdown(v-if='showExpandedProfile')
                 b.border-notch.notch
                 b.notch
-                button(type='button' @click="logOut") Log out
+                form(action="/signout" method="get")
+                  input(type='submit' @click="logOut" value="Log Out")
         #tabbar
           a.tab-button(:class="{ active: inAdStream }" @click='viewAdStream') Ad Stream
           a.tab-button(:class="{ active: inAdAd }" @click='view="adad"') Create Ad
@@ -80,10 +81,15 @@ html(lang='en')
           .divider
           .divider
           h1 How to use:
-          p Simply copy and paste the following code into your website
+          p Enter the height and width of the space
+          label(for='heightInput') Height:
+          input#heightInput(type='number' name='height' placeholder='Height' v-model="height")
+          label(for='widthInput') Width:
+          input#widthInput(type='number' name='width' placeholder='Width' v-model="width")
+          p Then, simply copy and paste the following code into your site's HTML
           .divider
           .codecontainer(@click="autoselect")
-            p {{embed_code}}
+            p {{embed_code_1}}{{width}}{{embed_code_2}}{{height}}{{embed_code_3}}{{height}}{{embed_code_4}}{{width}}{{embed_code_5}}
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/util.js")

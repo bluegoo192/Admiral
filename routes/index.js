@@ -165,8 +165,9 @@ module.exports = function(passport) {
   });
 
   router.post('/createAd', function(req, res, next) {
-    database.createAd(req.user, req.body.name, req.body.url, req.body.src, false);
-    res.redirect('/userhome');
+    database.createAd(req.user, req.body.name, req.body.url, req.body.src, false, function() {
+      res.redirect('/userhome');
+    });
   });
 
   router.post('/deleteAd', function(req, res, next) {
@@ -183,7 +184,7 @@ module.exports = function(passport) {
   });
 
   router.post('/getAllAds', function(req, res, next) {
-    database.getAdsNot(req.user, function(response) {
+    database.getAdsNot(req.body.user, req.body.height, req.body.width, function(response) {
       res.send(response);
     });
   });
