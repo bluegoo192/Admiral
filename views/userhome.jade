@@ -76,6 +76,7 @@ html(lang='en')
             .flexcontainer
               galleryad(v-for='ad in myads', :ad='ad')
           .noAdsMessage(v-if='myads.length == 0')
+            img(src='../media/noAds.png')
             h2 Looks like you have no ads of your own!
             p If you are a user, use this site to check your credit balance, conver to money, or watch the 'Ad Stream' tab.
             p If you are a site owner / content creator, use the 'Embed Ad' tab and implement Admiral ads on your site.
