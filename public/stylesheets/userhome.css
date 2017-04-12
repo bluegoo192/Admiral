@@ -320,6 +320,22 @@ button.deleteAd {
   position: relative;
 }
 
+.noAdsMessage {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.noAdsMessage h2 {
+  color: #a8a8a8;
+  font-weight: bolder;
+}
+
+.noAdsMessage p {
+  color: #bfbfbf;
+  font-weight: bold;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s
 }

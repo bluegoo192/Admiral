@@ -11,7 +11,7 @@ var ad = new Vue({
     }
   },
   created: function () {
-    this.$http.post('/getAllAds', {user: this.users, height: height, width: width}).then((response) => {
+    this.$http.post('/getAllAds', {user: this.users[0], height: height, width: width}).then((response) => {
       var index = Math.floor(Math.random() * (response.body.length));
       this.ad = response.body[index];
       if (host) {
@@ -20,8 +20,8 @@ var ad = new Vue({
         });
       }
       if (this.users != null && this.users.length > 0) {
-        this.$http.post('/getUser', {user: this.users}).then((response) => {
-          this.$http.post('/deductUser', {user: this.users}).then((response2) => {
+        this.$http.post('/getUser', {user: this.users[0]}).then((response) => {
+          this.$http.post('/deductUser', {user: this.users[0]}).then((response2) => {
             if (response.body.bucks < 1 || response.body.show_by_default || show) {
               this.add();
             }
@@ -39,7 +39,7 @@ var ad = new Vue({
   methods: {
     get: function () {
       // GET /someUrl
-      this.$http.post('/getUser', {user: this.users}).then((response) => {
+      this.$http.post('/getUser', {user: this.users[0]}).then((response) => {
         console.log(response.body.bucks);
       }, (response) => {
       });
@@ -48,7 +48,7 @@ var ad = new Vue({
      if (!this.seen) {
         this.seen = true;
         if (this.users != null && this.users.length > 0) {
-          this.$http.post('/addUser', {user: this.users}).then((response2) => {
+          this.$http.post('/addUser', {user: this.users[0]}).then((response2) => {
             this.$el.style.backgroundImage = "url(" + this.ad.ad_url + ")";
             this.$el.innerHTML = "";
             this.$http.post('/deductUser2', {id: this.ad.ownerId}).then((response4) => {

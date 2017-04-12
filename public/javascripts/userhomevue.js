@@ -3,7 +3,7 @@ var homeurl = 'admiralads.azurewebsites.net';
 
 Vue.component('adbox', {
   props: ['ad'],
-  template: '<iframe src="http://' + homeurl + '/ad?width=400px&height=400px&show=true" style="height:400px;width:400px;"></iframe>'
+  template: '<iframe src="http://' + homeurl + '/ad?width=400&height=400&show=true" style="height:400px;width:400px;"></iframe>'
 })
 
 Vue.component('galleryad', {
@@ -66,32 +66,12 @@ var app = new Vue({
         if (modal.style.display != "block") {
           var span = this.$refs.close;
           modal.style.display = "block";
-          // this.captcha1 = Math.floor((Math.random() * 100) + 1);
-          // this.captcha2 = Math.floor((Math.random() * 100) + 1);
-          // var operation = Math.floor((Math.random() * 3) + 1);
-          // switch(operation) {
-          //   case 1:
-          //     this.captchaOperation = "+";
-          //     this.captchaAnswer = this.captcha1 + this.captcha2;
-          //     break;
-          //   case 2:
-          //     this.captchaOperation = "-";
-          //     this.captchaAnswer = this.captcha1 - this.captcha2;
-          //     break;
-          //   case 3:
-          //     this.captchaOperation = "*";
-          //     this.captchaAnswer = this.captcha1 * this.captcha2;
-          //     break;
-          // }
         }
       }
       return percent;
     }
   },
   created: function () {
-    // if (view != "") {
-    //   this.view = view;
-    // }
     if (user) {
       userStorage.save([user]);
     }
@@ -136,7 +116,7 @@ var app = new Vue({
     },
     transferMoney: function () {
       if (this.balance >= 10) {
-        this.$http.post('/transferMoney', { user: userStorage.fetch() }).then((response) => {
+        this.$http.post('/transferMoney', { user: userStorage.fetch()[0] }).then((response) => {
           this.dollars = response.body.dollars.toFixed(3);
           console.log(this.dollars);
         }, (response) => {
@@ -144,14 +124,14 @@ var app = new Vue({
       }
     },
     updateBalance: function () {
-      this.$http.post('/getUser', { user: userStorage.fetch() }).then((response) => {
+      this.$http.post('/getUser', { user: userStorage.fetch()[0] }).then((response) => {
         this.balance = response.body.bucks;
       }, (response) => {
         console.log(response);
       });
     },
     updateDollars: function () {
-      this.$http.post('/dollars', { user: userStorage.fetch() }).then((response) => {
+      this.$http.post('/dollars', { user: userStorage.fetch()[0] }).then((response) => {
         this.dollars = response.body.dollars.toFixed(3);
       }, (response) => {
         console.log(response);
@@ -166,7 +146,7 @@ var app = new Vue({
       this.view = 'gallery';
     },
     getAds: function() {
-      this.$http.post('/getUserAds', { user: userStorage.fetch() }).then((response) => {
+      this.$http.post('/getUserAds', { user: userStorage.fetch()[0] }).then((response) => {
         this.myads = response.body;
       }, (response) => {
         console.log(response);
