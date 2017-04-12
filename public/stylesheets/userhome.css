@@ -23,6 +23,7 @@ html, body {
 .modal-content form {
   display: inline-block;
 } .modal-content form input {
+  outline: none;
   display: inline;
 }
 
@@ -189,6 +190,7 @@ form {
   display: flex;
   flex-direction: column;
 } form input {
+  outline: none;
   padding: 5px;
   margin-bottom: 15px;
 }
@@ -249,6 +251,7 @@ nav a:hover {
   color: #4DBED6;
   box-shadow: 0px 5px 4px rgba(1, 19, 23, 0.2);
 } #tabbar .tab-button {
+  outline: none;
   border: none;
   background: none;
   padding: 15px;
