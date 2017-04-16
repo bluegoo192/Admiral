@@ -1,12 +1,15 @@
+var homeurl = 'admiralads.azurewebsites.net';
+//var homeurl = 'localhost:3000';
+
 Vue.component('adbox', {
   props: ['ad'],
-  template: '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&show=true" style="height:400px;width:400px;"></iframe>'
+  template: '<iframe src="http://' + homeurl + '/ad?width=400&height=400&show=true" style="height:400px;width:400px;"></iframe>'
 })
 
 Vue.component('galleryad', {
   props: ['ad'],
   template: '<div class="galleryad">\
-              <a :href="ad.ad_url" target="_blank"><img class="center" :src="ad.ad_url" /></a>\
+              <a :href="ad.ad_src" target="_blank"><div class="center img" :style="{ \'background-image\': \'url(\' + ad.ad_url + \')\', \'background-size\': contain}" /></a>\
               <p>{{ ad.ad_name }}</p>\
               <button class="deleteAd" @click="deleteAd(ad)">X</button>\
             </div>',
@@ -23,8 +26,9 @@ Vue.component('galleryad', {
 var app = new Vue({
   el: '#app',
   data: {
-    users: userStorage.fetch(),
-    username: userStorage.fetch()[0],
+    users: null,
+    username: null,
+    id: "",
     balance: 0,
     viewingAdStream: false,
     ads: [],
@@ -41,7 +45,13 @@ var app = new Vue({
     captchaOperation: "+",
     captchaAnswer: 0,
     uploading: false,
-    embed_code: '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>',
+    width: 400,
+    height: 400,
+    embed_code_1: '<iframe src="http://' + homeurl + '/ad?width=',
+    embed_code_2: '&height=',
+    embed_code_3: '&host=' + this.id + '" style:"height:',
+    embed_code_4: 'px;width:',
+    embed_code_5: 'px;border:1px solid black;"></iframe>',
     view: 'gallery'
   },
   computed: {
@@ -56,23 +66,6 @@ var app = new Vue({
         if (modal.style.display != "block") {
           var span = this.$refs.close;
           modal.style.display = "block";
-          this.captcha1 = Math.floor((Math.random() * 100) + 1);
-          this.captcha2 = Math.floor((Math.random() * 100) + 1);
-          var operation = Math.floor((Math.random() * 3) + 1);
-          switch(operation) {
-            case 1:
-              this.captchaOperation = "+";
-              this.captchaAnswer = this.captcha1 + this.captcha2;
-              break;
-            case 2:
-              this.captchaOperation = "-";
-              this.captchaAnswer = this.captcha1 - this.captcha2;
-              break;
-            case 3:
-              this.captchaOperation = "*";
-              this.captchaAnswer = this.captcha1 * this.captcha2;
-              break;
-          }
         }
       }
       return percent;
@@ -83,13 +76,20 @@ var app = new Vue({
       userStorage.save([user]);
     }
     this.users = userStorage.fetch();
-    this.username = userStorage.fetch()[0];
+    this.username = userStorage.fetch()[0].username;
+    this.id = userStorage.fetch()[0]._id;
     this.updateBalance();
     this.getAds();
     this.updateDollars();
-    this.embed_code = '<iframe src="http://admiralads.azurewebsites.net/ad?width=400px&height=400px&host=' + this.username + '" style="height:400px;width:400px;border:1px solid black;"></iframe>'
+    this.embed_code_1= '<iframe src="http://' + homeurl + '/ad?width=';
+    this.embed_code_2= '&height=';
+    this.embed_code_3= '&host=' + this.id + '" style="height:';
+    this.embed_code_4= 'px;width:';
+    this.embed_code_5= 'px;border:1px solid black;"></iframe>';
     window.setInterval(() => {
-      this.adStreamStatus = this.adStreamStatus + (this.adStreamTickLength / 1000);
+      if ((this.adStreamStatus / this.adStreamInterval) * 100 < 99) {
+        this.adStreamStatus = this.adStreamStatus + (this.adStreamTickLength / 1000);
+      }
     }, this.adStreamTickLength);
   },
   methods: {
@@ -116,7 +116,7 @@ var app = new Vue({
     },
     transferMoney: function () {
       if (this.balance >= 10) {
-        this.$http.post('/transferMoney', { user: userStorage.fetch() }).then((response) => {
+        this.$http.post('/transferMoney', { user: userStorage.fetch()[0] }).then((response) => {
           this.dollars = response.body.dollars.toFixed(3);
           console.log(this.dollars);
         }, (response) => {
@@ -124,14 +124,14 @@ var app = new Vue({
       }
     },
     updateBalance: function () {
-      this.$http.post('/getUser', { user: userStorage.fetch() }).then((response) => {
+      this.$http.post('/getUser', { user: userStorage.fetch()[0] }).then((response) => {
         this.balance = response.body.bucks;
       }, (response) => {
         console.log(response);
       });
     },
     updateDollars: function () {
-      this.$http.post('/dollars', { user: userStorage.fetch() }).then((response) => {
+      this.$http.post('/dollars', { user: userStorage.fetch()[0] }).then((response) => {
         this.dollars = response.body.dollars.toFixed(3);
       }, (response) => {
         console.log(response);
@@ -146,24 +146,23 @@ var app = new Vue({
       this.view = 'gallery';
     },
     getAds: function() {
-      this.$http.post('/getUserAds', { user: userStorage.fetch() }).then((response) => {
+      this.$http.post('/getUserAds', { user: userStorage.fetch()[0] }).then((response) => {
         this.myads = response.body;
       }, (response) => {
         console.log(response);
       });
     },
-    captchaCheck: function() {
-      var modal = this.$refs.myModal;
-      if (this.$refs.captchaInput.value == this.captchaAnswer) {
+    captchaCheck: function(response) {
+      // var secretKey = "6LeRkxsUAAAAABNvCJkbh0JgWclD2mSyDpT2L41C";
+      // var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + response;
+      // this.$http.post(verificationUrl).then((response) => {
+        var modal = this.$refs.myModal;
         modal.style.display = "none";
-        this.$refs.captchaInput.value = "";
         this.viewAdStream();
         percent = 0;
         this.adStreamStatus = 0;
-      }
-      else {
-        alert("Wrong answer. Try captcha again.");
-      }
+        grecaptcha.reset();
+      // });
     },
     logOut: function () {
       userStorage.save([]);

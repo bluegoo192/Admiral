@@ -1,26 +1,36 @@
-shead
+head
   link(href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet")
   style(type='text/css').
     body{
-    margin: 0px;
-    border: 0px;
+      margin: 0px;
+      border: 0px;
     }
     #container{
-    overflow:hidden;
-    margin:0px;
-    border:0px;
-    font-family:'Abel', sans-serif;
+      overflow:hidden;
+      margin:0px;
+      border:0px;
+      font-family:'Abel', sans-serif;
     }
     .bgimg {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-    margin:0px;
-    border:0px;
-    background-image: url();
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+      margin:0px;
+      border:0px;
+      background-image: url();
+    }
+    .badge {
+      background-image: url('../media/admiralbadge.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 40px;
+      height: 15px;
+      position: absolute;
+      bottom: 5;
+      right: 5;
     }
 body#container
   script.
@@ -28,7 +38,9 @@ body#container
     height="#{query.height}";
     host="#{query.host}";
     show="#{query.show}";
+
   #ad.bgimg(:style="styleObject" @click='add') Click to reveal ad
+  a.badge(href='http://admiralads.azurewebsites.net/', target='_blank')
 
 script(src="/javascripts/util.js")
 script(src="/javascripts/vue.js")

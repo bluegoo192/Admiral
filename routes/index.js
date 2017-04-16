@@ -5,173 +5,199 @@ var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456
 var request = require('request');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Admiral' });
-});
+var isAuthenticated = function (req, res, next) {
+	// if user is authenticated in the session, call the next() to call the next request handler
+	// Passport adds this method to request object. A middleware is allowed to add properties to
+	// request and response objects
+	if (req.isAuthenticated())
+		return next();
+	// if the user is not authenticated then redirect him to the login page
+	res.redirect('/');
+}
 
-router.get('/ad', function(req, res, next) {
-  res.render('ad', {query: req.query});
-});
-
-router.get('/adlong', function(req, res, next) {
-  res.render('adlong', {query: req.query});
-});
-
-router.get('/login', function(req, res, next) {
-  res.render('login');
-});
-
-router.post('/login_attempt', function(req, res, next) {
-  database.accountExists(req.body.username, req.body.password, function(equals) {
-  	if (equals) {
-      var string = encodeString(req.body.username);
-  		res.redirect('/userhome/?valid=' + string);
-  	} else {
-  		res.redirect('/login');
-  	}
-  });
-});
-
-router.get('/signup', function(req, res, next) {
-  res.render('signup');
-});
-
-router.post('/user_signup', function(req, res, next) {
-  console.log("I'm in the post...");
-  database.createAccount(req.body.user_email, req.body.user_pass, function(success) {
-  	if (success) {
-  		console.log("Success!");
-  		res.redirect('/login');
-  	} else {
-  		res.redirect('/signup');
-  	}
-  });
-});
-
-router.post('/site_signup', function(req, res, next) {
-  database.createAccount(req.body.site_email, req.body.site_pass, function(success) {
-  	if (success) {
-  		console.log("Success!");
-  		res.redirect('/login');
-  	} else {
-  		res.redirect('/signup');
-  	}
-  });
-});
-
-router.post('/captcha', function(req, res, next) {
-  console.log('checking');
-  // g-recaptcha-response is the key that browser will generate upon form submit.
-  // if its blank or null means user has not selected the captcha, so return the error.
-  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-    return res.json({"responseCode" : 1,"responseDesc" : "Please select captcha"});
-  }
-  // Put your secret key here.
-  var secretKey = "6LcEfBMUAAAAAKd8b3LrKFHQ-darPH_GA5gb_PPh";
-  // req.connection.remoteAddress will provide IP address of connected user.
-  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-  // Hitting GET request to the URL, Google will respond with success or error scenario.
-  request(verificationUrl,function(error,response,body) {
-    body = JSON.parse(body);
-    // Success will be true or false depending upon captcha validation.
-    if(body.success !== undefined && !body.success) {
-      return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
-    }
-    console.log('..succeeded');
+var isLoggedIn = function (req, res, next) {
+  if (req.isAuthenticated()) {
     res.redirect('/userhome');
-  });
-})
-
-router.post('/ad_signup', function(req, res, next) {
-  database.createAccount(req.body.ad_email, req.body.ad_pass, function(success) {
-  	if (success) {
-  		console.log("Success!");
-  		res.redirect('/login');
-  	} else {
-  		res.redirect('/signup');
-  	}
-  });
-});
-
-router.post('/dollars', function(req, res, next) {
-  database.showDollars(req.body.user[0], function(dollars) {
-    res.send({dollars: dollars});
-  });
-});
-
-router.post('/transferMoney', function(req, res, next) {
-  database.transferAdBucks(req.body.user[0], function(dollars) {
-    res.send({dollars: dollars});
-  });
-});
-
-router.get('/userhome', function(req, res, next) {
-  if (req.query.valid) {
-    var user = decodeString(req.query.valid);
-    res.render('userhome', {user: user});
-  } else {
-    res.redirect('/login');
+    return;
   }
-});
+  return next();
+}
 
-router.get('/getAd', function(req, res, next) {
-  res.send({ width: '500px', height: '300px' });
-})
-
-router.post('/getUser', function(req, res, next) {
-  database.showAdBucks(req.body.user[0], function(doc) {
-    res.send({bucks: doc.adbucks, show_by_default: doc.show_by_default});
+module.exports = function(passport) {
+  /* GET home page. */
+  router.get('/', isLoggedIn, function(req, res, next) {
+    res.render('index', { title: 'Admiral' });
   });
-});
 
-router.post('/deductUser', function(req, res, next) {
-  database.subAdBuck(req.body.user[0], 1, function(bucks) {
-    res.send({bucks: bucks});
+  router.get('/ad', function(req, res, next) {
+    res.render('ad', {query: req.query});
   });
-});
 
-router.post('/addUser', function(req, res, next) {
-  database.addAdBuck(req.body.user[0], 2, function(bucks) {
-    res.send({bucks: bucks});
+  router.get('/adlong', function(req, res, next) {
+    res.render('adlong', {query: req.query});
   });
-});
 
-router.post('/addUser1', function(req, res, next) {
-  database.addAdBuck(req.body.user[0], 1, function(bucks) {
-    res.send({bucks: bucks});
+  router.get('/login', function(req, res, next) {
+    res.render('login');
   });
-});
 
-router.post('/deductUser2', function(req, res, next) {
-  database.subAdBuck(req.body.user[0], 2, function(bucks) {
-    res.send({bucks: bucks});
+  router.post('/login', passport.authenticate('login', {
+    successRedirect: '/userhome',
+    failureRedirect: '/login',
+    failureFlash : true
+  }));
+
+
+  router.get('/signup', function(req, res, next) {
+    res.render('signup');
   });
-});
 
-router.post('/createAd', function(req, res, next) {
-  database.createAd(req.body.username, req.body.name, req.body.url, req.body.src);
-  res.redirect('/userhome');
-});
-
-router.post('/deleteAd', function(req, res, next) {
-  database.deleteAd(req.body.username, req.body.name, req.body.url, req.body.src, function(response) {
-    res.redirect(req.get('referer'));
-
+  router.post('/user_signup', function(req, res, next) {
+    database.createAccount(req.body.user_email, req.body.user_pass, function(success) {
+    	if (success) {
+    		console.log("Success!");
+    		res.redirect('/login');
+    	} else {
+    		res.redirect('/signup');
+    	}
+    });
   });
-});
 
-router.post('/getUserAds', function(req, res, next) {
-  database.getAds(req.body.user[0], function(response) {
-    res.send(response);
+  router.post('/site_signup', function(req, res, next) {
+    database.createAccount(req.body.site_email, req.body.site_pass, function(success) {
+    	if (success) {
+    		console.log("Success!");
+    		res.redirect('/login');
+    	} else {
+    		res.redirect('/signup');
+    	}
+    });
   });
-});
 
-router.post('/getAllAds', function(req, res, next) {
-  database.getAdsNot(req.body.user[0], function(response) {
-    res.send(response);
+  router.post('/captcha', function(req, res, next) {
+    console.log("checking captcha");
+    // g-recaptcha-response is the key that browser will generate upon form submit.
+    // if its blank or null means user has not selected the captcha, so return the error.
+    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+      res.send({"responseCode" : 1,"responseDesc" : "Please select captcha"});
+    }
+    // Put your secret key here.
+    var secretKey = "6LeRkxsUAAAAABNvCJkbh0JgWclD2mSyDpT2L41C";
+    // req.connection.remoteAddress will provide IP address of connected user.
+    var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+    // Hitting GET request to the URL, Google will respond with success or error scenario.
+    request(verificationUrl, function(error,response,body) {
+      console.log(response);
+      console.log("BODY " + body);
+      body = JSON.parse(body);
+      // Success will be true or false depending upon captcha validation.
+      if(body.success !== undefined && !body.success) {
+        res.send({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+      }
+      res.send({"responseCode": 0, "responseDesc": "Captcha confirmed"});
+    });
+  })
+
+  router.post('/ad_signup', function(req, res, next) {
+    database.createAccount(req.body.ad_email, req.body.ad_pass, function(success) {
+    	if (success) {
+    		res.redirect('/login');
+    	} else {
+    		res.redirect('/signup');
+    	}
+    });
   });
-});
+
+  router.post('/dollars', function(req, res, next) {
+    database.showDollars(req.user, function(dollars) {
+      res.send({dollars: dollars});
+    });
+  });
+
+  router.post('/transferMoney', function(req, res, next) {
+    database.transferAdBucks(req.user, function(dollars) {
+      res.send({dollars: dollars});
+    });
+  });
+
+  router.get('/userhome', isAuthenticated, function(req, res){
+    res.render('userhome', {user: req.user});
+  });
+
+  /* Handle Logout */
+  router.get('/signout', function(req, res) {
+    req.logout();
+    res.redirect('/');
+  });
+
+  router.get('/getAd', function(req, res, next) {
+    res.send({ width: '500px', height: '300px' });
+  })
+
+  router.post('/getUser', function(req, res, next) {
+    database.showAdBucks(req.body.user, function(doc) {
+      res.send({bucks: doc.adbucks, show_by_default: doc.show_by_default});
+    });
+  });
+
+  router.post('/deductUser', function(req, res, next) {
+    database.subAdBuck(req.body.user, 1, function(bucks) {
+      res.send({bucks: bucks});
+    });
+  });
+
+  router.post('/addUser', function(req, res, next) {
+    database.addAdBuck(req.body.user._id, 2, function(bucks) {
+      res.send({bucks: bucks});
+    });
+  });
+
+  router.post('/addUser1', function(req, res, next) {
+    database.addAdBuck(req.body.id, 1, function(bucks) {
+      res.send({bucks: bucks});
+    });
+  });
+
+  router.post('/deductUser2', function(req, res, next) {
+    database.subAdBuck(req.body.id, 2, function(bucks) {
+      res.send({bucks: bucks});
+    });
+  });
+
+  router.post('/createAd', function(req, res, next) {
+    database.createAd(req.user, req.body.name, req.body.url, req.body.src, false, function() {
+      res.redirect('/userhome');
+    });
+  });
+
+  router.post('/deleteAd', function(req, res, next) {
+    database.deleteAd(req.user, req.body.name, req.body.url, req.body.src, function(response) {
+      res.redirect(req.get('referer'));
+
+    });
+  });
+
+  router.post('/getUserAds', function(req, res, next) {
+    database.getAds(req.user, function(response) {
+      res.send(response);
+    });
+  });
+
+  router.post('/getAllAds', function(req, res, next) {
+    database.getAdsNot(req.body.user, req.body.height, req.body.width, function(response) {
+      res.send(response);
+    });
+  });
+
+  /* Handle Registration POST */
+  router.post('/signup', passport.authenticate('signup', {
+    successRedirect: '/login',
+    failureRedirect: '/signup',
+    failureFlash : true
+  }));
+
+  return router;
+}
 
 function encodeString(string) {
     return Base64.encode(string);
@@ -180,5 +206,3 @@ function encodeString(string) {
 function decodeString(string) {
   return Base64.decode(string);
 }
-
-module.exports = router;

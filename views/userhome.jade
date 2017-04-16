@@ -6,17 +6,22 @@ html(lang='en')
     link(href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet")
     link(rel="stylesheet",href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css")
     link(href='/stylesheets/userhome.css', rel='stylesheet')
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js')
+    script(src='http://malsup.github.com/jquery.form.js')
     script(src='https://www.google.com/recaptcha/api.js')
 
   body
     script.
-      user="#{user}";
+      var user = !{JSON.stringify(user)};
+      var captchaResponse = function(response) {
+        app.captchaCheck(response);
+      };
     #app
       #myModal.modal(ref='myModal')
         .modal-content
-          form(action="captcha" method="post")
-            .g-recaptcha(data-sitekey="6LcEfBMUAAAAAB3LJAi1ISjD5okgUQo3iR8gAV0_")
-            input(type="submit" value="Submit")
+          //local: 6LeRkxsUAAAAABv1SSUmLCpPD7_-DkQNqAnajx53
+          //for admiralads: 6LerKxwUAAAAAKXJe-nlN168MSknBV4XwnbjStXf
+          .g-recaptcha(data-sitekey="6LerKxwUAAAAAKXJe-nlN168MSknBV4XwnbjStXf", data-callback="captchaResponse")
       nav
         .navcontainer
           a(@click='showExpanded = !showExpanded') {{ balance }} credits
@@ -32,7 +37,8 @@ html(lang='en')
               #expandedProfile.dropdown(v-if='showExpandedProfile')
                 b.border-notch.notch
                 b.notch
-                button(type='button' @click="logOut") Log out
+                form(action="/signout" method="get")
+                  input(type='submit' @click="logOut" value="Log Out")
         #tabbar
           a.tab-button(:class="{ active: inAdStream }" @click='viewAdStream') Ad Stream
           a.tab-button(:class="{ active: inAdAd }" @click='view="adad"') Create Ad
@@ -71,16 +77,27 @@ html(lang='en')
           .adgallery.center
             .flexcontainer
               galleryad(v-for='ad in myads', :ad='ad')
+          .noAdsMessage(v-if='myads.length == 0')
+            img(src='../media/noAds.png')
+            h2 Looks like you have no ads of your own!
+            p If you are a user, use this site to check your credit balance, conver to money, or watch the 'Ad Stream' tab.
+            p If you are a site owner / content creator, use the 'Embed Ad' tab and implement Admiral ads on your site.
+            p If you are an advertiser, use the '+' button or the 'Create Ad' tab to create ads to be displayed to the public.
       transition(name='fade')
         .embedcontainer.center(v-if='view == "embed"')
           .divider
           .divider
           .divider
           h1 How to use:
-          p Simply copy and paste the following code into your website
+          p Enter the height and width of the space
+          label(for='heightInput') Height:
+          input#heightInput(type='number' name='height' placeholder='Height' v-model="height")
+          label(for='widthInput') Width:
+          input#widthInput(type='number' name='width' placeholder='Width' v-model="width")
+          p Then, simply copy and paste the following code into your site's HTML
           .divider
           .codecontainer(@click="autoselect")
-            p {{embed_code}}
+            p {{embed_code_1}}{{width}}{{embed_code_2}}{{height}}{{embed_code_3}}{{height}}{{embed_code_4}}{{width}}{{embed_code_5}}
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/util.js")

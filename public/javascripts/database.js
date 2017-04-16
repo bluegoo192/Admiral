@@ -1,17 +1,20 @@
 var mongodb = require('mongodb');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://garyliangge:NGNL2016@ds149557.mlab.com:49557/adbucks_db');
-var Account = require('./schemas/accounts');
-var Ad = require('./schemas/ads');
+var Account = require('../../models/user');
+var Ad = require('../../models/ads');
 var request = require('request');
+var url = require('url');
+var http = require('http');
+var https = require('https');
+var sizeOf = require('image-size');
 
 var apikey = "1d15e48ca9e6b3db7a8dc1d94b284190"; //Nessie
 /* Mongo Shit */
 
 var database = {
-  createAccount: function(username, password, callback) {
+  createAccount: function(user, password, callback) {
     var success = false;
-    Account.where({user:username}).findOne(function (err, myDocument){
+    Account.where({_id: user._id}).findOne(function (err, myDocument){
       if (!myDocument) {
         var options = {
           url: 'http://api.reimaginebanking.com/customers?key=' + apikey,
@@ -55,8 +58,8 @@ var database = {
                     pass: password,
                     adbucks: 100,
                     show_by_default: false,
-                    account_id: JSON.parse(body2).objectCreated._id,
-                    customer_id: JSON.parse(body).objectCreated._id
+                    account__id: JSON.parse(body2).objectCreated._id,
+                    customer__id: JSON.parse(body).objectCreated._id
                   });
                 newAccount.save(function (err) {
                   if (err) {
@@ -77,9 +80,9 @@ var database = {
     });
   },
 
-  accountExists: function(username, password, callback) {
+  accountExists: function(user, password, callback) {
     var equals = false;
-    Account.where({user:username, pass:password}).findOne(function (err, myDocument){
+    Account.where({_id: user._id}).findOne(function (err, myDocument){
       if (myDocument) {
         console.log("Account exists!!!");
         equals = true;
@@ -90,8 +93,8 @@ var database = {
     });
   },
 
-  transferAdBucks: function (username, callback) {
-    Account.where({user:username}).findOneAndUpdate({'adbucks': 0}, function (err, myDocument){
+  transferAdBucks: function (user, callback) {
+    Account.where({_id: user._id}).findOneAndUpdate({'adbucks': 0}, function (err, myDocument){
       if (myDocument) {
         var dollars = myDocument.adbucks / 1000.0;
         var options = {
@@ -119,8 +122,8 @@ var database = {
     })
   },
 
-  showDollars: function(username, callback) {
-    Account.where({user:username}).findOne(function (err, myDocument) {
+  showDollars: function(user, callback) {
+    Account.where({_id: user._id}).findOne(function (err, myDocument) {
       if (myDocument) {
         var options = {
           url: 'http://api.reimaginebanking.com/accounts/' +  myDocument.account_id + '?key=' + apikey,
@@ -139,52 +142,107 @@ var database = {
     })
   },
 
-  showAdBucks: function (username, callback) {
-    Account.where({user: username}).findOne(function (err, myDocument) {
+  showAdBucks: function (user, callback) {
+    Account.where({_id: user._id}).findOne(function (err, myDocument) {
       callback(myDocument);
     });
   },
 
-  addAdBuck: function (username, amount, callback) {
-    Account.where({user: username}).findOneAndUpdate({$inc: {'adbucks': amount}}, function(err, doc) {
+  addAdBuck: function (id, amount, callback) {
+    Account.where({_id: id}).findOneAndUpdate({$inc: {'adbucks': amount}}, function(err, doc) {
       if (doc) {
         callback(doc.adbucks);
       }
     });
   },
 
-  subAdBuck: function(username, amount, callback) {
-    Account.where({user: username}).findOneAndUpdate({$inc: {'adbucks': -1 * amount}}, function(err, doc) {
+  subAdBuck: function(id, amount, callback) {
+    Account.where({_id: id}).findOneAndUpdate({$inc: {'adbucks': -1 * amount}}, function(err, doc) {
       if (doc) {
         callback(doc.adbucks);
       }
     });
   },
 
-  createAd: function(username, ad_name, ad_url, ad_src) {
-    Ad.where({user: username, ad_name: ad_name, ad_url: ad_url, ad_src: ad_src}).findOne(function (err, myDocument){
+  createAd: function(user, ad_name, ad_url, ad_src, usesJavascript, callback) {
+    Ad.where({ownerId:user._id, ad_name: ad_name, ad_url: ad_url, ad_src: ad_src}).findOne(function (err, myDocument){
       if (!myDocument) {
-        var newAd = new Ad({
-            user: username,
-            ad_name: ad_name,
-            ad_url: ad_url,
-            ad_src: ad_src});
-        newAd.save(function (err) {
-          if (err) {
-            console.log('Error creating ad!');
-          } else {
-            console.log('Successfully created ad');
-          }
-        });
+        var options = url.parse(ad_url);
+        if(ad_url.indexOf("https") == 0) {
+          https.get(options, function (response) {
+            var chunks = [];
+            response.on('data', function (chunk) {
+              chunks.push(chunk);
+            }).on('end', function() {
+              var buffer = Buffer.concat(chunks);
+              var dimensions = sizeOf(buffer);
+              var newAd = new Ad({
+                  ownerId: user._id,
+                  ad_name: ad_name,
+                  ad_url: ad_url,
+                  ad_src: ad_src,
+                  ad_height: dimensions.height,
+                  ad_width: dimensions.width,
+                  rating: 8,
+                  reports: 0,
+                  disabled: false,
+                  category: "all",
+                  javascript: usesJavascript,
+                  sizeKB: 1
+                });
+              newAd.save(function (err) {
+                if (err) {
+                  console.log('Error creating ad!');
+                } else {
+                  console.log('Successfully created ad');
+                }
+                callback();
+              });
+            });
+          });
+        } else if (ad_url.indexOf("http") == 0) {
+          http.get(options, function (response) {
+            var chunks = [];
+            response.on('data', function (chunk) {
+              chunks.push(chunk);
+            }).on('end', function() {
+              var buffer = Buffer.concat(chunks);
+              var dimensions = sizeOf(buffer);
+              var newAd = new Ad({
+                  ownerId: user._id,
+                  ad_name: ad_name,
+                  ad_url: ad_url,
+                  ad_src: ad_src,
+                  ad_height: dimensions.height,
+                  ad_width: dimensions.width,
+                  rating: 8,
+                  reports: 0,
+                  disabled: false,
+                  category: "all",
+                  javascript: usesJavascript,
+                  sizeKB: 1
+                });
+              newAd.save(function (err) {
+                if (err) {
+                  console.log('Error creating ad!');
+                } else {
+                  console.log('Successfully created ad');
+                }
+                callback();
+              });
+            });
+          });
+        } else {
+          console.log('Error creating ad. Ad_Url not valid.');
+        }
       } else {
         console.log('Cannot create new ad. Already exists in this account!');
       }
     });
   },
 
-  deleteAd: function(username, ad_name, ad_url, ad_src, callback) {
-    console.log(username + "," + ad_name + "," + ad_url + "," + ad_src);
-    Ad.where({user: username, ad_name: ad_name, ad_url: ad_url, ad_src: ad_src}).findOneAndRemove(function (err, myDocument, result){
+  deleteAd: function(user, ad_name, ad_url, ad_src, callback) {
+    Ad.where({ownerId: user._id, ad_name: ad_name, ad_url: ad_url, ad_src: ad_src}).findOneAndRemove(function (err, myDocument, result){
       if (err) {
         console.log('Error deleting ad!');
         callback(err);
@@ -195,16 +253,23 @@ var database = {
     });
   },
 
-  getAds: function(username, callback) {
-    Ad.find({user: username}, function (err, array) {
+  getAds: function(user, callback) {
+    Ad.find({ownerId: user._id}, function (err, array) {
       callback(array);
     });
   },
 
-  getAdsNot: function(username, callback) {
-    Ad.find({user: {$ne: username}}, function (err, array) {
-      callback(array);
-    });
+  getAdsNot: function(user, height, width, callback) {
+    console.log("getting ads not " + user + ", " + height + ", " + width);
+    if (user) {
+      Ad.find({ownerId: {$ne: user._id}, ad_height: height, ad_width: width}, function (err, array) {
+        callback(array);
+      });
+    } else {
+      Ad.find({ad_height: height, ad_width: width}, function (err, array) {
+        callback(array);
+      });
+    }
   }
 };
 
