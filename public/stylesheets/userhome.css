@@ -326,21 +326,16 @@ button.deleteAd {
 .noAdsMessage {
   width: 100%;
   height: 100%;
-  text-align: center;
-}
-
-.noAdsMessage img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} .noAdsMessage img {
   width: 150px;
-}
-
-.noAdsMessage h2 {
+} .noAdsMessage h2 {
   color: #a8a8a8;
-  font-weight: bolder;
-}
-
-.noAdsMessage p {
-  color: #bfbfbf;
   font-weight: bold;
+} .noAdsMessage li {
+  color: #bfbfbf;
 }
 
 .fade-enter-active, .fade-leave-active {

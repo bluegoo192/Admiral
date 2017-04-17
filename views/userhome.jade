@@ -80,9 +80,10 @@ html(lang='en')
           .noAdsMessage(v-if='myads.length == 0')
             img(src='../media/noAds.png')
             h2 Looks like you have no ads of your own!
-            p If you are a user, use this site to check your credit balance, conver to money, or watch the 'Ad Stream' tab.
-            p If you are a site owner / content creator, use the 'Embed Ad' tab and implement Admiral ads on your site.
-            p If you are an advertiser, use the '+' button or the 'Create Ad' tab to create ads to be displayed to the public.
+            ul
+              li If you are a user, use this site to check your credit balance, convert to money, or watch the 'Ad Stream' tab.
+              li If you are a site owner / content creator, use the 'Embed Ad' tab and implement Admiral ads on your site.
+              li If you are an advertiser, use the '+' button or the 'Create Ad' tab to create ads to be displayed to the public.
       transition(name='fade')
         .embedcontainer.center(v-if='view == "embed"')
           .divider
