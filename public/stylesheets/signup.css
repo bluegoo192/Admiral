@@ -11,7 +11,7 @@ div#userSelector {
   justify-content: space-between;
 }
 
-div#userSelector .button {
+div#userSelector button {
   text-align: center;
   flex-grow: 1;
   color: #a8a8a8;
