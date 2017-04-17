@@ -150,11 +150,13 @@ button#more {
   height: 0;
 } .dropdown .border-notch {
   border-bottom-color: #C2C2C2; top: -11px;
-} .dropdown button {
+} .dropdown button, .dropdown input {
   border: none;
   padding: 5px;
   width: 100%;
   color: #FCFCFC;
+} .dropdown form {
+  margin: 0;
 }
 
 #expandedBalance {
@@ -166,8 +168,9 @@ button#more {
   width: 10em;
 } #expandedProfile .notch {
   right: 20px;
-} #expandedProfile button {
+} #expandedProfile input {
   background-color: #FF495C;
+  margin: 0;
 } #expandedBalance button {
   background-color: #3DDC97;
 } #expandedBalance button:hover {
