@@ -9,67 +9,60 @@ html(lang='en')
 
   body
     #app
-      #nav
-        a(href='/') Admiral
       #background
-        #title
-          | Sign Up
+        #logo
+          html.
+            <span style="color: rgb(91,192,222);">Ad</span>miral
         #userSelector
           #selectorcontainer
-            button#userbtn.btn.btn-primary(type='button' @click='userType = "user"' v-bind:class="{'active': userType=='user' }") User
-            button#sitebtn.btn.btn-primary(type='button' @click='userType = "site"' v-bind:class="{'active': userType=='site' }") Site Admin
-            button#adbtn.btn.btn-primary(type='button' @click='userType = "advertiser"' v-bind:class="{'active': userType=='advertiser' }") Advertiser
+            button#userbtn(type='button' @click='userType = "user"' v-bind:class="{'active': userType=='user' }") User
+            button#sitebtn(type='button' @click='userType = "site"' v-bind:class="{'active': userType=='site' }") Site Admin
+            button#adbtn(type='button' @click='userType = "advertiser"' v-bind:class="{'active': userType=='advertiser' }") Advertiser
         form(v-if='userType == "user"', name="user_signup", method="post", action="/signup")
+          h1#title Log in
           .main
             .item
-              label(for="username", style="color: white;") Email (This will be your username)
               input.form-control(type='email', placeholder="Email", name="username")
             .item
-              label(for="password", style="color: white;") Password
-              input.form-control(type='password', name="password")
+              input(type='password', placeholder="Password", name="password")
           .buttons
-            #user.signup
-              button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
             #user.cancel
               a(href="/")
-                button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
+                button.cancel(type="button") Cancel
+            #user.signup
+              button.submit(type="submit") Sign Up
         form(v-if='userType == "site"', name="site_signup", method="post", action="/signup")
+          h1#title Log in
           .main
             .item
-              label(for="username", style="color: white;") Email (This will be your username)
-              input.form-control(type="email", placeholder="Email", name="username")
+              input(type="email", placeholder="Email", name="username")
             .item
-              label(for="password", style="color: white;") Password
-              input.form-control(type='password', name="password")
+              input(type='password', placeholder="Password",  name="password")
             .item
-              label(for="text", style="color: white;") Site Address
-              input.form-control(type='text', placeholder="Site Address", name="address")
+              input(type='text', placeholder="Site Address", name="address")
             .item
-              label(for="text", style="color: white;") Billing Code
-              input.form-control(type='text', placeholder="Billing Code", name="billing")
+              input(type='text', placeholder="Billing Code", name="billing")
           .buttons
-            #site.signup
-              button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
             #site.cancel
               a(href="/")
-                button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
+                button.cancel(type="button") Cancel
+            #site.signup
+              button.submit(type="submit") Sign Up
         form(v-if='userType == "advertiser"', name="ad_signup", method="post", action="signup")
+          h1#title Log in
           .main
             .item
-              label(for="username", style="color: white;") Email (This will be your username)
-              input.form-control(type='email', placeholder="Email", name="username")
+              input(type='email', placeholder="Email", name="username")
             .item
-              label(for="password", style="color: white;") Password
-              input.form-control(type='password', name="password")
+              input(type='password', placeholder="Password",  name="password")
             .item
-              label(for="text", style="color: white;") Billing Code
-              input.form-control(type='text', placeholder="Billing Code", name="billing")
+              input(type='text', placeholder="Billing Code", name="billing")
           .buttons
-            #ad.signup
-              button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
             #ad.cancel
               a(href="/")
-                button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
+                button.cancel(type="button") Cancel
+            #ad.signup
+              button.submit(type="submit") Sign Up
 
 
     script(src="/javascripts/vue.js")

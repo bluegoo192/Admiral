@@ -86,7 +86,7 @@ button {
 } button.cancel {
   color: #43484A;
   opacity: 0.7;
-} button:hover {
+} .buttons button:hover {
   filter: brightness(80%);
 }
 
