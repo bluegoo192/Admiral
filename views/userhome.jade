@@ -100,10 +100,12 @@ html(lang='en')
             button(v-if='!showEmbedOptions' @click='showEmbedOptions = true') Options
             .options(v-if='showEmbedOptions')
               .form
-                label(for='heightInput') Height:
-                input#heightInput(type='number' name='height' placeholder='Height' v-model="height")
-                label(for='widthInput') Width:
-                input#widthInput(type='number' name='width' placeholder='Width' v-model="width")
+                .item
+                  label(for='heightInput') Height:
+                  input#heightInput(type='number' name='height' placeholder='Height' v-model="height")
+                .item
+                  label(for='widthInput') Width:
+                  input#widthInput(type='number' name='width' placeholder='Width' v-model="width")
               button.hide(@click='showEmbedOptions = false') Hide
           
 
