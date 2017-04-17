@@ -96,8 +96,8 @@ html(lang='en')
           .codecontainer(@click="autoselect")
             p {{embed_code_1}}{{width}}{{embed_code_2}}{{height}}{{embed_code_3}}{{height}}{{embed_code_4}}{{width}}{{embed_code_5}}
           .divider
-          button(v-if='!showEmbedOptions' @click='showEmbedOptions = true') Options
           transition(name='fade')
+            button(v-if='!showEmbedOptions' @click='showEmbedOptions = true') Options
             .options(v-if='showEmbedOptions')
               .form
                 label(for='heightInput') Height:
