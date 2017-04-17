@@ -1,3 +1,12 @@
+/*
+  COLOR REFERENCE: <name>: #<hex> //<purpose>
+
+  darkbluegrey: #66777A //for faded text(code embed, etc)
+  slategrey: #43484A //for text
+  lightgrey: #a8a8a8 //for light text(unimportant headers, etc)
+*/
+
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
