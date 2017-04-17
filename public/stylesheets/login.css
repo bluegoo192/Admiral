@@ -50,10 +50,12 @@ form {
   width: 100%;
   padding: 12px;
   box-sizing: border-box;
-  border: 1px solid #a8a8a8;
+  border: 1px solid #C2C4CC;
+  font-size: 1em;
+  color: #43484A;
 }
 
-#buttons {
+.buttons {
   margin-top: 2vh;
   width: 100%;
   display: flex;
@@ -76,6 +78,16 @@ div#invalid {
 button {
   border: none;
   padding: 8px 12px;
+  font-size: 1.1em;
+  letter-spacing: 1px;
+} button.submit {
+  background-color: #4DBED6;
+  color: #fff;
+} button.cancel {
+  color: #43484A;
+  opacity: 0.7;
+} button:hover {
+  filter: brightness(80%);
 }
 
 a:hover {
@@ -86,13 +98,4 @@ input {
   background-color: rgba(255, 255, 255, 0.8);
 } input:focus {
   background-color: #fff;
-}
-
-button {
-  margin-top: 1vh;
-  text-decoration: none;
-}
-
-.btn:focus,.btn:active {
-   outline: none !important;
 }

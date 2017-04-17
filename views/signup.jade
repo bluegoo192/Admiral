@@ -3,7 +3,8 @@ html(lang='en')
   head
     title Sign Up for Admiral
     link(rel='shortcut icon', type='image/x-icon', href='media/favicon.png')
-    link(rel="stylesheet", href="/stylesheets/bootstrap.css", type="text/css", media="screen")
+    link(rel="stylesheet", href="/stylesheets/style.css", type="text/css", media="screen")
+    link(rel="stylesheet", href="/stylesheets/login.css", type="text/css", media="screen")
     link(rel="stylesheet", href="/stylesheets/signup.css", type="text/css", media="screen")
 
   body
@@ -19,51 +20,51 @@ html(lang='en')
             button#sitebtn.btn.btn-primary(type='button' @click='userType = "site"' v-bind:class="{'active': userType=='site' }") Site Admin
             button#adbtn.btn.btn-primary(type='button' @click='userType = "advertiser"' v-bind:class="{'active': userType=='advertiser' }") Advertiser
         form(v-if='userType == "user"', name="user_signup", method="post", action="/signup")
-          #forms
-            .form-group
+          .main
+            .item
               label(for="username", style="color: white;") Email (This will be your username)
               input.form-control(type='email', placeholder="Email", name="username")
-            .form-group
+            .item
               label(for="password", style="color: white;") Password
               input.form-control(type='password', name="password")
-          #buttons
+          .buttons
             #user.signup
               button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
             #user.cancel
               a(href="/")
                 button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
         form(v-if='userType == "site"', name="site_signup", method="post", action="/signup")
-          #forms
-            .form-group
+          .main
+            .item
               label(for="username", style="color: white;") Email (This will be your username)
               input.form-control(type="email", placeholder="Email", name="username")
-            .form-group
+            .item
               label(for="password", style="color: white;") Password
               input.form-control(type='password', name="password")
-            .form-group
+            .item
               label(for="text", style="color: white;") Site Address
               input.form-control(type='text', placeholder="Site Address", name="address")
-            .form-group
+            .item
               label(for="text", style="color: white;") Billing Code
               input.form-control(type='text', placeholder="Billing Code", name="billing")
-          #buttons
+          .buttons
             #site.signup
               button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
             #site.cancel
               a(href="/")
                 button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
         form(v-if='userType == "advertiser"', name="ad_signup", method="post", action="signup")
-          #forms
-            .form-group
+          .main
+            .item
               label(for="username", style="color: white;") Email (This will be your username)
               input.form-control(type='email', placeholder="Email", name="username")
-            .form-group
+            .item
               label(for="password", style="color: white;") Password
               input.form-control(type='password', name="password")
-            .form-group
+            .item
               label(for="text", style="color: white;") Billing Code
               input.form-control(type='text', placeholder="Billing Code", name="billing")
-          #buttons
+          .buttons
             #ad.signup
               button.btn.btn-info.btn-lg.btn-block(type="submit") Sign Up
             #ad.cancel

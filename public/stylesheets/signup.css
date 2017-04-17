@@ -10,16 +10,7 @@ div#background {
   top: 0px;
 }
 
-div#title{
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  color: white;
-  display: table;
-  font-size: 50px;
-  font-weight: 100;
-  margin-top: 10vh;
-}
+
 
 div#userSelector {
   color: white;
