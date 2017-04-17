@@ -3,29 +3,29 @@ html(lang='en')
   head
     title Log in to Admiral
     link(rel='shortcut icon', type='image/x-icon', href='media/favicon.png')
-    link(rel="stylesheet", href="/stylesheets/bootstrap.css", type="text/css", media="screen")
+    link(rel="stylesheet", href="/stylesheets/style.css", type="text/css", media="screen")
     link(rel="stylesheet", href="/stylesheets/login.css", type="text/css", media="screen")
 
   body
     #app
       #background
-        #title
-          | Log In
+        #logo
+          html.
+            <span style="color: rgb(91,192,222);">Ad</span>miral
         form(name="login_attempt", method="post", action="/login")
-          #forms
-            .form-group
-              input#username.form-control(v-model="username", type="username", placeholder="Username", name="username")
-            .form-group
-              input#password.form-control(type="password", placeholder="Password", name="password")
+          h1#title Log in
+          .main
+            .item
+              input(v-model="username", type="username", placeholder="Username", name="username")
+            .item
+              input(type="password", placeholder="Password", name="password")
           #invalid(v-if='invalid')
             | Invalid username or password
 
           #buttons
-            #login
-              button.btn.btn-info.btn-lg.btn-block(type="submit") Login
-            #cancel
-              a(href="/")
-                button.btn.btn-danger.btn-lg.btn-block(type="button") Cancel
+            a(href="/")
+              button.cancel(type="button") Cancel
+            button.submit(type="submit") Login
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/gatevue.js")
