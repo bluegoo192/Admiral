@@ -34,6 +34,7 @@ var app = new Vue({
     ads: [],
     myads: [],
     dollars: 0,
+    showEmbedOptions: false,
     adStreamInterval: 10,
     adStreamStatus: 0,
     adStreamTickLength: 500,

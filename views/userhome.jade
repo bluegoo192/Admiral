@@ -82,24 +82,30 @@ html(lang='en')
             img(src='../media/noAds.png')
             h2 Looks like you have no ads of your own!
             ul
-              li If you are a user, use this site to check your credit balance, convert to money, or watch the 'Ad Stream' tab.
-              li If you are a site owner / content creator, use the 'Embed Ad' tab and implement Admiral ads on your site.
-              li If you are an advertiser, use the '+' button or the 'Create Ad' tab to create ads to be displayed to the public.
+              li If you are a user, use this site to check your credit balance, convert to money, or watch the 'Ad Stream' tab
+              li If you are a site owner / content creator, use the 'Embed Ad' tab and implement Admiral ads on your site
+              li If you are an advertiser, use the '+' button or the 'Create Ad' tab to create ads to be displayed to the public
       transition(name='fade')
         .embedcontainer.center(v-if='view == "embed"')
           .divider
           .divider
           .divider
           h1 How to use:
-          p Enter the height and width of the space
-          label(for='heightInput') Height:
-          input#heightInput(type='number' name='height' placeholder='Height' v-model="height")
-          label(for='widthInput') Width:
-          input#widthInput(type='number' name='width' placeholder='Width' v-model="width")
-          p Then, simply copy and paste the following code into your site's HTML
+          p Simply copy and paste the following code into your site's HTML
           .divider
           .codecontainer(@click="autoselect")
             p {{embed_code_1}}{{width}}{{embed_code_2}}{{height}}{{embed_code_3}}{{height}}{{embed_code_4}}{{width}}{{embed_code_5}}
+          .divider
+          button(v-if='!showEmbedOptions' @click='showEmbedOptions = true') Options
+          transition(name='fade')
+            .options(v-if='showEmbedOptions')
+              .form
+                label(for='heightInput') Height:
+                input#heightInput(type='number' name='height' placeholder='Height' v-model="height")
+                label(for='widthInput') Width:
+                input#widthInput(type='number' name='width' placeholder='Width' v-model="width")
+              button.hide(@click='showEmbedOptions = false') Hide
+          
 
     script(src="/javascripts/vue.js")
     script(src="/javascripts/util.js")
