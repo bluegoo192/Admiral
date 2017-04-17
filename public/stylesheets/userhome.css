@@ -170,9 +170,11 @@ button#more {
   right: 20px;
 } #expandedProfile input {
   background-color: #FF495C;
+  font-size: 1em;
   margin: 0;
 } #expandedBalance button {
   background-color: #3DDC97;
+  font-size: 1em;
 } #expandedBalance button:hover {
   background-color: #34BA80;
 } #expandedBalance .notch {
