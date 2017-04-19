@@ -54,20 +54,23 @@ div#title{
   margin-right: auto;
   color: white;
   display: table;
+  text-align: center;
   font-size: 40px;
   font-weight: 100;
+  padding: 0px 5px;
 }
 
 div#buttons {
   color: white;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   margin-top: 2vh;
-  width: 20vw;
+  width: 100%;
 }
 
-a:hover { 
+a:hover {
   text-decoration: none;
 }
 
