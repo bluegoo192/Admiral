@@ -20,7 +20,7 @@ html(lang='en')
             button#sitebtn(type='button' @click='userType = "site"' v-bind:class="{'active': userType=='site' }") Site Admin
             button#adbtn(type='button' @click='userType = "advertiser"' v-bind:class="{'active': userType=='advertiser' }") Advertiser
         form(v-if='userType == "user"', name="user_signup", method="post", action="/signup")
-          h1#title Log in
+          h1#title Sign Up
           .main
             .item
               input.form-control(type='email', placeholder="Email", name="username")
