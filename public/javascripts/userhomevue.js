@@ -52,7 +52,7 @@ var app = new Vue({
     embed_code_2: '&height=',
     embed_code_3: '&host=' + this.id + '" style:"height:',
     embed_code_4: 'px;width:',
-    embed_code_5: 'px;border:1px solid black;"></iframe>',
+    embed_code_5: 'px;border:1px solid rgba(0,0,0,0.2);"></iframe>',
     view: 'gallery'
   },
   computed: {
@@ -86,7 +86,7 @@ var app = new Vue({
     this.embed_code_2= '&height=';
     this.embed_code_3= '&host=' + this.id + '" style="height:';
     this.embed_code_4= 'px;width:';
-    this.embed_code_5= 'px;border:1px solid black;"></iframe>';
+    this.embed_code_5= 'px;border:1px solid rgba(0,0,0,0.2);"></iframe>';
     window.setInterval(() => {
       if ((this.adStreamStatus / this.adStreamInterval) * 100 < 99) {
         this.adStreamStatus = this.adStreamStatus + (this.adStreamTickLength / 1000);
